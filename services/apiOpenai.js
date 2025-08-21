@@ -10,11 +10,6 @@ const openai = new OpenAI({
 
 async function askOpenAI(prompt, contexto) {
   try {
-    console.log('--------------------------------');
-    console.log('prompt:', prompt);
-    console.log('--------------------------------');
-    console.log('contexto:', contexto);
-    console.log('--------------------------------');
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [

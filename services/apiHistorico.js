@@ -3,6 +3,8 @@ const Logger = require('../utils/logger');
 const dayjs = require('dayjs');
 const tz = require('dayjs/plugin/timezone');
 const utc = require('dayjs/plugin/utc');
+const dotenv = require('dotenv');
+dotenv.config();
 dayjs.extend(utc); dayjs.extend(tz);
 
 const TZ = 'America/Sao_Paulo';
@@ -11,8 +13,8 @@ class ApiHistorico {
     constructor() {
         // Configuração de ambiente
         this.isDevelopment = process.env.NODE_ENV !== 'production';
-        // this.baseUrl = "https://engesepapi-production.up.railway.app";
-        this.baseUrl = "http://localhost:8000";
+        this.baseUrl = "https://engesepapi-production.up.railway.app";
+        // this.baseUrl = "http://localhost:8000";
         this.timeout = 10000; // 10 segundos
         
         // Usinas válidas
@@ -181,7 +183,8 @@ class ApiHistorico {
             usina: usina,
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
-            periodo: p
+            periodo: p,
+            token: process.env.TOKEN_API_HISTORICO
         };
         return await this.fazerRequisicao(endpoint, body);
     }
