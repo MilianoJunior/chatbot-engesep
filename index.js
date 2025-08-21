@@ -80,7 +80,7 @@ const processarMensagem = async (msg, client) => {
         const comandoLeonardo = msg.body.trim().toLowerCase().startsWith('@leoq');
         const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         console.log('--------------------------------');
-        console.log('usuario:', usuario);
+        console.log('usuario:', msg.from);
         console.log('hora:', hora);
         console.log('msg.body:', msg.body);
         console.log('comandoLeonardo:', comandoLeonardo);
