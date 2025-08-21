@@ -1,0 +1,82 @@
+---
+alwaysApply: true
+---
+# Cursor Project Rules — Concise + Readable (Language-agnostic)
+
+## Objective
+Escreva código **com o menor número de linhas possível** *desde que* a **legibilidade e a corretude** sejam mantidas. Otimize por: (1) corretude, (2) legibilidade, (3) menos linhas.
+
+## Generation Directives (for the AI)
+- Produza soluções **diretas**, evitando boilerplate e camadas desnecessárias.
+- Prefira **funções curtas**; compacte para 1–3 linhas quando isso permanecer claro.
+- Use **early-returns/guard clauses** para reduzir indentação.
+- Evite gerar comentários ou docs redundantes; explique **o porquê** quando necessário, em **uma linha**.
+- Quando houver 2 opções equivalentes, **escolha a com menos linhas**.
+- **Não** expandir código por “boa prática” se isso aumentar linhas sem benefício real.
+- Se compactar prejudicar leitura, **use 2–4 linhas** em vez de 1.
+- **Não** crie abstrações prematuras; escreva o mínimo para funcionar com clareza.
+
+## Naming & Structure
+- Nomes curtos **e** descritivos: `user`, `users`, `cfg`, `opts`. Singular/plural coerentes.
+- Evite níveis profundos de aninhamento; no máx. 2 níveis comuns.
+- Agrupe lógica relacionada; extraia função apenas se reduzir linhas ou melhorar muito a clareza.
+
+## Imports / Dependencies
+- Combine imports do mesmo módulo **na mesma linha** quando permitido e claro.
+- Use aliases **consagrados** (p.ex., `np`, `pd`) quando aplicável; evite aliases obscuros.
+
+## Expressions & Statements
+- Prefira **expressões** a blocos longos: compreensões/streams/encadeamentos, **sem** aninhar demais.
+- **Ternário** apenas para condições simples; senão, use if/guard curto.
+- Use literais inline para coleções pequenas; quebre linha apenas quando exceder a legibilidade.
+
+## Conditionals
+- **Guard clause** primeiro para casos de erro/saída: reduz indentação.
+- Substitua cascatas triviais por **map/lookup** quando ficar mais curto e claro.
+- Evite `else` após `return/throw`; isso reduz linhas e indentação.
+
+## Loops & Collections
+- Prefira **map/filter/reduce/comprehension** se o resultado continuar legível.
+- Evite múltiplas passagens quando puder **combinar operações** sem perder clareza.
+- Use **desestruturação**/pattern matching (se existir) para reduzir linhas em acesso a dados.
+
+## Functions & APIs
+- Assinaturas **enxutas**; defaults úteis quando reduzirem chamadas auxiliares.
+- Retorno direto quando possível (sem variável temporária), exceto se o nome da variável **ajudar a leitura**.
+- Evite side effects inesperados; deixe explícito em **uma linha** quando necessário.
+
+## Errors & Logging
+- Valide entradas com checks **curtos**; mensagens de erro **objetivas** (1 linha).
+- Logs **enxutos** e estruturados (ex.: `key=value`); evite logs múltiplos em sequência.
+
+## Comments & Docs
+- Comente **porquê/decisão**; não repita o que o código já diz.
+- Comentários e docstrings **curtos** (1–2 linhas). Remova comentários obsoletos.
+
+## Performance & Memory (sem sacrificar clareza)
+- Prefira algoritmos/estruturas com melhor complexidade quando **não** aumentarem linhas substancialmente.
+- Curto-circuito e avaliação preguiçosa quando simples de aplicar.
+- Evite cópias desnecessárias de coleções grandes; transforme **in-place** se a linguagem permitir e se for claro.
+
+## Security & Safety (mínimo essencial)
+- Valide inputs externos; evite execuções dinâmicas perigosas.
+- Mantenha segredos fora do código; referencie variáveis de ambiente/segredos do runtime.
+
+## Testing (mínimo útil)
+- Escreva **exemplos/unit tests** curtos e claros para comportamentos críticos.
+- Nome de teste descreve o efeito em **uma linha**; dados mínimos para cobrir o caso.
+
+## Style Compaction Heuristics
+- **Compactar** quando:
+  - A expressão é lida da esquerda para a direita sem “voltas” mentais.
+  - O bloco resultante cabe confortavelmente na largura padrão do projeto.
+- **Não compactar** quando:
+  - A expressão precisa de comentários intermediários para ser entendida.
+  - Há mais de um nível de compreensão/stream aninhado.
+  - O custo cognitivo supera o ganho de 1 linha a menos.
+
+## Minimal Patterns (pseudo-agnósticos)
+- **Filtro + agregação**: `return sum(x for x in xs if p(x))`
+- **Map encadeado simples**: `r = xs.filter(p).map(f)` *(ou equivalente)*
+- **Guard clause**:
+
