@@ -43,8 +43,6 @@ const processarComando = async (comandos, userId) => {
         const comando= comandos.comando;
         const parametros = comandos.parametros;
         let dadosAPI, respostaFormatada;
-        console.log('comando:', comando);
-        console.log('parametros:', parametros);
 
         if (comando === 'leitura') {            
             Logger.state(15, 'APITempoReal', `Consultando dados em tempo real da usina ${parametros.usina}, tipo: ${parametros.tipo}`);
@@ -80,6 +78,13 @@ const processarMensagem = async (msg, client) => {
         
         const usuario = verificarUsuario(msg.from);
         const comandoLeonardo = msg.body.trim().toLowerCase().startsWith('@leoq');
+        const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        console.log('--------------------------------');
+        console.log('usuario:', usuario);
+        console.log('hora:', hora);
+        console.log('msg.body:', msg.body);
+        console.log('comandoLeonardo:', comandoLeonardo);
+        console.log('--------------------------------');
         
         if (!usuario || !comandoLeonardo) {
             Logger.state(7, 'UsuarioNaoAutorizado', 'Usuário não autorizado ou sem @leo, ignorando');
