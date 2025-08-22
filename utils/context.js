@@ -282,7 +282,6 @@ Data/Hora: ${dataAtual} às ${horaAtual}
 Dia da semana: ${diaSemana}
 Mês/Ano: ${mesAtual} de ${anoAtual}
 
-O ${userId} tem acesso às seguintes usinas: ${usinasPermitidas.join(', ')}, sendo assim, não responda com dados de usinas não permitidas, apenas envie uma menssagem que ele não tem acesso.
 
 🏭 DADOS DAS USINAS HIDROELÉTRICAS:
 
