@@ -182,8 +182,8 @@ function obterHistoricoFormatado(userId) {
 /**
  * Obtém contexto completo com histórico
  */
-function getContextoComHistorico(userId) {
-    const contextoBase = getContextoLeonardo();
+function getContextoComHistorico(userId, usinasPermitidas) {
+    const contextoBase = getContextoLeonardo(userId, usinasPermitidas);
     const historico = obterHistoricoFormatado(userId);
     
     return contextoBase + historico;
@@ -229,7 +229,7 @@ function atualizarConfigHistorico(novaConfig) {
     Object.assign(CONFIG_HISTORICO, novaConfig);
 }
 
-function getContextoLeonardo() {
+function getContextoLeonardo(userId, usinasPermitidas) {
     // Obter data e hora atual
     const agora = new Date();
     const dataAtual = agora.toLocaleDateString('pt-BR');
@@ -281,6 +281,8 @@ CONTEXTO TEMPORAL ATUAL:
 Data/Hora: ${dataAtual} às ${horaAtual}
 Dia da semana: ${diaSemana}
 Mês/Ano: ${mesAtual} de ${anoAtual}
+
+O ${userId} tem acesso às seguintes usinas: ${usinasPermitidas.join(', ')}, sendo assim, não responda com dados de usinas não permitidas, apenas envie uma menssagem que ele não tem acesso.
 
 🏭 DADOS DAS USINAS HIDROELÉTRICAS:
 

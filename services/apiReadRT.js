@@ -166,21 +166,10 @@ class ApiService {
             
             try {
                 // Obter dados da UG usando o tipo especificado
-                console.log('--------------------------------');
-                console.log('tipo:', tipo);
-                console.log('ugNome:', ugNome);
-                console.log('nomeUsina:', nomeUsina);
-                // console.log('UGData:', ugData);
-                console.log('Leituras:', ugData[tipo]);
                 if (ugData[tipo] === undefined) {
-                    console.log('Tipo não encontrado:', tipo);
                     continue;
                 }
-                const [dados, tempo] = await this.getUsinaData(nomeUsina, ugNome, tipo);
-                console.log('dados:', dados);
-                console.log('tempo:', tempo);
-                console.log('--------------------------------');
-                
+                const [dados, tempo] = await this.getUsinaData(nomeUsina, ugNome, tipo);                
                 resultados[ugNome] = {
                     dados: dados,
                     tempo_execucao: tempo,

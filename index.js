@@ -28,6 +28,17 @@ const apiReadRT = new ApiService();
 
 const verificarUsuario = (numero) => configUsuarios.usuariosPermitidos.find(u => u.numero === numero);
 
+const verificarPermissoesUsina = (numero, usina) => {
+    const usuario = verificarUsuario(numero);
+    if (!usuario) {
+        return false;
+    }
+    if (!usuario.usina.includes(usina)) {
+        return `Usina ${usina} não permitida para o usuário ${usuario.nome}`;
+    }
+    return true;
+}
+
 const obterRespostaOpenAI = async (pergunta, contexto) => {
     try {
         const resposta = await askOpenAI(pergunta, contexto);
@@ -77,7 +88,7 @@ const processarMensagem = async (msg, client) => {
         Logger.state(5, 'ProcessandoMensagem', 'Mensagem recebida, iniciando processamento');
         
         const usuario = verificarUsuario(msg.from);
-        const comandoLeonardo = msg.body.trim().toLowerCase().startsWith('@leoq');
+        const comandoLeonardo = msg.body.trim().toLowerCase().startsWith('@leo');
         const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         console.log('--------------------------------');
         console.log('usuario:', msg.from);
@@ -92,10 +103,9 @@ const processarMensagem = async (msg, client) => {
         }
 
         Logger.state(6, 'VerificandoUsuario', `Usuário autorizado: ${usuario.nome}`);
-
-        const pergunta = msg.body.replace(/^@leoq[:,]?/i, '').trim();
+        const pergunta = msg.body.replace(/^@leo[:,]?/i, '').trim();
         if (!pergunta) {
-            await msg.reply('Envie sua pergunta após @leoq.');
+            await msg.reply('Envie sua pergunta após @leo.');
             return;
         }
 
@@ -106,13 +116,30 @@ const processarMensagem = async (msg, client) => {
             await msg.reply(`Usuários permitidos:\n${lista}`);
             return;
         }
+        if (pergunta.toLowerCase() === 'ajuda') {
+            const lista = 'Comandos disponíveis:\n' +
+                '0. @leo: ajuda - Mostra os comandos disponíveis\n' +
+                '1. @leo: lista - Lista os usuários permitidos\n' +
+                '2. @leo: temperaturas em tempo real da CGH FAE\n' +
+                '3. @leo: potência ativa em tempo real da CGH FAE\n' +
+                '4. @leo: nível de água instantâneo da CGH FAE\n' +
+                '5. @leo: valores do gerador em tempo real da CGH FAE\n' +
+                '6. @leo: Qual a geração de energia da CGH FAE no mês de agosto de 2025?\n' +
+                '7. @leo: Qual a geração de energia da CGH FAE no mês de julho de 2025?\n' +
+                '8. @leo: Qual a geração de energia da CGH FAE hoje?\n' +
+                '9. @leo: Qual a geração de energia da CGH FAE no dia 17/08/2025?\n' +
+            await msg.reply(lista);
+            return;
+        }
+
 
         // ESTADO 8: Recuperar histórico
-        Logger.state(8, 'RecuperandoHistorico', `Recuperando histórico do usuário ${usuario.nome}`);
+        Logger.state(8, 'RecuperandoHistorico', `Recuperando histórico do usuário ${usuario.nome}, ${msg.from}, usinas permitidas: ${usuario.usina}`);
         
         // ESTADO 9: Preparar contexto com histórico
         Logger.state(9, 'PreparandoContexto', 'Montando contexto com histórico de interações');
-        const contexto = getContextoComHistorico(msg.from);
+        const contexto = getContextoComHistorico(msg.from, usuario.usina);
+        console.log('contexto:', contexto);
 
         // ESTADO 10: Consultar OpenAI
         Logger.state(10, 'ConsultandoOpenAI', 'Enviando pergunta para OpenAI com contexto histórico');
@@ -130,6 +157,13 @@ const processarMensagem = async (msg, client) => {
         // ESTADO 12: Processar resposta
         Logger.state(12, 'ProcessandoResposta', 'Analisando tipo de resposta (comando ou direta)');
         const respostaProcessada = await tratarRespostaLeonardo(respostaOpenAI.resposta);
+        
+        // verificar se a resposta aborda usina e verifique se a usina citada é permitida para o usuário
+        const usinaReferenciada = respostaOpenAI.resposta.includes('usina');
+        if (usinaReferenciada) {
+            const usina = respostaOpenAI.resposta.split(' ')[1];
+            const verificarPermissoesUsina = verificarPermissoesUsina(msg.from, usina);
+        }
         
         try {
             // Tentar processar como comando JSON usando a resposta processada
@@ -200,60 +234,6 @@ client.on('disconnected', (reason) => {
 
 client.initialize();
 Logger.state(1, 'Inicializado', 'Bot Leonardo iniciado!');
-
-// função que executa os testes
-async function gerarPerguntasTesteHistorico() {
-    console.log('🧪 PERGUNTAS DE TESTE BASEADAS NA CONFIGURAÇÃO PARA API DE HISTÓRICO\n');
-    
-    for (const nomeUsina of Object.keys(configUsinas)) {
-        const usina = configUsinas[nomeUsina];
-        const clps = Object.keys(usina.CLPS);
-        
-        console.log('---------------------------------------------------');
-        console.log(nomeUsina);
-
-        const perguntas = [
-            `@leoq: qual a energia gerada hoje na ${nomeUsina}?`,
-            `@leoq: qual a energia gerada no mês de agosto de 2025 na ${nomeUsina}?`,
-            `@leoq: qual a energia gerada no mês de julho de 2025 na ${nomeUsina}?`,
-            `@leoq: qual a energia gerada na ultima hora na ${nomeUsina}?`,
-            // `@leoq: qual a potência ativa instantânea da ${nomeUsina}?`,
-            // `@leoq: qual é a localização da ${nomeUsina}?`,
-            // `@leo: qual o nível de água da ${nomeUsina}?`,
-            // `@leo: qual a temperatura do ${nomeUsina}?`,
-            // `@leo: qual a velocidade do ${nomeUsina}?`,
-            // `@leo: qual a potência gerada da ${nomeUsina}?`,
-            // `@leo: qual a potência ativa da ${nomeUsina}?`,
-            // `@leoq: qual a potência gerada ontém na ${nomeUsina}?`,
-            // `@leoq: qual a potência gerada no dia 17/08/2025 na ${nomeUsina}?`,
-            // `@leoq: qual a potência gerada no mês de agosto de 2025 da ${nomeUsina}?`,
-            // `@leoq: qual a potência gerada no mês de junho de 2025 da ${nomeUsina}?`,
-            // `@leoq: qual a potência gerada no ano de 2025 da ${nomeUsina}?`
-        ];
-        
-        // Testar cada pergunta, criar um contador de perguntas
-        let contador = 0;
-        
-        for (const pergunta of perguntas) {
-            contador++;
-            console.log(`\n🔍 ${contador} - TESTANDO: ${pergunta} `);
-            try {
-                const resposta = await processarMensagem({body: pergunta, from: '554998385500@c.us'}, client);
-                // await new Promise(resolve => setTimeout(resolve, 1000));
-                // adicionar um delay de 1 segundo
-                await new Promise(resolve => setTimeout(resolve, 10000));
-                console.log(`✅ RESPOSTA: ${resposta}`);
-                console.log('-------------------------------------------------------');
-            } catch (error) {
-                console.log(`❌ ERRO: ${error.message}`);
-            }
-        }
-    }
-}
-// executar os testes depois de 10 segundos
-// setTimeout(() => {
-//     gerarPerguntasTesteHistorico();
-// }, 10000);
 
 
 process.on('SIGINT', () => {
