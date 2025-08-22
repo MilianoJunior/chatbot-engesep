@@ -15,12 +15,12 @@ O **WhatsApp Bot Leonardo** é um assistente inteligente que permite consultar d
 
 ### 2. **Formato das Mensagens**
 ```
-@leoq: [sua pergunta]
+@leo: [sua pergunta]
 ```
 
 **Exemplo:**
 ```
-@leoq: qual a potência ativa da usina CGH-FAE?
+@leo: qual a potência ativa da usina CGH-FAE?
 ```
 
 ---
@@ -62,26 +62,26 @@ O **WhatsApp Bot Leonardo** é um assistente inteligente que permite consultar d
 
 ### **Consultas Básicas**
 ```
-@leoq: qual a potência atual da CGH-FAE?
-@leoq: temperatura dos enrolamentos da UG-01
-@leoq: nível de água da usina PCH-PEDRAS
-@leoq: status da CGH-HOPPEN
+@leo: qual a potência atual da CGH-FAE?
+@leo: temperatura dos enrolamentos da UG-01
+@leo: nível de água da usina PCH-PEDRAS
+@leo: status da CGH-HOPPEN
 ```
 
 ### **Consultas Históricas**
 ```
-@leoq: energia gerada hoje na CGH-APARECIDA
-@leoq: consumo de ontem da PCH-PEDRAS
-@leoq: relatório mensal da CGH-FAE
-@leoq: comparação de potência entre hoje e ontem
+@leo: energia gerada hoje na CGH-APARECIDA
+@leo: consumo de ontem da PCH-PEDRAS
+@leo: relatório mensal da CGH-FAE
+@leo: comparação de potência entre hoje e ontem
 ```
 
 ### **Consultas Específicas**
 ```
-@leoq: tensão da fase A da UG-01 da CGH-FAE
-@leoq: temperatura do óleo da U.H.R.V.
-@leoq: velocidade da turbina da UG-02
-@leoq: corrente da fase B do gerador
+@leo: tensão da fase A da UG-01 da CGH-FAE
+@leo: temperatura do óleo da U.H.R.V.
+@leo: velocidade da turbina da UG-02
+@leo: corrente da fase B do gerador
 ```
 
 ---
@@ -90,13 +90,13 @@ O **WhatsApp Bot Leonardo** é um assistente inteligente que permite consultar d
 
 ### **Lista de Usuários**
 ```
-@leoq: lista
+@leo: lista
 ```
 *Mostra todos os usuários autorizados e suas permissões*
 
 ### **Ajuda**
 ```
-@leoq: ajuda
+@leo: ajuda
 ```
 *Exibe informações sobre como usar o bot*
 
@@ -159,7 +159,7 @@ UG-02
 ## 🆘 Solução de Problemas
 
 ### **Bot Não Responde**
-1. Verifique se a mensagem começa com `@leoq:`
+1. Verifique se a mensagem começa com `@leo:`
 2. Confirme se seu número está autorizado
 3. Aguarde alguns segundos e tente novamente
 
@@ -187,7 +187,7 @@ UG-02
 - **Técnico**: Miliano (55 49 9838-5500)
 
 ### **Canais de Suporte**
-- **WhatsApp**: Use `@leoq: ajuda` para suporte básico
+- **WhatsApp**: Use `@leo: ajuda` para suporte básico
 - **Email**: [email de suporte]
 - **Telefone**: [número de suporte]
 
@@ -260,10 +260,10 @@ UG-02
 
 ## 📋 Checklist de Primeiro Uso
 
-- [ ] Envie `@leoq: ajuda` para ver as funcionalidades
-- [ ] Teste uma consulta simples: `@leoq: status da CGH-FAE`
-- [ ] Verifique suas permissões: `@leoq: lista`
-- [ ] Faça uma consulta histórica: `@leoq: energia gerada hoje`
+- [ ] Envie `@leo: ajuda` para ver as funcionalidades
+- [ ] Teste uma consulta simples: `@leo: status da CGH-FAE`
+- [ ] Verifique suas permissões: `@leo: lista`
+- [ ] Faça uma consulta histórica: `@leo: energia gerada hoje`
 - [ ] Teste o chat inteligente com uma pergunta natural
 
 ---
