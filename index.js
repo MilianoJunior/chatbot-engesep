@@ -56,17 +56,17 @@ const processarComando = async (comandos, userId) => {
         let dadosAPI, respostaFormatada;
 
         if (comando === 'leitura') {            
-            Logger.state(15, 'APITempoReal', `Consultando dados em tempo real da usina ${parametros.usina}, tipo: ${parametros.tipo}`);
+            Logger.state(14, 'APITempoReal', `Consultando dados em tempo real da usina ${parametros.usina}, tipo: ${parametros.tipo}`);
             dadosAPI = await apiReadRT.getLeitura(parametros.usina, parametros.tipo);
             
-            Logger.state(16, 'FormatandoResposta', 'Formatando dados em tempo real para WhatsApp');
+            Logger.state(15, 'FormatandoResposta', 'Formatando dados em tempo real para WhatsApp');
             respostaFormatada = formatarRespostaTempoReal(dadosAPI);
             
         } else if (comando === 'historico') {
             Logger.state(14, 'APIHistorico', `Consultando histórico da usina ${parametros.usina}, intervalo: ${parametros.data_inicio} a ${parametros.data_fim}, período: ${parametros.periodo}`);
             dadosAPI = await apiHistorico.getDadosHistoricos(parametros.usina, parametros.data_inicio, parametros.data_fim, parametros.periodo);
             
-            Logger.state(16, 'FormatandoResposta', 'Formatando dados históricos para WhatsApp');
+            Logger.state(15, 'FormatandoResposta', 'Formatando dados históricos para WhatsApp');
             respostaFormatada = formatarRespostaHistorico(dadosAPI);
         }else{
             return 'Comando não reconhecido.';
@@ -131,18 +131,13 @@ const processarMensagem = async (msg, client) => {
             await msg.reply(lista);
             return;
         }
-
-
-        // ESTADO 8: Recuperar histórico
-        Logger.state(8, 'RecuperandoHistorico', `Recuperando histórico do usuário ${usuario.nome}, ${msg.from}, usinas permitidas: ${usuario.usina}`);
-        
-        // ESTADO 9: Preparar contexto com histórico
-        Logger.state(9, 'PreparandoContexto', 'Montando contexto com histórico de interações');
+        // ESTADO 8: Preparar contexto com histórico
+        Logger.state(8, 'PreparandoContexto', 'Montando contexto com histórico de interações');
         const contexto = getContextoComHistorico(msg.from, usuario.usina);
         console.log('contexto:', contexto);
 
-        // ESTADO 10: Consultar OpenAI
-        Logger.state(10, 'ConsultandoOpenAI', 'Enviando pergunta para OpenAI com contexto histórico');
+        // ESTADO 9: Consultar OpenAI
+        Logger.state(9, 'ConsultandoOpenAI', 'Enviando pergunta para OpenAI com contexto histórico');
         const respostaOpenAI = await obterRespostaOpenAI(pergunta, contexto);
         
         if (!respostaOpenAI.resposta) {
@@ -150,34 +145,27 @@ const processarMensagem = async (msg, client) => {
             return;
         }
 
-        // ESTADO 11: Armazenar resposta da IA imediatamente
-        Logger.state(11, 'ArmazenandoRespostaIA', 'Salvando pergunta e resposta OpenAI no histórico');
+        // ESTADO 10: Armazenar resposta da IA imediatamente
+        Logger.state(10, 'ArmazenandoRespostaIA', 'Salvando pergunta e resposta OpenAI no histórico');
         adicionarInteracaoHistorico(msg.from, pergunta, respostaOpenAI.resposta);
         
-        // ESTADO 12: Processar resposta
-        Logger.state(12, 'ProcessandoResposta', 'Analisando tipo de resposta (comando ou direta)');
+        // ESTADO 11: Processar resposta
+        Logger.state(11, 'ProcessandoResposta', 'Analisando tipo de resposta (comando ou direta)');
         const respostaProcessada = await tratarRespostaLeonardo(respostaOpenAI.resposta);
-        
-        // verificar se a resposta aborda usina e verifique se a usina citada é permitida para o usuário
-        const usinaReferenciada = respostaOpenAI.resposta.includes('usina');
-        if (usinaReferenciada) {
-            const usina = respostaOpenAI.resposta.split(' ')[1];
-            const verificarPermissoesUsina = verificarPermissoesUsina(msg.from, usina);
-        }
         
         try {
             // Tentar processar como comando JSON usando a resposta processada
             const comando = typeof respostaProcessada === 'object' ? respostaProcessada : JSON.parse(respostaOpenAI.resposta);
             if (comando.comando) {
 
-                // ESTADO 13: Comando detectado
-                Logger.state(13, 'ConsultandoAPI', `Comando JSON detectado: ${comando.comando}`);
+                // ESTADO 12: Comando detectado
+                Logger.state(12, 'ConsultandoAPI', `Comando JSON detectado: ${comando.comando}`);
 
                 // Processar comando (estados 14 ou 15, depois 16 para armazenar dados API)
                 const resultado = await processarComando(comando, msg.from);
                 
-                // ESTADO 18: Enviar resposta formatada
-                Logger.state(18, 'EnviandoResposta', 'Enviando resposta formatada da API');
+                // ESTADO 17: Enviar resposta formatada
+                Logger.state(17, 'EnviandoResposta', 'Enviando resposta formatada da API');
                 await msg.reply(resultado);
                 return resultado;
             }
@@ -185,13 +173,13 @@ const processarMensagem = async (msg, client) => {
             Logger.debug('Resposta não é JSON válido, tratando como resposta direta');
         }
 
-        // ESTADO 17: Formatar resposta direta (sem API)
-        Logger.state(17, 'FormatandoResposta', 'Formatando resposta direta da OpenAI');
+        // ESTADO 16: Formatar resposta direta (sem API)
+        Logger.state(16, 'FormatandoResposta', 'Formatando resposta direta da OpenAI');
         const respostaFinal = typeof respostaProcessada === 'object' ? 
             JSON.stringify(respostaProcessada) : respostaProcessada;
 
-        // ESTADO 18: Enviar resposta
-        Logger.state(18, 'EnviandoResposta', 'Enviando resposta direta');
+        // ESTADO 17: Enviar resposta
+        Logger.state(17, 'EnviandoResposta', 'Enviando resposta direta');
         await msg.reply(respostaFinal);
         return respostaFinal;
 
