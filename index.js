@@ -131,17 +131,49 @@ const processarMensagem = async (msg, client) => {
             await msg.reply(lista);
             return;
         }
-        if (pergunta.toLowerCase() === 'enviarmsg') {
-            // Estrutura da mensagem:
-            // @leo: enviarmsg: <numero> <mensagem>
-            // Exemplo:
-            // @leo: enviarmsg: 5511999999999 "Olá, como vai?"
-            const numero = pergunta.split(' ')[1];
-            const mensagem = pergunta.split(' ').slice(2).join(' ');
-            // Selecionar o número do usuário diferente do msg.from
-            // client.sendMessage(numero, mensagem);
-            console.log('numero:', numero);
-            console.log('mensagem:', mensagem);
+        // Assumindo que 'pergunta' contém a string do comando, por exemplo:
+        // 'enviarmsg <tel=49998005500><msg=Olá, esta é uma mensagem de teste.>'
+
+        if (pergunta.toLowerCase().startsWith('enviarmsg')) {
+            
+            // Expressão Regular para capturar o conteúdo dentro das tags <tel> e <msg>
+            const regex = /<tel=(\d+)><msg=(.*)>/;
+
+            // Tenta encontrar o padrão na string da pergunta.
+            // O 'i' no final de /.../i tornaria a busca insensível a maiúsculas/minúsculas para as tags, se necessário.
+            const match = pergunta.match(regex);
+
+            // O 'match' retornará um array se encontrar o padrão, ou 'null' se não encontrar.
+            // O array terá a seguinte estrutura:
+            // match[0] -> O texto completo que correspondeu à regex
+            // match[1] -> O primeiro grupo de captura (o número de telefone, \d+)
+            // match[2] -> O segundo grupo de captura (a mensagem, .*)
+
+            if (match && match.length === 3) {
+                const numero = match[1];
+                const mensagem = match[2];
+
+                // Formata o ID do chat corretamente para a biblioteca
+                const chatId = numero + '@c.us';
+
+                console.log(`Enviando mensagem para: ${chatId}`);
+                console.log(`Mensagem: ${mensagem}`);
+
+                // Envia a mensagem para o número de destino
+                client.sendMessage(chatId, mensagem).then(() => {
+                    console.log('Mensagem enviada com sucesso!');
+                    // client.sendMessage(msg.from, `Mensagem enviada para ${numero}.`);
+                }).catch(err => {
+                    console.error('Erro ao enviar a mensagem:', err);
+                    // client.sendMessage(msg.from, `Falha ao enviar mensagem para ${numero}.`);
+                });
+
+            } else {
+                // Se o formato estiver errado, avisa o usuário
+                console.log('Formato do comando inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
+                // client.sendMessage(msg.from, 'Formato inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
+            }
+            
             return;
         }
         // ESTADO 8: Preparar contexto com histórico
