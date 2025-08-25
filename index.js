@@ -131,6 +131,19 @@ const processarMensagem = async (msg, client) => {
             await msg.reply(lista);
             return;
         }
+        if (pergunta.toLowerCase() === 'enviarmsg') {
+            // Estrutura da mensagem:
+            // @leo: enviarmsg: <numero> <mensagem>
+            // Exemplo:
+            // @leo: enviarmsg: 5511999999999 "Olá, como vai?"
+            const numero = pergunta.split(' ')[1];
+            const mensagem = pergunta.split(' ').slice(2).join(' ');
+            // Selecionar o número do usuário diferente do msg.from
+            // client.sendMessage(numero, mensagem);
+            console.log('numero:', numero);
+            console.log('mensagem:', mensagem);
+            return;
+        }
         // ESTADO 8: Preparar contexto com histórico
         Logger.state(8, 'PreparandoContexto', 'Montando contexto com histórico de interações');
         const contexto = getContextoComHistorico(msg.from, usuario.usina);
