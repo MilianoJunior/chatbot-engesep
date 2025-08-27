@@ -136,9 +136,9 @@ const processarMensagem = async (msg, client) => {
         if (pergunta.toLowerCase() === 'ajudaadmin') {
             const lista = 'Comandos disponíveis para administradores:\n' +
                 '0. @leo: ajudaadmin - Mostra os comandos disponíveis para administradores\n' +
-                '1. @leo: enviarmsg <tel=120363400075500190@><msg=Olá, esta é uma mensagem de teste.>\n' +
-                '2. FAE <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>\n' +
-                '3. Aparecida <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>';
+                '1. @leo: enviarmsg <tel=120363400075500190><msg=Olá, esta é uma mensagem de teste.>\n' +
+                '2. FAE: tel=120363400075500190\n' +
+                '3. estrutura de chamada do chatbot: <chamada> <variável> <contexto temporal> <usina>, ex: @leo potência agora Aparecida';
             await msg.reply(lista);
             return;
         }
