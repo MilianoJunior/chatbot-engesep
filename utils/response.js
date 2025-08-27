@@ -221,12 +221,12 @@ function formatarRespostaTempoReal(dados) {
                 }
                 
                 // Adicionar características se disponíveis
-                if (ugData.caracteristicas && Object.keys(ugData.caracteristicas).length > 0) {
-                    resultado += `  Características:\n`;
-                    Object.entries(ugData.caracteristicas).forEach(([key, value]) => {
-                        resultado += `    • ${key}: ${value}\n`;
-                    });
-                }
+                // if (ugData.caracteristicas && Object.keys(ugData.caracteristicas).length > 0) {
+                //     resultado += `  Características:\n`;
+                //     Object.entries(ugData.caracteristicas).forEach(([key, value]) => {
+                //         resultado += `    • ${key}: ${value}\n`;
+                //     });
+                // }
             }
             
             if (index < Object.keys(unidadesGeradoras).length - 1) {

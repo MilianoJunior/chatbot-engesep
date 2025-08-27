@@ -128,7 +128,6 @@ const processarMensagem = async (msg, client) => {
                 '7. @leo: Qual a geração de energia da CGH FAE no mês de julho de 2025?\n' +
                 '8. @leo: Qual a geração de energia da CGH FAE hoje?\n' +
                 '9. @leo: Qual a geração de energia da CGH FAE no dia 17/08/2025?\n' +
-                '10. @leo: enviarmsg <tel=120363400075500190@><msg=Olá, esta é uma mensagem de teste.>';
             await msg.reply(lista);
             return;
         }

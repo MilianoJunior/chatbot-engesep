@@ -1,3 +1,331 @@
-Conversei com a atendente Fernanda do setor de Emergência na Celesc, além do protocolo 8048006320, 
-foi gerado um outro protocolo 8048055752, no dialogo, foi informado a o acionamento de uma equipe da CeleSC para
-se ir localmente verificar as causa, me retornando por ligação se acaso houver necessidade.
+Gostaria que fizesse um relatório em pdf com os dados abaixo e acrescentasse um introdução, e a partir das respostas
+mostrasse as mesmas tabelas que contém nas respostas, use uma formatação que agregue valor para o relatório e deixe claro as informações.
+
+Pergunta:
+
+Se você fosse um especialista em avaliar negociações no setor de energia e tecnologia, para usinas hidroelétricas, e conhecesse todos os detalhes de funcionamento de PCHs e CGH's e considerando a descrição contratual abaixo para o setor de O&M IA, que define as responsabilidades de cada participante (ENGESEP, MILIANO, LEANDRO e EDINILSON), qual deveria ser a participação percentual justa de cada um nos lucros líquidos?
+
+Ao responder, leve em conta critérios como:
+
+peso estratégico de cada função (gestão, tecnologia, operação),
+
+risco assumido,
+
+valor de mercado e substituibilidade,
+
+diferencial competitivo do setor,
+
+histórico de contribuição (Edinilson entrou após a primeira formação),
+
+solidez institucional (EngeSEP, representada por Gelson, é uma empresa com 10 anos de atuação),
+
+formação e expertise (Miliano é Engenheiro de Controle e Automação, com pós em Ciência de Dados, está há 4 anos na empresa e foi o percursor da reunião com a WEG),
+
+validação externa (em janeiro deste ano tivemos reunião com a WEG, cujo resultado foi o interesse exclusivo no setor de O&M — não no modelo societário atual de R$ 39 milhões por 49% da EngeSEP).
+
+Além da sugestão de percentuais, aponte também os pontos fortes e fracos do seu próprio argumento, destacando possíveis críticas ou fragilidades da proposta.
+
+2.1 ENGESEP
+
+Gerenciamento administrativo, financeiro e recursos humanos;
+
+Compras e aquisições de equipamentos e ferramentas;
+
+Venda de novos serviços para o setor de O&M IA;
+
+Fornecimento de suporte técnico, transferência de tecnologia e expertise aos PARTNERS.
+
+2.2 MILIANO
+
+Desenvolvimento e gestão de softwares de O&M;
+
+Elaboração de relatórios e documentação digital;
+
+Responsável pela infraestrutura digital necessária para a operação do setor "O&M IA".
+
+2.3 LEANDRO
+
+Operação local e remota das CGH e PCH;
+
+Manutenção corretiva e preventiva;
+
+Elaboração de relatórios de assistência;
+
+Orçamentos de O&M.
+
+2.4 EDINILSON
+
+Operação local e remota das CGH e PCH;
+
+Manutenção corretiva e preventiva;
+
+Elaboração de relatórios de assistência;
+
+Orçamentos de O&M.
+
+Gemini 2.5 pro:
+
+Com certeza. Como especialista em negociações e avaliação de empreendimentos nos setores de energia e tecnologia, com foco em usinas hidrelétricas, apresento uma análise detalhada e uma proposta de distribuição de lucros para o setor de O&M IA, baseada nos critérios fornecidos.
+
+### **Análise Estratégica dos Participantes**
+
+Antes de propor os percentuais, é crucial ponderar o valor de cada parte no ecossistema do negócio "O&M IA".
+
+1.  **ENGESEP (Representada por Gelson): O Pilar Institucional e Comercial.**
+    * **Função:** É a plataforma que dá credibilidade, estrutura e acesso ao mercado para a nova iniciativa. Sem a ENGESEP, o "O&M IA" seria apenas um projeto de startup com alto risco e sem clientes. A função de "Venda de novos serviços" é crítica para a geração de receita. A absorção de riscos administrativos, financeiros e a responsabilidade institucional são imensas.
+    * **Peso Estratégico:** Elevado. Converte a inovação em um negócio viável.
+    * **Risco Assumido:** Alto. Risco financeiro (compras, salários), legal, fiscal e de reputação. O fracasso do projeto mancharia o nome de uma empresa de 10 anos.
+    * **Substituibilidade:** Média. Outra empresa poderia prover a estrutura, mas a ENGESEP já possui o *know-how* do setor e uma base de clientes existente, o que é um ativo valioso.
+
+2.  **MILIANO: O Pilar da Inovação e do Diferencial Competitivo.**
+    * **Função:** É o cérebro tecnológico e o principal ativo de propriedade intelectual do negócio. O "IA" no "O&M IA" é sua responsabilidade direta. Sua expertise (Engenharia de Controle + Ciência de Dados) é a combinação exata que cria o diferencial competitivo. A validação da WEG, focada especificamente nesta área, confirma que a tecnologia de Miliano é o "ativo-chave" que atraiu interesse externo.
+    * **Peso Estratégico:** Muito Elevado. Ele é o detentor do fator que torna este serviço único e escalável.
+    * **Risco Assumido:** Alto. Risco de carreira e de propriedade intelectual. O sucesso ou fracasso da tecnologia está diretamente ligado ao seu nome e esforço.
+    * **Substituibilidade:** Muito Baixa. Encontrar um profissional com a mesma formação, expertise e, principalmente, que já tenha desenvolvido a solução e estabelecido um contato estratégico (WEG) é extremamente difícil e caro.
+
+3.  **LEANDRO: O Pilar Operacional Sênior.**
+    * **Função:** É a execução em campo. Garante que o serviço prometido seja entregue com qualidade. A manutenção preventiva e corretiva é o "ganha-pão" diário do negócio. Sua experiência e presença desde o início da formação são importantes.
+    * **Peso Estratégico:** Médio. Essencial para a operação e satisfação do cliente, mas não define a estratégia de crescimento ou o diferencial tecnológico.
+    * **Risco Assumido:** Médio. Risco operacional e de performance. Um erro em campo pode causar grandes prejuízos, mas é um risco mais contido do que o financeiro da ENGESEP ou o tecnológico de Miliano.
+    * **Substituibilidade:** Média a Alta. Existem outros técnicos qualificados no mercado, embora a experiência específica nas plantas da empresa seja um valor agregado.
+
+4.  **EDINILSON: O Pilar Operacional Júnior/Recente.**
+    * **Função:** Idêntica à de Leandro, focada na execução operacional.
+    * **Peso Estratégico:** Médio. Pelas mesmas razões de Leandro.
+    * **Risco Assumido:** Médio. Similar a Leandro.
+    * **Substituibilidade:** Média a Alta. Similar a Leandro.
+    * **Fator Diferencial Negativo:** O histórico de contribuição. O fato de ter entrado após a primeira formação significa que ele não participou da fase inicial de maior incerteza e risco, onde o conceito foi desenvolvido e validado.
+
+---
+
+### **Proposta de Participação Percentual Justa nos Lucros Líquidos**
+
+Considerando a ponderação acima, proponho a seguinte distribuição, que busca equilibrar o valor da estrutura empresarial, da inovação tecnológica e da execução operacional.
+
+| Participante | Participação Proposta | Justificativa Principal |
+| :--- | :--- | :--- |
+| **MILIANO** | **38%** | Detentor do principal diferencial competitivo (IA), baixa substituibilidade e validado pelo mercado (WEG). É o motor da valorização futura do negócio. |
+| **ENGESEP** | **32%** | Fornece a solidez institucional, assume o maior risco financeiro/legal, e é responsável pela tração comercial (vendas). Sem ela, a tecnologia não vira produto. |
+| **LEANDRO** | **18%** | Pilar da operação em campo, com o valor agregado da senioridade e participação desde o início do projeto, assumindo o risco inicial. |
+| **EDINILSON** | **12%** | Pilar da operação em campo, com participação idêntica à de Leandro na execução, mas com um desconto aplicado por sua entrada tardia no projeto e menor risco histórico assumido. |
+| **Total** | **100%** | |
+
+### **Detalhando a Lógica da Proposta**
+
+* **Eixo Inovação vs. Estrutura (Miliano vs. ENGESEP):** A proposta dá uma ligeira vantagem a Miliano (38%) sobre a ENGESEP (32%). Isso se justifica pela validação externa da WEG, que demonstrou interesse *exclusivo* no O&M IA, e não na estrutura societária da ENGESEP. Isso sinaliza que o mercado atribui um valor superior à inovação disruptiva neste momento. No entanto, a participação da ENGESEP permanece robusta, pois sem sua estrutura, vendas e capital de giro, a inovação não se sustenta.
+
+* **Eixo Operacional (Leandro e Edinilson):** A soma da participação operacional é de 30% (18% + 12%), um valor significativo que reconhece que a melhor tecnologia do mundo é inútil se a execução em campo for falha. A diferença de 6 pontos percentuais entre Leandro e Edinilson reflete o valor do pioneirismo e do risco assumido por Leandro no início. Não se trata de uma avaliação de competência, mas de contribuição histórica para a viabilidade do negócio.
+
+---
+
+### **Pontos Fortes e Fracos do Argumento (Autocrítica)**
+
+Toda negociação tem múltiplas perspectivas. É importante reconhecer as forças e as possíveis fragilidades desta proposta.
+
+#### **Pontos Fortes:**
+
+* **Baseada em Valor de Mercado:** A proposta reflete o interesse explícito da WEG, tratando a inovação de Miliano como o ativo mais valioso e único.
+* **Reconhece o Risco Assimétrico:** Diferencia claramente o risco financeiro e institucional (ENGESEP), o risco de inovação (Miliano) e o risco operacional (Leandro/Edinilson).
+* **Valoriza a Contribuição Histórica:** A distinção entre Leandro e Edinilson é um critério justo e comum em parcerias, premiando quem esteve presente nos momentos de maior incerteza.
+* **Equilíbrio entre Pilares:** Não negligencia nenhuma área. Reconhece que o sucesso depende da união sinérgica entre a Estrutura (ENGESEP), a Inovação (Miliano) e a Execução (Leandro/Edinilson).
+
+#### **Pontos Fracos e Possíveis Críticas:**
+
+* **Subjetividade na Ponderação:** Os pesos atribuídos a "inovação", "risco" e "estrutura" são baseados em expertise de mercado, mas são inerentemente subjetivos. A ENGESEP poderia argumentar que sua função comercial e de absorção de risco vale mais de 32%, pois sem clientes não há lucro a ser dividido.
+* **Risco de Desmotivação Operacional:** Edinilson pode se sentir desvalorizado ao receber 2/3 da participação de Leandro pela mesma função diária. Isso pode gerar atritos na equipe operacional, que precisa ser coesa. A justificativa para a diferença deve ser comunicada com extrema clareza.
+* **Dependência do Sucesso da Tecnologia:** A alta participação de Miliano está atrelada à premissa de que sua tecnologia será o grande motor de crescimento. Se, no futuro, o diferencial do negócio se provar mais dependente da qualidade da execução em campo ou da força comercial da ENGESEP, essa divisão pode parecer desequilibrada.
+* **Visão Estática:** A proposta reflete o cenário atual. Um acordo societário ideal poderia incluir cláusulas de revisão de participação baseadas em metas (KPIs). Por exemplo, se a ENGESEP superar drasticamente as metas de vendas, ou se Leandro/Edinilson atingirem níveis excepcionais de eficiência operacional, a participação poderia ser reavaliada em rodadas futuras.
+
+Em resumo, esta proposta representa um ponto de partida equilibrado e defensável para a negociação, fundamentado nos dados e critérios apresentados. O próximo passo seria apresentar esta análise de forma transparente a todos os envolvidos e abrir um diálogo para ajustar os percentuais finos com base nas percepções e prioridades de cada um.
+
+GROK 4 DeepSearch
+
+### Principais Pontos sobre a Participação Percentual Justa
+
+- **Sugestão de Distribuição**: Com base em critérios como peso estratégico, risco, expertise e contribuições históricas, uma divisão justa nos lucros líquidos seria: ENGESEP (40%), Miliano (30%), Leandro (15%) e Edinilson (15%). Essa alocação reflete o papel institucional e gerencial da ENGESEP, o diferencial tecnológico de Miliano, e as operações equivalentes de Leandro e Edinilson, com leve ajuste pela entrada posterior de Edinilson, mas mantendo equilíbrio para evitar desmotivação.
+- **Hedging de Incertezas**: Pesquisas indicam que distribuições iguais podem promover união, mas divisões desiguais baseadas em contribuições evitam ressentimentos em parcerias assimétricas; no entanto, o setor de energia hidrelétrica no Brasil, com foco em O&M IA, pode variar devido a fatores regulatórios e de risco ambiental, sugerindo revisões anuais para adaptação.
+- **Controvérsias Potenciais**: Embora evidências apontem para maior alocação em funções estratégicas e técnicas, há debates sobre subvalorização de operações em setores regulados como o brasileiro, onde a estabilidade operacional é crítica; a proposta busca equilíbrio, mas reconhece que visões igualitárias poderiam argumentar por divisões mais uniformes.
+
+#### Critérios de Avaliação Aplicados
+Ao analisar as responsabilidades contratuais, priorizei o peso estratégico: a ENGESEP gerencia aspectos administrativos, financeiros e de vendas, assumindo maior risco institucional e fornecendo expertise consolidada (10 anos de atuação), o que a posiciona como âncora do negócio. Miliano, com formação em Engenharia de Controle e Automação e pós em Ciência de Dados, adiciona valor tecnológico único no desenvolvimento de softwares e infraestrutura digital, além de ter sido precursor da reunião com a WEG, validando externamente o potencial do O&M IA. Leandro e Edinilson compartilham funções operacionais idênticas (operação, manutenção e relatórios), mas o histórico de Leandro (provável presença inicial) justifica leve preferência, embora mantida igual para promover motivação.
+
+O risco assumido pela ENGESEP é maior, como entidade jurídica exposta a responsabilidades financeiras e regulatórias no setor de PCHs e CGHs, onde substitutibilidade é baixa devido à solidez institucional. Miliano oferece diferencial competitivo via IA, alinhado ao mercado de energia renovável no Brasil, onde inovações tecnológicas elevam o valor de mercado. Operadores como Leandro e Edinilson são essenciais, mas mais substituíveis em um setor com mão de obra qualificada disponível.
+
+#### Pontos Fortes e Fracos da Proposta
+**Fortes**: A alocação é substanciada por modelos padrão de divisão de lucros em parcerias, priorizando contribuições mensuráveis e alinhando incentivos ao sucesso coletivo; integra validação externa (WEG) e expertise, promovendo sustentabilidade no setor de energia.  
+**Fracos**: Subjetividade na valoração de "diferencial histórico" pode ser criticada como enviesada; falta de dados salariais ou financeiros específicos pode subestimar operações em contextos regulados brasileiros; possíveis críticas incluem desigualdade excessiva, ignorando fatores culturais de equidade em parcerias locais.
+
+#### Recomendações Práticas
+Inclua cláusulas de vesting (ex.: 4 anos com cliff de 1 ano) para proteger contra saídas precoces, e revise anualmente com base em desempenho. Considere tributação brasileira: lucros distribuídos como dividendos são isentos para indivíduos desde 1996, mas sujeitos a mudanças regulatórias. Para o setor de energia, alinhe com modelos de eficiência energética no Brasil, onde inovações em O&M impulsionam retornos.
+
+---
+
+### Análise Detalhada da Distribuição de Lucros em Parcerias no Setor de Energia e Tecnologia para PCHs e CGHs
+
+Esta seção oferece uma visão abrangente e profissional sobre a avaliação de negociações em parcerias para operações e manutenção (O&M) com inteligência artificial (IA) em usinas hidrelétricas de pequeno porte (PCHs) e centrais geradoras hidrelétricas (CGHs). Baseado em critérios estabelecidos — peso estratégico das funções, risco assumido, valor de mercado e substituibilidade, diferencial competitivo do setor, histórico de contribuição, solidez institucional, formação e expertise, e validação externa —, proponho uma distribuição percentual justa nos lucros líquidos. A análise incorpora modelos globais de divisão de lucros e equity em startups e parcerias, adaptados ao contexto brasileiro de energia renovável, onde regulamentações da ANEEL (Agência Nacional de Energia Elétrica) e incentivos à inovação influenciam as dinâmicas.
+
+#### Contexto do Setor e Responsabilidades Contratuais
+O setor de O&M IA para PCHs e CGHs no Brasil é altamente competitivo, com foco em eficiência operacional, redução de custos e integração tecnológica para monitoramento remoto e preditivo. PCHs (até 30 MW) e CGHs (até 5 MW) representam cerca de 10-15% da matriz hidrelétrica brasileira, com crescimento impulsionado por leilões de energia e transições para fontes renováveis. As responsabilidades descritas destacam uma divisão clara: ENGESEP cuida de gestão administrativa, financeira, RH, compras, vendas e transferência de tecnologia; Miliano foca em desenvolvimento de softwares, relatórios digitais e infraestrutura; Leandro e Edinilson compartilham operações locais/remotas, manutenção e orçamentos.
+
+Essa estrutura assemelha-se a parcerias em startups de energia, onde funções gerenciais e técnicas recebem maior peso devido ao risco regulatório e à necessidade de inovação. No Brasil, modelos de negócios em energia enfatizam parcerias público-privadas e concessões, com distribuição de lucros influenciada por contribuições de capital e expertise.
+
+#### Critérios de Avaliação e Valoração de Contribuições
+1. **Peso Estratégico das Funções**:
+   - Gestão (ENGESEP): Alta prioridade, pois envolve administração financeira e vendas de novos serviços, essenciais para escalabilidade em um setor regulado. Em modelos de startups, papéis gerenciais recebem 35-40% em splits desiguais.
+   - Tecnologia (Miliano): Crítica no O&M IA, com softwares e infraestrutura digital proporcionando diferencial competitivo; estudos em energia renovável destacam que inovações tecnológicas podem elevar retornos em 20-30%.
+   - Operação (Leandro e Edinilson): Fundamental para execução diária, mas menos estratégica; em parcerias, operações recebem 10-20% coletivamente.
+
+2. **Risco Assumido**:
+   - ENGESEP assume risco institucional maior, como conformidade regulatória e investimentos em equipamentos; em parcerias brasileiras, empresas com solidez (10 anos) mitigam riscos coletivos.
+   - Miliano assume risco técnico, mas substituível com expertise externa; operadores enfrentam riscos operacionais, mas menores em escala.
+
+3. **Valor de Mercado e Substituibilidade**:
+   - Miliano's expertise (engenharia + dados) é de alto valor no mercado brasileiro de automação energética, com demanda crescente por IA em O&M; baixa substituibilidade justifica alocação maior.
+   - Operadores são mais substituíveis, com mão de obra disponível em regiões hidrelétricas.
+
+4. **Diferencial Competitivo do Setor**:
+   - O interesse da WEG no O&M IA valida o modelo, impulsionado por Miliano; no Brasil, startups hidrelétricas priorizam tech para eficiência.
+
+5. **Histórico de Contribuição**:
+   - Edinilson entrou após formação inicial, reduzindo sua alocação; modelos recomendam ajustes de 5-10% para entradas tardias.
+
+6. **Solidez Institucional, Formação e Expertise**:
+   - ENGESEP's 10 anos oferecem credibilidade; Miliano's 4 anos e pós-graduação adicionam valor; validação WEG (rejeição de R$39M por 49%, foco em O&M) reforça isso.
+
+#### Sugestão de Percentuais e Justificativa
+Baseado em modelos transacionais e relacionais de divisão de equity/lucros, sugiro:  
+- ENGESEP: 40% (âncora gerencial, risco alto, solidez).  
+- Miliano: 30% (tech diferencial, precursor WEG).  
+- Leandro: 15% (ops inicial).  
+- Edinilson: 15% (ops, mas ajuste histórico implícito na igualdade para motivação).  
+
+| Participante | Percentual Sugerido | Justificativa Principal | Fatores Positivos | Fatores de Ajuste |
+|--------------|---------------------|-------------------------|-------------------|-------------------|
+| ENGESEP     | 40%                | Gestão estratégica e suporte | Solidez (10 anos), risco institucional, vendas | Alta substituibilidade em gestão externa |
+| Miliano     | 30%                | Desenvolvimento tech IA | Expertise (engenharia + dados), precursor WEG | Dependência de infraestrutura externa |
+| Leandro     | 15%                | Operações e manutenção | Contribuição inicial, relatórios | Substituibilidade média em ops |
+| Edinilson   | 15%                | Operações e manutenção | Manutenção preventiva/corretiva | Entrada posterior, menor histórico |
+
+Essa tabela reflete exemplos de splits como CEO 40%, CTO 35% em parcerias tech-energia, adaptados aqui. Alternativas: divisão igual (25% cada) se priorizar união, mas isso ignora assimetrias.
+
+#### Pontos Fortes e Fracos do Argumento
+**Fortes**: Integra fatores multifacetados com suporte de modelos globais e brasileiros, promovendo alinhamento; usa validação externa (WEG) para substanciar valor; flexível para revisões, alinhado a vesting para sustentabilidade.  
+**Fracos e Críticas**: Subjetividade na pesagem (ex.: quanto vale "precursor"?); falta de dados quantitativos (salários, lucros projetados) pode fragilizar; críticas incluem viés pró-institucional, ignorando equidade cultural brasileira; em energia, regulamentações voláteis (ex.: privatizações) podem alterar riscos; proposta pode ser vista como desigual, subvalorizando ops em contextos de mão de obra escassa.
+
+#### Considerações Tributárias e Regulatórias no Brasil
+Em sociedades limitadas (Ltda), lucros são distribuídos como dividendos, isentos para indivíduos, mas sujeitos a IRPJ/CSLL na empresa. Para parcerias com indivíduos, considere pró-labore (remuneração fixa) vs. lucros, com INSS sobre pró-labore. No setor de energia, modelos de concessões influenciam, com foco em eficiência.
+
+#### Recomendações Finais
+Adote vesting para proteção; consulte advogados para acordo societário; monitore métricas de desempenho para ajustes. Essa abordagem garante equidade e motivação no setor de O&M IA.
+
+### Key Citations
+- [How To Distribute Equity In A Startup Fairly - Silicon Valley Bank](https://www.svb.com/startup-insights/startup-equity/distribute-equity-in-startup/)
+- [Equity Distribution Strategies: A Comprehensive Guide for Teams](https://www.8figureagency.co/how-to-distribute-equity-to-team-members)
+- [Determining Fair Equity Splits Among Co-Founders - Eqvista](https://eqvista.com/equity/determining-fair-equity-splits-co-founders/)
+- [How to split equity among co-founders, employees, and advisors - Rho](https://www.rho.co/blog/startup-equity-distribution/)
+- [How to split equity among startup cofounders - Stripe](https://stripe.com/resources/more/how-to-split-equity-among-cofounders-in-a-startup)
+- [5 Top Hydropower Startups Impacting The Energy Industry](https://www.startus-insights.com/innovators-guide/5-top-hydropower-startups-impacting-the-energy-industry/)
+- [New Business Models in the Energy Sector in the Context of ... - MDPI](https://www.mdpi.com/2071-1050/15/4/3604)
+- [The Potential of Digital Business Models in the New Energy Economy](https://www.iea.org/articles/the-potential-of-digital-business-models-in-the-new-energy-economy)
+- [New commercial arrangements and business models in electricity ...](https://www.sciencedirect.com/science/article/abs/pii/S1364032119306768)
+- [Profit Distribution and Dividends in Brazil](https://iln.com/wp-content/uploads/2024/07/KLA-Advogados-Profit-Distribution-and-Dividends-in-Brazil-jul2024.pdf)
+
+CHATGPT 5 Thinkig:
+
+Segue uma proposta objetiva (com alternativas) para a divisão dos **lucros líquidos do setor O\&M IA** entre ENGESEP, MILIANO, LEANDRO e EDINILSON, ponderando estratégia, risco, substituibilidade, histórico e o fato de a WEG ter validado o **O\&M** como o núcleo de valor.
+
+# Premissas usadas (resumo)
+
+* “Lucro líquido” aqui é **do setor O\&M IA**, já descontados custos diretos/indiretos, tributos, overhead específico do setor e provisões operacionais.
+* ENGESEP aporta **marca, compliance, backoffice, capilaridade comercial** e governança; tem 10 anos de atuação.
+* MILIANO entrega **IP de software, dados e automação**, que é o principal **diferencial competitivo** e motor de escala.
+* LEANDRO e EDINILSON executam a **operação local/remota e manutenção** (core do SLA e segurança). Edinilson **entrou depois** (menor histórico/risco prévio).
+* Objetivo: refletir **moat tecnológico + execução operacional + solidez institucional**, sem travar crescimento.
+
+---
+
+# Modelo A (equilíbrio com foco em moat de tecnologia)
+
+Pensado para um O\&M cada vez mais **data/IA-driven**, mantendo relevância institucional.
+
+* **ENGESEP:** **35%**
+* **MILIANO:** **32%**
+* **LEANDRO:** **20%**
+* **EDINILSON:** **13%**
+
+**Por quê**
+
+* ENGESEP 35%: marca, governança, comercial, RH/fin/adm e risco regulatório.
+* MILIANO 32%: IP de software (difícil de substituir), arquitetura/infra digital, liderança técnica e histórico (4 anos + reunião que abriu portas com WEG).
+* LEANDRO 20%: operação e manutenção com histórico anterior (maior senioridade no chão de fábrica).
+* EDINILSON 13%: mesmas funções de operação/manutenção, porém **entrada posterior** (menor risco histórico assumido).
+
+---
+
+# Modelo B (instituição mais pesada em capital/risco)
+
+Se ENGESEP assumir garantias, CAPEX relevante, contratos e riscos jurídicos maiores.
+
+* **ENGESEP:** **40%**
+* **MILIANO:** **28%**
+* **LEANDRO:** **20%**
+* **EDINILSON:** **12%**
+
+---
+
+# Modelo C (escala puxada por produto/IA)
+
+Se a aquisição de clientes vier **majoritariamente** do produto/IA (menor dependência comercial tradicional).
+
+* **ENGESEP:** **30%**
+* **MILIANO:** **35%**
+* **LEANDRO:** **20%**
+* **EDINILSON:** **15%**
+
+---
+
+# Mecanismos de ajuste recomendados (deixam a divisão mais “justa” no tempo)
+
+1. **Vesting / rampa para quem entrou depois**
+
+   * EDINILSON: subir de **10% (ano 1)** → **13% (ano 2)** condicionado a metas de SLA/segurança e plantões críticos.
+2. **Pool variável de performance (até +10% do LL, fora do pool fixo)**
+
+   * Regras claras (ex.: **uptime ≥ 98,5%**, zero incidentes classe A, redução de OPEX por MW, **novos contratos fechados**).
+   * Distribuição do pool: 40% operação, 40% tecnologia, 20% ENGESEP (governança/compliance).
+3. **Comissão comercial** (primeiros 12 meses do contrato)
+
+   * **8–12% do lucro bruto do contrato** para **quem trouxer o cliente** (pode ser ENGESEP, MILIANO ou operação). Evita desalinhamento e incentiva prospecção.
+4. **Revisão anual** com gatilhos objetivos
+
+   * Se >70% das entregas forem originadas pelo software/IA (ex.: automações de despacho/diagnóstico), reponderar +2–5 p.p. para tecnologia.
+   * Se ENGESEP aumentar exposição de capital/garantias, reponderar +2–5 p.p. para ENGESEP.
+
+---
+
+# Pontos fortes do argumento
+
+* **Alinha moat com recompensa:** tecnologia/IP (difícil de copiar) recebe peso alto, sem descredenciar operação e a instituição.
+* **Reconhece histórico e timing:** Edinilson entra com rampa; Leandro preserva senioridade.
+* **Escalável:** mecanismos variáveis (pool/comissão) acomodam fases diferentes (implantação vs. escala).
+* **Compatível com a validação externa (WEG):** dá peso ao O\&M/IA, justamente onde houve interesse.
+
+# Pontos fracos / possíveis críticas
+
+* **Subjectividade em pesos:** a valoração de “substituibilidade” e “moat” pode ser contestada (ex.: “operação é insubstituível em campo”).
+* **Complexidade contratual:** pool de performance e comissões exigem métricas e auditoria (SLA, uptime, OPEX/MW, NPS).
+* **Cenários extremos:** se o go-to-market depender quase todo do relacionamento da ENGESEP (não do produto), o Modelo A pode **subpagar** a instituição—neste caso, migrar para **Modelo B**.
+* **Risco de concentração técnica:** se o IP estiver muito centralizado em uma pessoa, aumenta o **key person risk** (mitigar com documentação, escrow de código, esteira MLOps, pair-programming e cláusulas de continuidade).
+
+---
+
+## Recomendações práticas para fechar o acordo
+
+* **Começar no Modelo A** com **rampa para Edinilson** e **pool de performance**.
+* Incluir **cláusula de revisão anual** com indicadores objetivos (SLA, uptime, CAC/Payback por contrato, % de automações geradas pela IA).
+* Definir **comissão comercial** universal (vale para qualquer parceiro que feche contrato).
+* **Garantir governança**: quórum qualificado para decisões de IP, segurança e CAPEX; e **escrow/backup** do repositório de software.
+
+Se quiser, eu transformo isso em **cláusulas contratuais** (com métricas e fórmulas) ou numa **tabela comparativa** pronta para apresentação.
+
+
