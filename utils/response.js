@@ -171,7 +171,7 @@ function formatarRespostaTempoReal(dados) {
                     Object.entries(ugData.dados).forEach(([tipoDado, valoresTipo]) => {
                         if (valoresTipo && typeof valoresTipo === 'object') {
                             // Tipo de dado (INT, REAL, BOOLEAN)
-                            resultado += `  *${tipoDado}:*\n`;
+                            resultado += `  **\n`;
                             
                             Object.entries(valoresTipo).forEach(([chave, valor]) => {
                                 if (valor !== null && valor !== undefined) {
@@ -201,20 +201,20 @@ function formatarRespostaTempoReal(dados) {
                             // Valor direto (não aninhado)
                             if (typeof valoresTipo === 'number') {
                                 if (tipoDado.toLowerCase().includes('temperatura')) {
-                                    resultado += `  ${tipoDado}: ${valoresTipo.toFixed(1)}°C\n`;
+                                    resultado += `   ${valoresTipo.toFixed(1)}°C\n`;
                                 } else if (tipoDado.toLowerCase().includes('potencia') || tipoDado.toLowerCase().includes('energia')) {
-                                    resultado += `  ${tipoDado}: ${valoresTipo.toFixed(2)} MW\n`;
+                                    resultado += `   ${valoresTipo.toFixed(2)} MW\n`;
                                 } else if (tipoDado.toLowerCase().includes('nivel') || tipoDado.toLowerCase().includes('altura')) {
-                                    resultado += `  ${tipoDado}: ${valoresTipo.toFixed(2)} m\n`;
+                                    resultado += `   ${valoresTipo.toFixed(2)} m\n`;
                                 } else if (tipoDado.toLowerCase().includes('velocidade')) {
-                                    resultado += `  ${tipoDado}: ${valoresTipo.toFixed(2)} rpm\n`;
+                                    resultado += `   ${valoresTipo.toFixed(2)} rpm\n`;
                                 } else {
-                                    resultado += `  ${tipoDado}: ${valoresTipo.toFixed(2)}\n`;
+                                    resultado += `   ${valoresTipo.toFixed(2)}\n`;
                                 }
                             } else if (typeof valoresTipo === 'boolean') {
-                                resultado += `  ${tipoDado}: ${valoresTipo ? 'Ativo' : 'Inativo'}\n`;
+                                resultado += `   ${valoresTipo ? 'Ativo' : 'Inativo'}\n`;
                             } else {
-                                resultado += `  ${tipoDado}: ${valoresTipo}\n`;
+                                resultado += `   ${valoresTipo}\n`;
                             }
                         }
                     });
