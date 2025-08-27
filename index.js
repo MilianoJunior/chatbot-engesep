@@ -127,12 +127,23 @@ const processarMensagem = async (msg, client) => {
                 '6. @leo: Qual a geração de energia da CGH FAE no mês de agosto de 2025?\n' +
                 '7. @leo: Qual a geração de energia da CGH FAE no mês de julho de 2025?\n' +
                 '8. @leo: Qual a geração de energia da CGH FAE hoje?\n' +
-                '9. @leo: Qual a geração de energia da CGH FAE no dia 17/08/2025?';
+                '9. @leo: Qual a geração de energia da CGH FAE no dia 17/08/2025?\n' +
+                '10. @leo: enviarmsg <tel=120363400075500190@><msg=Olá, esta é uma mensagem de teste.>';
+            await msg.reply(lista);
+            return;
+        }
+
+        if (pergunta.toLowerCase() === 'ajudaadmin') {
+            const lista = 'Comandos disponíveis para administradores:\n' +
+                '0. @leo: ajudaadmin - Mostra os comandos disponíveis para administradores\n' +
+                '1. @leo: enviarmsg <tel=120363400075500190@><msg=Olá, esta é uma mensagem de teste.>\n' +
+                '2. FAE <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>\n' +
+                '3. Aparecida <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>';
             await msg.reply(lista);
             return;
         }
         // Assumindo que 'pergunta' contém a string do comando, por exemplo:
-        // 'enviarmsg <tel=49998005500><msg=Olá, esta é uma mensagem de teste.>'
+        // 'enviarmsg <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>'
 
         if (pergunta.toLowerCase().startsWith('enviarmsg')) {
             
@@ -154,7 +165,7 @@ const processarMensagem = async (msg, client) => {
                 const mensagem = match[2];
 
                 // Formata o ID do chat corretamente para a biblioteca
-                const chatId = numero + '@c.us';
+                const chatId = numero + '@g.us';
 
                 console.log(`Enviando mensagem para: ${chatId}`);
                 console.log(`Mensagem: ${mensagem}`);
@@ -299,6 +310,15 @@ junior@engesep-server:~$ pm2 stop 0
 
 # 3 passo: enviar o projeto para o servidor Ubuntu Server
 junior@engesep-server:~$ scp -r /home/junior/whatsapp-bot ubuntu@192.168.10.10:/home/ubuntu/whatsapp-bot
+
+# 4 passo: iniciar o serviço pm2 com o novo bot
+pm2 start index.js --name whatsapp-bot
+
+# 5 passo: verificar se o serviço pm2 os logs do bot
+pm2 logs whatsapp-bot
+
+# 6 passo: verificar se o serviço pm2 está rodando o novo bot
+pm2 list
 
 
 */
