@@ -159,14 +159,19 @@ function formatarRespostaTempoReal(dados) {
             return 'Nenhuma unidade geradora encontrada';
         }
 
+        let somaPotencia = 0;
+        let potenciasEncontradas = [];
+
         // Processar cada unidade geradora
-        Object.entries(unidadesGeradoras).forEach(([ugNome, ugData], index) => {
-            resultado += `*${ugNome}*\n`;
+        Object.entries(unidadesGeradoras).forEach(([ugNome, ugData]) => {
+            resultado += `*${ugNome}:*\n`;
             
             if (ugData.erro) {
-                resultado += `  Erro: ${ugData.erro}\n`;
+                resultado += `   Erro: ${ugData.erro}\n`;
             } else {                
-                // Formatar dados específicos - tratar estrutura aninhada
+                // Buscar por potência ativa nos dados
+                let potenciaEncontrada = false;
+                
                 if (ugData.dados && typeof ugData.dados === 'object') {
                     Object.entries(ugData.dados).forEach(([tipoDado, valoresTipo]) => {
                         if (valoresTipo && typeof valoresTipo === 'object') {
@@ -179,6 +184,8 @@ function formatarRespostaTempoReal(dados) {
                                     if (typeof valor === 'number') {
                                         if (chave.toLowerCase().includes('temperatura')) {
                                             resultado += `    ${chave}: ${valor.toFixed(1)}°C\n`;
+                                        } else if (chave.toLowerCase().includes('potencia') && chave.toLowerCase().includes('ativa')) {
+                                            resultado += `    ${chave}: ${valor.toFixed(2)} kw\n`;
                                         } else if (chave.toLowerCase().includes('potencia') || chave.toLowerCase().includes('energia')) {
                                             resultado += `    ${chave}: ${valor.toFixed(2)} MW\n`;
                                         } else if (chave.toLowerCase().includes('nivel') || chave.toLowerCase().includes('altura')) {
@@ -202,6 +209,8 @@ function formatarRespostaTempoReal(dados) {
                             if (typeof valoresTipo === 'number') {
                                 if (tipoDado.toLowerCase().includes('temperatura')) {
                                     resultado += `   ${valoresTipo.toFixed(1)}°C\n`;
+                                } else if (tipoDado.toLowerCase().includes('potencia') && tipoDado.toLowerCase().includes('ativa')) {
+                                    resultado += `   ${valoresTipo.toFixed(2)} kw\n`;
                                 } else if (tipoDado.toLowerCase().includes('potencia') || tipoDado.toLowerCase().includes('energia')) {
                                     resultado += `   ${valoresTipo.toFixed(2)} MW\n`;
                                 } else if (tipoDado.toLowerCase().includes('nivel') || tipoDado.toLowerCase().includes('altura')) {
@@ -219,7 +228,34 @@ function formatarRespostaTempoReal(dados) {
                         }
                     });
                 }
+                /*
+                A resposta está nesse formato, apenas para a potência ativa:
+                CGH-FAE
+                Dados em Tempo Real
+                Data/Hora: 27/08/2025, 18:23:22
                 
+                UG-01
+                **
+                    Potência Ativa: 1204.00
+
+                UG-02
+                **
+                    Potência Ativa: 184.00
+
+                Mas preciso que fique assim:
+                CGH-FAE
+                Dados em Tempo Real
+                Data/Hora: 27/08/2025, 18:23:22
+                
+                UG-01:
+                   Potência Ativa: 1204.00 kw
+
+                UG-02:
+                   Potência Ativa: 184.00 kw
+
+                soma: 1388.00 kw
+
+                */
                 // Adicionar características se disponíveis
                 // if (ugData.caracteristicas && Object.keys(ugData.caracteristicas).length > 0) {
                 //     resultado += `  Características:\n`;
