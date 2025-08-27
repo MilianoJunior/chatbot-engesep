@@ -150,42 +150,34 @@ const processarMensagem = async (msg, client) => {
             console.log('pergunta:', pergunta);
             console.log('--------------------------------');
             
-            // Expressão Regular para capturar o conteúdo dentro das tags <tel> e <msg>
-            const regex = /<tel=(\d+)><msg=(.*)>/;
-
-            // Tenta encontrar o padrão na string da pergunta.
-            // O 'i' no final de /.../i tornaria a busca insensível a maiúsculas/minúsculas para as tags, se necessário.
+            // Expressão Regular melhorada para capturar o conteúdo das tags
+            const regex = /<tel=([^>]+)><msg=([^>]+)>/;
+            
             const match = pergunta.match(regex);
-
-            // O 'match' retornará um array se encontrar o padrão, ou 'null' se não encontrar.
-            // O array terá a seguinte estrutura:
-            // match[0] -> O texto completo que correspondeu à regex
-            // match[1] -> O primeiro grupo de captura (o número de telefone, \d+)
-            // match[2] -> O segundo grupo de captura (a mensagem, .*)
-
+            
             if (match && match.length === 3) {
                 const numero = match[1];
                 const mensagem = match[2];
-
+                
                 // Formata o ID do chat corretamente para a biblioteca
                 const chatId = numero + '@g.us';
-
+                
                 console.log(`Enviando mensagem para: ${chatId}`);
                 console.log(`Mensagem: ${mensagem}`);
-
+                
                 // Envia a mensagem para o número de destino
                 client.sendMessage(chatId, mensagem).then(() => {
                     console.log('Mensagem enviada com sucesso!');
-                    // client.sendMessage(msg.from, `Mensagem enviada para ${numero}.`);
+                    client.sendMessage(msg.from, `Mensagem enviada para ${numero}.`);
                 }).catch(err => {
                     console.error('Erro ao enviar a mensagem:', err);
-                    // client.sendMessage(msg.from, `Falha ao enviar mensagem para ${numero}.`);
+                    client.sendMessage(msg.from, `Falha ao enviar mensagem para ${numero}.`);
                 });
-
+                
             } else {
                 // Se o formato estiver errado, avisa o usuário
                 console.log('Formato do comando inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
-                // client.sendMessage(msg.from, 'Formato inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
+                client.sendMessage(msg.from, 'Formato inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
             }
             
             return;
