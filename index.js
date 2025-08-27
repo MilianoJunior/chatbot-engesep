@@ -146,6 +146,9 @@ const processarMensagem = async (msg, client) => {
         // 'enviarmsg <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>'
 
         if (pergunta.toLowerCase().startsWith('enviarmsg')) {
+            console.log('--------------------------------');
+            console.log('pergunta:', pergunta);
+            console.log('--------------------------------');
             
             // Expressão Regular para capturar o conteúdo dentro das tags <tel> e <msg>
             const regex = /<tel=(\d+)><msg=(.*)>/;
@@ -315,7 +318,7 @@ junior@engesep-server:~$ scp -r /home/junior/whatsapp-bot ubuntu@192.168.10.10:/
 pm2 start index.js --name whatsapp-bot
 
 # 5 passo: verificar se o serviço pm2 os logs do bot
-pm2 logs whatsapp-bot
+pm2 logs whatsapp-engesep -out
 
 # 6 passo: verificar se o serviço pm2 está rodando o novo bot
 pm2 list
