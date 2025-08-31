@@ -258,7 +258,7 @@ client.on('ready', () => {
 });
 
 client.on('message', async msg => await processarMensagem(msg, client));
-// client.on('message_create', async msg => await processarMensagem(msg, client));
+client.on('message_create', async msg => await processarMensagem(msg, client));
 
 client.on('auth_failure', () => Logger.error('Falha na autenticação'));
 
