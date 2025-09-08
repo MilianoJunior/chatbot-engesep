@@ -10,12 +10,22 @@ const openai = new OpenAI({
 
 async function askOpenAI(prompt, contexto) {
   try {
+    console.log('🤖 Chamando OpenAI API...');
+    console.log('🤖 Prompt:', prompt ? prompt.substring(0, 200) + '...' : 'vazio');
+    console.log('🤖 Contexto:', contexto ? contexto.substring(0, 200) + '...' : 'vazio');
+
+    if (!prompt) {
+      const erro = 'Prompt vazio ou nulo fornecido para OpenAI';
+      console.error('❌ ' + erro);
+      throw new Error(erro);
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
-          content: contexto
+          content: contexto || "Você é um assistente útil."
         },
         {
           role: "user",
@@ -26,10 +36,29 @@ async function askOpenAI(prompt, contexto) {
       temperature: 0.7
     });
 
-    return response.choices[0].message.content; // texto gerado
+    if (!response || !response.choices || !response.choices[0] || !response.choices[0].message) {
+      const erro = 'Resposta inválida da API OpenAI';
+      console.error('❌ ' + erro, { response });
+      throw new Error(erro);
+    }
+
+    const conteudo = response.choices[0].message.content;
+    console.log('✅ OpenAI respondeu com sucesso, tamanho:', conteudo ? conteudo.length : 0);
+    
+    return conteudo;
   } catch (err) {
-    console.error("Erro na API OpenAI:", err.message);
-    return null;
+    console.error("🚨 ERRO na API OpenAI:", err);
+    console.error("🚨 Stack:", err.stack);
+    
+    if (err.code === 'insufficient_quota') {
+      throw new Error('Cota da API OpenAI esgotada');
+    } else if (err.code === 'invalid_api_key') {
+      throw new Error('Chave da API OpenAI inválida');
+    } else if (err.code === 'rate_limit_exceeded') {
+      throw new Error('Limite de requisições da OpenAI excedido');
+    } else {
+      throw new Error(`Erro na OpenAI: ${err.message}`);
+    }
   }
 }
 

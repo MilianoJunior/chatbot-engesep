@@ -3,8 +3,8 @@ const Logger = require('../utils/logger');
 const dayjs = require('dayjs');
 const tz = require('dayjs/plugin/timezone');
 const utc = require('dayjs/plugin/utc');
-const dotenv = require('dotenv');
-dotenv.config();
+// const dotenv = require('dotenv');
+// dotenv.config();
 dayjs.extend(utc); dayjs.extend(tz);
 
 const TZ = 'America/Sao_Paulo';
@@ -12,7 +12,7 @@ const TZ = 'America/Sao_Paulo';
 class ApiHistorico {
     constructor() {
         // Configuração de ambiente
-        this.isDevelopment = process.env.NODE_ENV !== 'production';
+        this.isDevelopment = 'production';
         this.baseUrl = "https://engesepapi-production.up.railway.app";
         // this.baseUrl = "http://localhost:8000";
         this.timeout = 10000; // 10 segundos
@@ -35,6 +35,8 @@ class ApiHistorico {
      */
     async fazerRequisicao(endpoint, body) {
         try {
+            console.log('🌐 ApiHistorico fazendo requisição para:', `${this.baseUrl}${endpoint}`);
+            console.log('📤 Body da requisição:', JSON.stringify(body, null, 2));
 
             const response = await axios.post(
                 `${this.baseUrl}${endpoint}`,
@@ -47,19 +49,49 @@ class ApiHistorico {
                 }
             );
 
+            console.log('📥 Resposta da API recebida:', {
+                status: response.status,
+                statusText: response.statusText,
+                dataExists: !!response.data,
+                dataSize: response.data ? JSON.stringify(response.data).length : 0
+            });
+
+            if (!response.data) {
+                const erro = 'API retornou resposta vazia';
+                console.error('❌ ' + erro);
+                throw new Error(erro);
+            }
+
             return response.data;
 
         } catch (error) {
-            Logger.error('apiHistorico.js, l.32: Erro na requisição da API de histórico', {
+            const detalhesErro = {
                 endpoint: endpoint,
+                baseUrl: this.baseUrl,
+                body: body,
                 error: error.message,
-                status: error.response?.status
-            });
+                status: error.response?.status,
+                statusText: error.response?.statusText,
+                responseData: error.response?.data,
+                code: error.code,
+                stack: error.stack
+            };
+
+            Logger.error('apiHistorico.js fazerRequisicao: Erro na requisição da API de histórico', detalhesErro);
+            console.error('🚨 ERRO na requisição da API de histórico:', detalhesErro);
 
             if (error.code === 'ECONNABORTED') {
-                throw new Error('Timeout na requisição da API de histórico');
+                throw new Error(`Timeout na requisição da API de histórico (${this.timeout}ms)`);
+            } else if (error.code === 'ECONNREFUSED') {
+                throw new Error(`Conexão recusada pela API: ${this.baseUrl}${endpoint}`);
+            } else if (error.code === 'ENOTFOUND') {
+                throw new Error(`Servidor não encontrado: ${this.baseUrl}`);
             } else if (error.response?.status) {
-                throw new Error(`Erro ${error.response.status}: ${error.response.statusText}`);
+                const mensagem = `Erro HTTP ${error.response.status}: ${error.response.statusText}`;
+                if (error.response.data) {
+                    throw new Error(`${mensagem}\nDetalhes: ${JSON.stringify(error.response.data)}`);
+                }
+                throw new Error(mensagem);
             } else {
                 throw new Error(`Erro na conexão: ${error.message}`);
             }
@@ -184,7 +216,7 @@ class ApiHistorico {
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
             periodo: p,
-            token: process.env.TOKEN_API_HISTORICO
+            token: '123456'
         };
         return await this.fazerRequisicao(endpoint, body);
     }
@@ -199,15 +231,46 @@ class ApiHistorico {
      */
     async getDadosHistoricos(usina, dataInicio, dataFim, periodo = 'day') {
         try {
+            console.log('📊 getDadosHistoricos iniciado com:', { usina, dataInicio, dataFim, periodo });
+            
+            // Validar parâmetros
+            if (!usina || !dataInicio || !dataFim) {
+                const erro = 'Parâmetros obrigatórios ausentes (usina, dataInicio, dataFim)';
+                console.error('❌ ' + erro, { usina, dataInicio, dataFim, periodo });
+                throw new Error(erro);
+            }
+
+            // Validar usina
+            if (!this.validarUsina(usina)) {
+                const erro = `Usina inválida: ${usina}. Usinas válidas: ${this.usinasValidas.join(', ')}`;
+                console.error('❌ ' + erro);
+                throw new Error(erro);
+            }
+
+            console.log('✅ Validações passaram, chamando getProducaoAcumulada...');
             const dados = await this.getProducaoAcumulada(usina, dataInicio, dataFim, periodo);
+            
+            console.log('📊 Dados históricos obtidos:', {
+                temDados: !!dados,
+                usina: dados?.usina,
+                periodo: dados?.periodo,
+                temResultado: !!dados?.resultado
+            });
+
             return dados;
 
         } catch (error) {
-            Logger.error('apiHistorico.js, l.95: Erro ao obter dados históricos', {
+            const detalhesErro = {
                 usina: usina,
+                dataInicio: dataInicio,
+                dataFim: dataFim,
                 periodo: periodo,
-                error: error.message
-            });
+                error: error.message,
+                stack: error.stack
+            };
+
+            Logger.error('apiHistorico.js getDadosHistoricos: Erro ao obter dados históricos', detalhesErro);
+            console.error('🚨 ERRO em getDadosHistoricos:', detalhesErro);
 
             throw error; 
         }

@@ -2,9 +2,10 @@
 // LEONARDO CHATBOT - ARQUIVO PRINCIPAL
 // ========================================
 
+
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-require('dotenv').config();
+// require('dotenv').config();
 const { askOpenAI } = require('./services/apiOpenai');
 const { 
     getContextoComHistorico, 
@@ -26,18 +27,9 @@ const Logger = require('./utils/logger');
 const apiHistorico = new ApiHistorico();
 const apiReadRT = new ApiService();
 
-const verificarUsuario = (numero) => configUsuarios.usuariosPermitidos.find(u => u.numero === numero);
 
-const verificarPermissoesUsina = (numero, usina) => {
-    const usuario = verificarUsuario(numero);
-    if (!usuario) {
-        return false;
-    }
-    if (!usuario.usina.includes(usina)) {
-        return `Usina ${usina} não permitida para o usuário ${usuario.nome}`;
-    }
-    return true;
-}
+// const verificarUsuario = (numero) => configUsuarios.usuariosPermitidos.find(u => u.numero === numero);
+
 
 const obterRespostaOpenAI = async (pergunta, contexto) => {
     try {
@@ -51,64 +43,122 @@ const obterRespostaOpenAI = async (pergunta, contexto) => {
 
 const processarComando = async (comandos, userId) => {
     try {
-        const comando= comandos.comando;
+        console.log('🔄 Processando comando:', JSON.stringify(comandos, null, 2));
+        
+        const comando = comandos.comando;
         const parametros = comandos.parametros;
         let dadosAPI, respostaFormatada;
 
+        if (!comando) {
+            const erro = 'Comando não especificado';
+            Logger.error('processarComando: ' + erro, { comandos });
+            return `❌ ${erro}`;
+        }
+
+        if (!parametros) {
+            const erro = 'Parâmetros não especificados';
+            Logger.error('processarComando: ' + erro, { comandos });
+            return `❌ ${erro}`;
+        }
+
         if (comando === 'leitura') {            
+            if (!parametros.usina || !parametros.tipo) {
+                const erro = 'Parâmetros obrigatórios ausentes para leitura (usina e tipo)';
+                Logger.error('processarComando leitura: ' + erro, { parametros });
+                return `❌ ${erro}`;
+            }
+            
             Logger.state(14, 'APITempoReal', `Consultando dados em tempo real da usina ${parametros.usina}, tipo: ${parametros.tipo}`);
+            console.log('🌐 Chamando apiReadRT.getLeitura com:', { usina: parametros.usina, tipo: parametros.tipo });
+            
             dadosAPI = await apiReadRT.getLeitura(parametros.usina, parametros.tipo);
+            console.log('📊 Dados recebidos da API Tempo Real:', dadosAPI ? 'OK' : 'ERRO - dados nulos');
+            
+            if (!dadosAPI) {
+                const erro = 'API de tempo real retornou dados nulos';
+                Logger.error('processarComando: ' + erro);
+                return `❌ ${erro}`;
+            }
             
             Logger.state(15, 'FormatandoResposta', 'Formatando dados em tempo real para WhatsApp');
+            console.log('dadosAPI:', dadosAPI);
             respostaFormatada = formatarRespostaTempoReal(dadosAPI);
             
         } else if (comando === 'historico') {
+            if (!parametros.usina || !parametros.data_inicio || !parametros.data_fim) {
+                const erro = 'Parâmetros obrigatórios ausentes para histórico (usina, data_inicio, data_fim)';
+                Logger.error('processarComando historico: ' + erro, { parametros });
+                return `❌ ${erro}`;
+            }
+            
             Logger.state(14, 'APIHistorico', `Consultando histórico da usina ${parametros.usina}, intervalo: ${parametros.data_inicio} a ${parametros.data_fim}, período: ${parametros.periodo}`);
+            console.log('🌐 Chamando apiHistorico.getDadosHistoricos com:', parametros);
+            
             dadosAPI = await apiHistorico.getDadosHistoricos(parametros.usina, parametros.data_inicio, parametros.data_fim, parametros.periodo);
+            console.log('📊 Dados recebidos da API Histórico:', dadosAPI ? 'OK' : 'ERRO - dados nulos');
+            
+            if (!dadosAPI) {
+                const erro = 'API de histórico retornou dados nulos';
+                Logger.error('processarComando: ' + erro);
+                return `❌ ${erro}`;
+            }
             
             Logger.state(15, 'FormatandoResposta', 'Formatando dados históricos para WhatsApp');
+            console.log('dadosAPI:', dadosAPI);
             respostaFormatada = formatarRespostaHistorico(dadosAPI);
-        }else{
-            return 'Comando não reconhecido.';
+            
+        } else {
+            const erro = `Comando não reconhecido: ${comando}`;
+            Logger.error('processarComando: ' + erro, { comandos });
+            return `❌ ${erro}`;
         }
         
+        if (!respostaFormatada) {
+            const erro = 'Falha na formatação da resposta';
+            Logger.error('processarComando: ' + erro, { dadosAPI });
+            return `❌ ${erro}`;
+        }
+        
+        console.log('✅ Resposta formatada com sucesso, tamanho:', respostaFormatada.length);
+        
         Logger.state(17, 'ArmazenandoDadosAPI', 'Salvando dados brutos da API no histórico');
-        atualizarDadosAPI(userId, dadosAPI, comando);
+        try {
+            atualizarDadosAPI(userId, dadosAPI, comando);
+        } catch (error) {
+            Logger.error('Erro ao salvar dados no histórico (não crítico):', error);
+        }
         
         return respostaFormatada;
         
     } catch (error) {
-        Logger.error('Erro ao processar comando:', error);
-        return `❌ Erro ao processar comando: ${error.message}`;
+        const mensagemErro = `Erro crítico ao processar comando: ${error.message}`;
+        Logger.error('processarComando ERRO CRÍTICO:', error);
+        console.error('🚨 ERRO CRÍTICO no processarComando:', error);
+        console.error('🚨 Stack:', error.stack);
+        return `❌ ${mensagemErro}`;
     }
 };
+
+function hasPrefix(text) {
+    if (!text) return false;
+    return /^@leo(\s|:|$)/i.test(String(text).trim());
+  }
 
 const processarMensagem = async (msg, client) => {
     try {
         Logger.state(5, 'ProcessandoMensagem', 'Mensagem recebida, iniciando processamento');
         
-        const usuario = verificarUsuario(msg.from);
-        const comandoLeonardo = msg.body.trim().toLowerCase().startsWith('@leo');
-        const hora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        console.log('--------------------------------');
-        console.log('usuario:', msg.from);
-        console.log('hora:', hora);
-        console.log('msg.body:', msg.body);
-        console.log('comandoLeonardo:', comandoLeonardo);
-        console.log('--------------------------------');
-        
-        if (!usuario || !comandoLeonardo) {
-            Logger.state(7, 'UsuarioNaoAutorizado', 'Usuário não autorizado ou sem @leo, ignorando');
-            return 'Usuário não autorizado ou sem @leo, ignorando';
+        const comandoLeonardo = hasPrefix(msg.body);
+        // Orientações claras e resposta imediata
+        if (!comandoLeonardo) {
+            Logger.state(7, 'SemPrefixo', 'Mensagem sem prefixo @leo, informando usuário');
+            return;
         }
-
-        Logger.state(6, 'VerificandoUsuario', `Usuário autorizado: ${usuario.nome}`);
         const pergunta = msg.body.replace(/^@leo[:,]?/i, '').trim();
         if (!pergunta) {
             await msg.reply('Envie sua pergunta após @leo.');
             return;
         }
-
         if (pergunta.toLowerCase() === 'lista') {
             const lista = configUsuarios.usuariosPermitidos
                 .map(u => `- ${u.nome}: ${u.numero} (${Array.isArray(u.usina) ? u.usina.join(', ') : u.usina})`)
@@ -127,63 +177,13 @@ const processarMensagem = async (msg, client) => {
                 '6. @leo: Qual a geração de energia da CGH FAE no mês de agosto de 2025?\n' +
                 '7. @leo: Qual a geração de energia da CGH FAE no mês de julho de 2025?\n' +
                 '8. @leo: Qual a geração de energia da CGH FAE hoje?\n' +
-                '9. @leo: Qual a geração de energia da CGH FAE no dia 17/08/2025?\n' +
+                '9. @leo: Qual a geração de energia da CGH FAE no dia 17/08/2025?';
             await msg.reply(lista);
-            return;
-        }
-
-        if (pergunta.toLowerCase() === 'ajudaadmin') {
-            const lista = 'Comandos disponíveis para administradores:\n' +
-                '0. @leo: ajudaadmin - Mostra os comandos disponíveis para administradores\n' +
-                '1. @leo: enviarmsg <tel=120363400075500190><msg=Olá, esta é uma mensagem de teste.>\n' +
-                '2. FAE: tel=120363400075500190\n' +
-                '3. estrutura de chamada do chatbot: <chamada> <variável> <contexto temporal> <usina>, ex: @leo potência agora Aparecida';
-            await msg.reply(lista);
-            return;
-        }
-        // Assumindo que 'pergunta' contém a string do comando, por exemplo:
-        // 'enviarmsg <tel=120363400075500190@g.us><msg=Olá, esta é uma mensagem de teste.>'
-
-        if (pergunta.toLowerCase().startsWith('enviarmsg')) {
-            console.log('--------------------------------');
-            console.log('pergunta:', pergunta);
-            console.log('--------------------------------');
-            
-            // Expressão Regular melhorada para capturar o conteúdo das tags
-            const regex = /<tel=([^>]+)><msg=([^>]+)>/;
-            
-            const match = pergunta.match(regex);
-            
-            if (match && match.length === 3) {
-                const numero = match[1];
-                const mensagem = match[2];
-                
-                // Formata o ID do chat corretamente para a biblioteca
-                const chatId = numero + '@g.us';
-                
-                console.log(`Enviando mensagem para: ${chatId}`);
-                console.log(`Mensagem: ${mensagem}`);
-                
-                // Envia a mensagem para o número de destino
-                client.sendMessage(chatId, mensagem).then(() => {
-                    console.log('Mensagem enviada com sucesso!');
-                    client.sendMessage(msg.from, `Mensagem enviada para ${numero}.`);
-                }).catch(err => {
-                    console.error('Erro ao enviar a mensagem:', err);
-                    client.sendMessage(msg.from, `Falha ao enviar mensagem para ${numero}.`);
-                });
-                
-            } else {
-                // Se o formato estiver errado, avisa o usuário
-                console.log('Formato do comando inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
-                client.sendMessage(msg.from, 'Formato inválido. Use: enviarmsg <tel=NUMERO><msg=MENSAGEM>');
-            }
-            
             return;
         }
         // ESTADO 8: Preparar contexto com histórico
         Logger.state(8, 'PreparandoContexto', 'Montando contexto com histórico de interações');
-        const contexto = getContextoComHistorico(msg.from, usuario.usina);
+        const contexto = getContextoComHistorico(msg.from, msg.body);
         console.log('contexto:', contexto);
 
         // ESTADO 9: Consultar OpenAI
@@ -234,85 +234,31 @@ const processarMensagem = async (msg, client) => {
         return respostaFinal;
 
     } catch (error) {
-        Logger.error('Erro ao processar mensagem:', error);
-        await msg.reply('Erro ao processar mensagem.');
+        const mensagemErro = `Erro crítico ao processar mensagem: ${error.message}`;
+        console.error('processarMensagem ERRO CRÍTICO:', error);
     }
 };
 
-const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-gpu']
-    }
-});
+const client = new Client({ authStrategy: new LocalAuth({ clientId: 'default' }) });
 
-client.on('qr', (qr) => {
-    Logger.state(2, 'AguardandoQR', 'QR Code gerado - escaneie com WhatsApp');
-    qrcode.generate(qr, { small: true });
-});
+client.on('qr', qr => qrcode.generate(qr, { small: true }));
+client.on('ready', () => console.log('Client is ready!'));
 
-client.on('ready', () => {
-    Logger.state(3, 'Conectado', 'Bot Leonardo pronto e conectado ao WhatsApp!');
-    Logger.state(4, 'AguardandoMensagem', 'Aguardando mensagens dos usuários');
-});
+// Mensagem de saída do cliente do WhatsApp
+client.on('message', msg => processarMensagem(msg, client));
 
-client.on('message', async msg => await processarMensagem(msg, client));
-client.on('message_create', async msg => await processarMensagem(msg, client));
+// Mensagem de entrada enviada para mim mesmo
+client.on('message_create', async msg => {
+  if (!hasPrefix(msg.body)) {
+    console.log('Ignorado (sem prefixo @leo) usuário: ' + msg.author);
+    return;
+  }
 
-client.on('auth_failure', () => Logger.error('Falha na autenticação'));
-
-client.on('disconnected', (reason) => {
-    Logger.state(17, 'Reconectando', `Desconectado: ${reason}, tentando reconectar...`);
-    setTimeout(() => {
-        Logger.state(2, 'AguardandoQR', 'Tentando reconectar...');
-        client.initialize();
-    }, 5000);
+  
+  console.log(msg.body);
+//   const resposta = await askOpenAI(msg.body, contexto);
+//   console.log(resposta);
+//   msg.reply(resposta);
 });
 
 client.initialize();
-Logger.state(1, 'Inicializado', 'Bot Leonardo iniciado!');
-
-
-process.on('SIGINT', () => {
-    Logger.info('Encerrando bot...');
-    process.exit(0);
-});
-
-process.on('SIGTERM', () => {
-    Logger.info('Encerrando bot...');
-    process.exit(0);
-});
-/*
-Como enviar o projeto para o servidor Ubuntu Server a partir do Windows 11?
-
-# 1 passo: verificar se o serviço pm2 está rodando o bot antigo
-pm2 list
- id │ name            │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
-├────┼─────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-│ 0  │ whatsapp-bot    │ default     │ N/A     │ fork    │ 444012   │ 21D    │ 1    │ online    │ 0%       │ 107.5mb  │ junior   │ disabled │
-
-# 2 passo: parar o serviço pm2 que está rodando o bot antigo
-pm2 stop 0
-junior@engesep-server:~$ pm2 stop 0
-[PM2] Applying action stopProcessId on app [0](ids: [ '0' ])
-[PM2] [whatsapp-bot](0) ✓
-┌────┬─────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
-│ id │ name            │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
-├────┼─────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-│ 0  │ whatsapp-bot    │ default     │ N/A     │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ junior   │ disabled │
-
-# 3 passo: enviar o projeto para o servidor Ubuntu Server
-junior@engesep-server:~$ scp -r /home/junior/whatsapp-bot ubuntu@192.168.10.10:/home/ubuntu/whatsapp-bot
-
-# 4 passo: iniciar o serviço pm2 com o novo bot
-pm2 start index.js --name whatsapp-bot
-
-# 5 passo: verificar se o serviço pm2 os logs do bot
-pm2 logs whatsapp-engesep -out
-
-# 6 passo: verificar se o serviço pm2 está rodando o novo bot
-pm2 list
-
-
-*/

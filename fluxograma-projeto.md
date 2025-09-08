@@ -128,6 +128,52 @@ stateDiagram-v2
     19_Reconectando --> 2_AguardandoQR: 20.Tentar reconectar
 
 ```
+
+## claude
+```mermaid
+stateDiagram-v2
+    [*] --> 1_Inicializado
+    
+    // processo 1
+    1. Inicialização e Conexão
+
+        Carrega variáveis de ambiente e configurações.
+        Conecta ao WhatsApp via whatsapp-web.js.
+        Gera QR Code para autenticação.
+        Prepara os serviços de API (tempo real, histórico, OpenAI).
+    
+    // processo 2
+    2. Recebimento de Mensagem
+
+        Escuta mensagens do WhatsApp.
+        Valida se o usuário está autorizado (config/usuarios).
+        Verifica se a mensagem começa com @leo.
+        Filtra comandos básicos (ajuda, lista, etc.).
+    
+    // processo 3
+    3. Processamento da Pergunta
+
+        Extrai a pergunta (limpa @leo:).
+        Recupera contexto com histórico (utils/context).
+        Envia para o OpenAI se não for um comando explícito.
+        Identifica se a resposta da IA contém um comando JSON ou texto direto.
+    
+    // processo 4
+    4. Execução de Comandos
+
+        Tempo Real (leitura): consulta API e formata resposta.
+        Histórico (historico): consulta API de dados históricos.
+        Salva dados brutos da API no histórico.
+
+    // processo 5
+    5. Resposta e Registro
+
+        Formata resposta (texto ou tabela) para WhatsApp.
+        Armazena pergunta e resposta no histórico.
+        Gera logs numerados em cada estado do fluxo.
+        Responde ao usuário no WhatsApp.
+
+```
 ## Legenda dos Estados Numerados
 
 | Nº | Estado | Descrição | Log no Código |
