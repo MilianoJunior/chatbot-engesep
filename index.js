@@ -239,7 +239,21 @@ const processarMensagem = async (msg, client) => {
     }
 };
 
-const client = new Client({ authStrategy: new LocalAuth({ clientId: 'default' }) });
+// const client = new Client({ authStrategy: new LocalAuth({ clientId: 'default' }) });
+const client = new Client({
+    authStrategy: new LocalAuth({ dataPath: './.wwebjs_auth' }),
+    puppeteer: {
+      headless: true,
+      executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--disable-software-rasterizer'
+      ]
+    }
+  });
 
 client.on('qr', qr => qrcode.generate(qr, { small: true }));
 client.on('ready', () => console.log('Client is ready!'));
