@@ -28,9 +28,6 @@ const apiHistorico = new ApiHistorico();
 const apiReadRT = new ApiService();
 
 
-// const verificarUsuario = (numero) => configUsuarios.usuariosPermitidos.find(u => u.numero === numero);
-
-
 const obterRespostaOpenAI = async (pergunta, contexto) => {
     try {
         const resposta = await askOpenAI(pergunta, contexto);
@@ -267,10 +264,11 @@ client.on('message_create', async msg => {
     console.log('Ignorado (sem prefixo @leo) usuário: ' + msg.author);
     return;
   }
+  processarMensagem(msg, client)
 
   
-  console.log(msg.body);
-//   const resposta = await askOpenAI(msg.body, contexto);
+//   console.log(msg.body);
+// //   const resposta = await askOpenAI(msg.body, contexto);
 //   console.log(resposta);
 //   msg.reply(resposta);
 });

@@ -142,9 +142,13 @@ node testes/test-intervalos-corrigidos.js
 
 ### Servidor Ubuntu
 ```bash
+# listar o serviço
+pm2 list
+
 # Parar serviço atual
 pm2 stop 0
 
+# ati
 # Enviar código atualizado
 scp -r ./ ubuntu@servidor:/caminho/destino/
 
@@ -171,4 +175,6 @@ Para suporte técnico ou dúvidas sobre o projeto, entre em contato através do 
 ---
 
 **Desenvolvido com ❤️ para monitoramento inteligente de usinas hidroelétricas**
+
+
 
