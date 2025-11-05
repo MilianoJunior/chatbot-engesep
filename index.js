@@ -259,18 +259,18 @@ client.on('ready', () => console.log('Client is ready!'));
 client.on('message', msg => processarMensagem(msg, client));
 
 // Mensagem de entrada enviada para mim mesmo
-client.on('message_create', async msg => {
-  if (!hasPrefix(msg.body)) {
-    console.log('Ignorado (sem prefixo @leo) usuário: ' + msg.author);
-    return;
-  }
-  processarMensagem(msg, client)
+// client.on('message_create', async msg => {
+//   if (!hasPrefix(msg.body)) {
+//     console.log('Ignorado (sem prefixo @leo) usuário: ' + msg.author);
+//     return;
+//   }
+//   processarMensagem(msg, client)
 
   
-//   console.log(msg.body);
-// //   const resposta = await askOpenAI(msg.body, contexto);
-//   console.log(resposta);
-//   msg.reply(resposta);
-});
+// //   console.log(msg.body);
+// // //   const resposta = await askOpenAI(msg.body, contexto);
+// //   console.log(resposta);
+// //   msg.reply(resposta);
+// });
 
 client.initialize();
