@@ -329,3 +329,78 @@ Se a aquisição de clientes vier **majoritariamente** do produto/IA (menor depe
 Se quiser, eu transformo isso em **cláusulas contratuais** (com métricas e fórmulas) ou numa **tabela comparativa** pronta para apresentação.
 
 
+[dotenv@17.2.1] injecting env (4) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+Client is ready!
+--------------------------------
+[GRUPO DETECTADO] Nome: "EngeGOM O&M IA" | ID DO GRUPO: 120363400075500190@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363400075500190@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+[GRUPO DETECTADO] Nome: "Teste IA Leonardo" | ID DO GRUPO: 120363402382699818@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363402382699818@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+[GRUPO DETECTADO] Nome: "CGH PICADAS ALTAS - O&M" | ID DO GRUPO: 120363420417271434@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363420417271434@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+[GRUPO DETECTADO] Nome: "CGH Hoppen - O&M" | ID DO GRUPO: 120363401112465577@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363401112465577@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+msg.body: @leoj teste
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+--------------------------------
+[GRUPO DETECTADO] Nome: "PCH PIRA - O&M" | ID DO GRUPO: 120363421235105336@g.us
+[GRUPO DETECTADO] Nome: "PCH PIRA - O&M" | ID DO GRUPO: 120363421235105336@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363421235105336@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363421235105336@g.us
+msg.from: 245779956506633@lid
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+msg.body: @leoj teste
+--------------------------------
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+--------------------------------
+[GRUPO DETECTADO] Nome: "CGH FAE - O&M" | ID DO GRUPO: 120363403378026754@g.us
+[GRUPO DETECTADO] Nome: "CGH FAE - O&M" | ID DO GRUPO: 120363403378026754@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363403378026754@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363403378026754@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+--------------------------------
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+--------------------------------
+[GRUPO DETECTADO] Nome: "CGH Aparecida O&M" | ID DO GRUPO: 120363293776290750@g.us
+[GRUPO DETECTADO] Nome: "CGH Aparecida O&M" | ID DO GRUPO: 120363293776290750@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363293776290750@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido
+--------------------------------
+[GRUPO DETECTADO] Nome: "PCH PEDRAS - O&M" | ID DO GRUPO: 120363421530083891@g.us
+[DEBUG] msg.from: 245779956506633@lid | msg.to: 120363421530083891@g.us
+msg.from: 245779956506633@lid
+msg.body: @leoj teste
+--------------------------------
+[INFO] Usuário não associado a nenhuma usina, não sera respondido

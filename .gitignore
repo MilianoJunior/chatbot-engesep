@@ -20,9 +20,7 @@ logs/
 .env.test.local
 .env.production.local
 
-# Cache do WhatsApp Web.js
-.wwebjs_cache/
-.wwebjs_auth/
+
 
 # Arquivos do sistema
 .DS_Store

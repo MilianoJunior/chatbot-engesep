@@ -204,3 +204,4 @@ stateDiagram-v2
 ## Prompts
 
 Gravar emojis no historico de contexto, 
+

@@ -32,7 +32,7 @@ const leituras = {
             "UG-01": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.2', port: 502 },
-                    { 'potência máxima': 3350, 'velocidade máxima': 450 }
+                    { 'potência máxima': 3350, 'velocidade máxima': 450, 'nível de vertimento': 405.28, 'nível da vazão sanitária': 402.40 }
                 ),
                 potencias: { INT: { "Potência Ativa": 13407 } },
                 nivel_agua: {
@@ -91,7 +91,7 @@ const leituras = {
             "UG-01": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.2', port: 502 },
-                    { 'potência máxima': 1350, 'velocidade máxima': 415 }
+                    { 'potência máxima': 1350, 'velocidade máxima': 415, 'nível de vertimento': 701.15, 'nível da vazão sanitária': 700.80 }
                 ),
                 temperaturas: {
                     REAL: {
@@ -113,7 +113,7 @@ const leituras = {
             "UG-02": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.3', port: 502 },
-                    { 'potência máxima': 650, 'velocidade máxima': 800 }
+                    { 'potência máxima': 650, 'velocidade máxima': 800, 'nível de vertimento': 701.15, 'nível da vazão sanitária': 700.80 }
                 ),
                 nivel_agua: {
                     REAL: {
@@ -147,7 +147,7 @@ const leituras = {
             "UG-01": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.2', port: 502 },
-                    { 'potência máxima': 2800, 'velocidade máxima': 450 }
+                    { 'potência máxima': 2800, 'velocidade máxima': 450, 'nível de vertimento': 1097.50, 'nível da vazão sanitária': 1096.80 }
                 ),
                 nivel_agua: {
                     REAL: {
@@ -179,7 +179,7 @@ const leituras = {
             "UG-02": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.3', port: 502 },
-                    { 'potência máxima': 2800, 'velocidade máxima': 450 }
+                    { 'potência máxima': 2800, 'velocidade máxima': 450, 'nível de vertimento': 1097.50, 'nível da vazão sanitária': 1096.80 }
                 ),
                 nivel_agua: {
                     REAL: {
@@ -215,7 +215,7 @@ const leituras = {
             "UG-01": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.2', port: 502 },
-                    { 'potência máxima': 300, 'velocidade máxima': 450 }
+                    { 'potência máxima': 300, 'velocidade máxima': 450, 'nível de vertimento': 416.50, 'nível da vazão sanitária': 415.80 }
                 ),
                 nivel_agua: {
                     REAL: {
@@ -244,7 +244,7 @@ const leituras = {
             "UG-02": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.3', port: 502 },
-                    { 'potência máxima': 700, 'velocidade máxima': 450 }
+                    { 'potência máxima': 700, 'velocidade máxima': 450, 'nível de vertimento': 416.50, 'nível da vazão sanitária': 415.80 }
                 ),
                 nivel_agua: {
                     REAL: {
@@ -277,7 +277,7 @@ const leituras = {
             "UG-01": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.2', port: 502 },
-                    { 'potência máxima': 1300, 'velocidade máxima': 415 }
+                    { 'potência máxima': 1300, 'velocidade máxima': 415, 'nível de vertimento': 869.90, 'nível da vazão sanitária': 869.50 }
                 ),
                 nivel_agua: {
                     REAL: {
@@ -311,7 +311,7 @@ const leituras = {
             "UG-02": {
                 ...criarUgTemplate(
                     { ip: '192.168.10.3', port: 502 },
-                    { 'potência máxima': 1300, 'velocidade máxima': 415 }
+                    { 'potência máxima': 1300, 'velocidade máxima': 415, 'nível de vertimento': 869.90, 'nível da vazão sanitária': 869.50 }
                 ),
                 nivel_agua: {
                     REAL: {

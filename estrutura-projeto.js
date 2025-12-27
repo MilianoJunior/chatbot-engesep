@@ -97,3 +97,14 @@ function main() {
 if (require.main === module) {
     main();
 }
+
+/*
+"Atue como um Arquiteto de Software Sênior.
+Analise o código JavaScript abaixo. Ele está procedural, difícil de testar e viola o princípio Open/Closed (muitos if/else).
+Objetivo: Refatore para uma abordagem Orientada a Objetos ou Funcional robusta que utilize o Padrão Strategy para os comandos.
+Requisitos Críticos:
+Limpeza: Mantenha o código com menos de 50 linhas.
+Manutenibilidade: O tratamento de erros deve ser genérico e centralizado (evite criar objetos gigantes com mensagens hardcoded para cada novo erro).
+Extensibilidade: A estrutura deve facilitar a Injeção de Dependências para testes unitários futuros.
+DRY: Abstraia a lógica repetitiva de 'chamar API -> validar nulo -> formatar'.
+*/
