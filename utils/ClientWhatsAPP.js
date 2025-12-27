@@ -8,7 +8,8 @@ class WhatsAppService {
                 dataPath: options.dataPath || './sessions'
             }),
             puppeteer: {
-                headless: options.headless ?? true
+                headless: options.headless ?? true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
             }
         });
 
