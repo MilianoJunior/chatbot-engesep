@@ -1,462 +1,498 @@
-async function tratarRespostaLeonardo(resposta) {
-  try {
-    console.log('🔄 tratarRespostaLeonardo recebeu:', typeof resposta, resposta ? resposta.substring(0, 200) + '...' : 'null');
+// -------------------------------------------------------------------
+// FLUXO DO MÓDULO
+// 1. tratarRespostaLeonardo → analisa JSON/Texto da IA
+// 2. formatarRespostaTempoReal → formatação RT padrão
+// 3. formatarRespostaHistorico → formatação Histórico padrão
+// 4. formatarRespostaResumo → formatação Resumo Operativo
+// 5. normalizarNomeUsina → padronização de nomes
+// -------------------------------------------------------------------
 
-    if (!resposta) {
-      const erro = 'Resposta vazia ou nula recebida';
-      console.error('❌ ' + erro);
-      return erro;
-    }
+const dayjs = require('dayjs');
 
-    // Verificar se a resposta está em formato JSON
-    if (typeof resposta === 'string' && resposta.trim().startsWith('{') && resposta.trim().endsWith('}')) {
-      console.log('📄 Tentando fazer parse JSON da resposta...');
-      let json;
-
-      try {
-        json = JSON.parse(resposta);
-        console.log('✅ JSON parseado com sucesso:', json);
-      } catch (parseError) {
-        console.error('❌ Erro ao fazer parse do JSON:', parseError.message);
-        console.error('❌ String JSON problemática:', resposta);
-        return `Erro ao processar resposta JSON: ${parseError.message}`;
-      }
-
-      // Se contém comando para API, processar
-      if (json.comando === 'leitura') {
-        console.log('🔧 Processando comando de leitura...');
-        // Normalizar nome da usina para formato padrão
-        if (json.parametros && json.parametros.usina) {
-          const usinaOriginal = json.parametros.usina;
-          json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
-          console.log(`🏭 Usina normalizada: ${usinaOriginal} -> ${json.parametros.usina}`);
-        }
-      }
-
-      // Comando para histórico de energia
-      if (json.comando === 'historico') {
-        console.log('📊 Processando comando de histórico...');
-        // Normalizar nome da usina para formato padrão
-        if (json.parametros && json.parametros.usina) {
-          const usinaOriginal = json.parametros.usina;
-          json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
-          console.log(`🏭 Usina normalizada: ${usinaOriginal} -> ${json.parametros.usina}`);
-        }
-      }
-
-      console.log('✅ Comando processado:', json.comando);
-      return json;
-    }
-
-    // Se não for JSON, retornar a resposta original
-    console.log('💬 Resposta não é JSON, retornando como texto direto');
-    return resposta;
-
-  } catch (error) {
-    const mensagemErro = `Erro crítico ao processar resposta: ${error.message}`;
-    console.error('🚨 ERRO CRÍTICO em tratarRespostaLeonardo:', error);
-    console.error('🚨 Stack:', error.stack);
-    console.error('🚨 Resposta original:', resposta);
-    return mensagemErro;
-  }
-}
-
-// Função para normalizar nomes de usinas
-function normalizarNomeUsina(nomeUsina) {
-  // Mapear nomes em lowercase/underscore para formato padrão
-  const mapeamentoUsinas = {
+// Configurações e Mapas
+const MAPEAMENTO_USINAS = {
     'cgh_aparecida': 'CGH-APARECIDA',
     'cgh_fae': 'CGH-FAE',
     'cgh_picadas_altas': 'CGH-PICADAS-ALTAS',
     'cgh_hoppen': 'CGH-HOPPEN',
     'pch_pedras': 'PCH-PEDRAS'
-  };
+};
 
-  const nomeLower = nomeUsina.toLowerCase().replace(/-/g, '_');
-  return mapeamentoUsinas[nomeLower] || nomeUsina;
-}
+// -------------------------------------------------------------------
+// 1. TRATAMENTO DE RESPOSTA IA
+// -------------------------------------------------------------------
+async function tratarRespostaLeonardo(resposta) {
 
-// Função para formatar resposta da API de histórico para WhatsApp
-function formatarRespostaHistorico(dados) {
-  try {
-    if (dados.status === 'sem_dados' || dados.status === 'sem dados') {
-      return `🏭 *${dados.usina || 'Usina'}*\n\n` +
-        `📊 *Consulta de Dados Históricos*\n` +
-        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-        `ℹ️ ${dados.mensagem || 'Nenhum dado encontrado para o período consultado.'}\n\n` +
-        `💡 *Sugestões:*\n` +
-        `• Verifique se a data está correta\n` +
-        `• Tente um período mais recente\n` +
-        `• Consulte dados em tempo real com: "@leo: potência ativa da ${dados.usina}"\n` +
-        `• Para ajuda: "@leo: ajuda"`;
-    }
+    try {
+        // Verificar se a resposta está em formato JSON
+        if (typeof resposta === 'string' && resposta.trim().startsWith('{') && resposta.trim().endsWith('}')) {
+            const json = JSON.parse(resposta);
 
-    let resultado = `🏭 *${dados.usina}*\n`;
-    resultado += `📊 *Dados Históricos*\n`;
-    resultado += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+            // Se contém comando para API, processar
+            if (json.comando === 'leitura') {
+                // Normalizar nome da usina para formato padrão
+                if (json.parametros && json.parametros.usina) {
+                    json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
+                }
+            }
 
-    // Verificar se há dados de energia
-    const resultadoData = dados.resultado || {};
-    const ugsKeys = Object.keys(resultadoData).filter(key =>
-      key.includes('energia') || key.includes('acumulador')
-    );
-
-    if (ugsKeys.length === 0) {
-      return '❌ Nenhum dado de energia encontrado';
-    }
-
-    resultado += `📊 *Dados do Período (${dados.periodo === 'M' ? 'Mensal' : dados.periodo === 'D' ? 'Diário' : 'Horário'}):*\n\n`;
-
-    let totalRegistros = 0;
-
-    // Processar cada UG encontrada
-    ugsKeys.forEach((ugKey, ugIndex) => {
-      const energiaData = resultadoData[ugKey];
-
-      if (Array.isArray(energiaData) && energiaData.length > 0) {
-        // Extrair nome da UG do key
-        const ugNome = ugKey
-          .replace('_acumulador_energia', '')
-          .replace('_acum_energia', '')
-          .replace('_energia', '')
-          .toUpperCase();
-
-        if (ugsKeys.length > 1) {
-          resultado += `🔧 *${ugNome}:*\n`;
+            // Comando para histórico de energia
+            if (json.comando === 'historico') {
+                // Normalizar nome da usina para formato padrão
+                if (json.parametros && json.parametros.usina) {
+                    json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
+                }
+            }
+            return json;
         }
 
-        // Processar cada registro de energia desta UG
-        energiaData.forEach((registro, index) => {
-          if (index < 10) { // Limitar a 10 registros por UG
-            if (typeof registro === 'object') {
-              const keys = Object.keys(registro);
-              if (keys.length > 0) {
-                keys.forEach(key => {
-                  const valor = registro[key];
-                  if (key.toLowerCase().includes('data') || key.toLowerCase().includes('timestamp')) {
-                    try {
-                      resultado += `  📅 ${valor}`;
-                    } catch {
-                      resultado += `  📅 ${valor}`;
-                    }
-                  } else if (typeof valor === 'number') {
-                    resultado += `: ${valor.toFixed(2)} MWh\n`;
-                  } else if (valor !== null && valor !== undefined) {
-                    resultado += `: ${valor}\n`;
-                  }
-                });
-              } else {
-                resultado += `  📅 Registro ${index + 1}: ${JSON.stringify(registro)}\n`;
-              }
+        // Se não for JSON, retornar a resposta original
+        return resposta;
+
+    } catch (error) {
+        return 'Erro ao processar resposta: ' + error.message;
+    }
+}
+
+// async function tratarRespostaLeonardo(resposta) {
+//     try {
+//         if (!resposta) return 'Resposta vazia ou nula recebida';
+
+//         // Verificar se a resposta está em formato JSON
+//         if (typeof resposta === 'string' && resposta.trim().startsWith('{') && resposta.trim().endsWith('}')) {
+//             const json = JSON.parse(resposta);
+
+//             // Se contém comando para API, processar
+//             if (json.comando === 'leitura') {
+//                 // Normalizar nome da usina para formato padrão
+//                 if (json.parametros && json.parametros.usina) {
+//                     json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
+//                 }
+//             }
+
+//             // Comando para histórico de energia
+//             if (json.comando === 'historico') {
+//                 // Normalizar nome da usina para formato padrão
+//                 if (json.parametros && json.parametros.usina) {
+//                     json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
+//                 }
+//             }
+
+//             // Comando para resumo
+//             if (json.comando === 'resumo') {
+//                 if (json.parametros && json.parametros.usina) {
+//                     json.parametros.usina = normalizarNomeUsina(json.parametros.usina);
+//                 }
+//             }
+
+//             return json;
+//         }
+//         return resposta;
+//     } catch (error) {
+//         console.error('Erro crítico tratarRespostaLeonardo:', error);
+//         return `Erro crítico: ${error.message}`;
+//     }
+// }
+
+// -------------------------------------------------------------------
+// 2. FORMATAÇÃO TEMPO REAL (Dinâmico para Potência, Nível e Outros)
+// -------------------------------------------------------------------
+function formatarRespostaTempoReal(dados) {
+    if (!dados || typeof dados !== 'object') return '❌ Dados inválidos';
+
+    const usina = dados.usina || 'USINA';
+    const dataHora = dados.timestamp ? dayjs(dados.timestamp).format('DD/MM/YYYY, HH:mm:ss') : '—';
+    const ugs = dados.unidades_geradoras || {};
+
+    // Tenta detectar o tipo de dado predominante analisando as chaves de todas as UGs
+    let temPotencia = false;
+    let temNivel = false;
+    let contadorChaves = 0;
+
+    Object.values(ugs).forEach(ugData => {
+        const valores = ugData.dados || ugData;
+        if (typeof valores === 'object') {
+            Object.keys(valores).forEach(k => {
+                if (k === 'tempo_execucao') return;
+                contadorChaves++;
+                const kl = k.toLowerCase();
+                // Identifica Potência Ativa (exclusivo)
+                if ((kl.includes('pot') && kl.includes('ativa')) || kl.includes('active_power')) {
+                    temPotencia = true;
+                }
+                // Identifica Nível de Água (exclusivo)
+                if (kl.includes('nivel') || kl.includes('montante') || kl.includes('jusante') || kl.includes('grade')) {
+                    temNivel = true;
+                }
+            });
+        }
+    });
+
+    // Se detectou ambos (improvável na API atual, mas possível) ou nenhum específico que justifique layout especial,
+    // trataremos como genérico se houver muitas outras chaves misturadas.
+    // Mas a prioridade é: Potência > Nível > Genérico
+
+    let texto = `${usina} - ${dataHora}\n\n`;
+
+    // --- CASO 1: POTÊNCIA ATIVA ---
+    // Ativado apenas se a intenção parece ser exclusivamente potência
+    if (temPotencia && !temNivel) {
+        texto += `*⚡ Potência ativa em tempo real*\n`;
+        let soma = 0;
+        Object.entries(ugs).forEach(([nomeUg, dadosUg]) => {
+            const val = _extrairValorPotencia(dadosUg);
+            // Se retornar null, tenta achar algo para exibir ou diz sem leitura
+            if (val !== null) {
+                texto += `${nomeUg}: ${val.toFixed(2)} kW\n`;
+                soma += val;
             } else {
-              resultado += `  📅 Valor ${index + 1}: ${registro}\n`;
+                texto += `${nomeUg}: (Sem leitura)\n`;
             }
-          }
+        });
+        texto += `\nSoma: ${soma.toFixed(2)} kW\n`;
+        return texto;
+    }
+
+    // --- CASO 2: NÍVEIS DE ÁGUA ---
+    if (temNivel && !temPotencia) {
+        texto += `*💧 Níveis de água em tempo real*\n`;
+
+        const niveisBuffer = [];
+        let montanteGeral = null;
+
+        Object.entries(ugs).forEach(([nome, info]) => {
+            const dadosFlat = (info.dados || info);
+
+            Object.entries(dadosFlat).forEach(([k, v]) => {
+                const val = (typeof v === 'object' && v?.value !== undefined) ? v.value : v;
+                if (typeof val !== 'number') return;
+
+                const kLower = k.toLowerCase();
+                if (kLower.includes('montante')) {
+                    niveisBuffer.push({ label: `Nível Montante ${nome}`, val: val, tipo: 'montante', ug: nome });
+                    if (!montanteGeral) montanteGeral = val;
+                } else if (kLower.includes('jusante') || kLower.includes('grade')) {
+                    niveisBuffer.push({ label: `${nome}`, val: val, tipo: 'grade', ug: nome });
+                } else if (kLower.includes('nivel') || kLower.includes('nível')) {
+                    // Fallback para outros niveis genéricos
+                    niveisBuffer.push({ label: `${k} ${nome}`, val: val });
+                }
+            });
         });
 
-        if (energiaData.length > 10) {
-          resultado += `  ... e mais ${energiaData.length - 10} registros\n`;
-        }
-
-        if (ugsKeys.length > 1) {
-          resultado += '\n';
-        }
-
-        totalRegistros += energiaData.length;
-      }
-    });
-
-    resultado += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    resultado += `📈 Total de registros: ${totalRegistros}\n`;
-    resultado += `🏭 Usina: ${dados.usina}\n`;
-    resultado += `🔧 Unidades Geradoras: ${ugsKeys.length}\n`;
-    resultado += `⏱️ Período: ${dados.periodo === 'M' ? 'Mensal' : dados.periodo === 'D' ? 'Diário' : 'Horário'}`;
-
-    console.log('✅ Formatação histórica concluída, tamanho da resposta:', resultado.length);
-    return resultado;
-
-  } catch (error) {
-    const mensagemErro = '❌ Erro ao formatar dados históricos: ' + error.message;
-    console.error('🚨 ERRO em formatarRespostaHistorico:', error);
-    console.error('🚨 Stack:', error.stack);
-    console.error('🚨 Dados originais:', dados);
-    return mensagemErro;
-  }
-}
-
-// Função para formatar resposta da API de tempo real para WhatsApp
-function formatarRespostaTempoReal(dados) {
-  try {
-    if (!dados || typeof dados !== 'object') {
-      return '❌ Dados inválidos da API';
-    }
-
-    const norm = (s = '') =>
-      s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-
-    const isTripAlarme = (k) => {
-      const n = norm(k);
-      return n.includes('trip') || n.includes('alarme') || n.includes('alarmes');
-    };
-
-    const isPotAtiva = (k) => {
-      const n = norm(k);
-      // cobre "potência ativa", "pot_ativa", "p ativa", "pat", etc.
-      return (n.includes('pot') && n.includes('ativa')) || /\bp[_\s-]*ativa\b/.test(n);
-    };
-
-    const toNumber = (v) => {
-      if (typeof v === 'number' && Number.isFinite(v)) return v;
-      const f = parseFloat(String(v).replace(',', '.'));
-      return Number.isFinite(f) ? f : null;
-    };
-
-    const fmtValor = (chave, valor) => {
-      const n = norm(chave);
-      const num = toNumber(valor);
-      if (num === null) return String(valor);
-
-      if (n.includes('temperatura')) return `${num.toFixed(1)}°C`;
-      if (n.includes('nivel') || n.includes('altura')) return `${num.toFixed(2)} m`;
-      if (n.includes('velocidade') || n.includes('rpm')) return `${num.toFixed(2)} rpm`;
-      if (n.includes('tensao') || n.includes('tens')) return `${num.toFixed(2)} V`;
-      if (n.includes('corrente')) return `${num.toFixed(2)} A`;
-      if (n.includes('frequencia') || n.includes('hz')) return `${num.toFixed(2)} Hz`;
-      if (n.includes('pot') && n.includes('ativa')) return `${num.toFixed(2)} kW`;
-      if (n.includes('pot') || n.includes('energia')) return `${num.toFixed(2)} MW`;
-      return `${num.toFixed(2)}`;
-    };
-
-    let resultado = `*${dados.usina || '—'}*\n`;
-    resultado += `Dados em Tempo Real\n`;
-    resultado += `Data/Hora: ${dados.timestamp ? new Date(dados.timestamp).toLocaleString('pt-BR') : '—'}\n`;
-
-    const ugs = dados.unidades_geradoras || {};
-    const entradas = Object.entries(ugs);
-    if (!entradas.length) {
-      return (
-        resultado +
-        `\nℹ️ Nenhuma unidade geradora encontrada.\n`
-      );
-    }
-
-    let somaPotAtiva = 0;
-
-    entradas.forEach(([ugNome, ugData], idx) => {
-      resultado += `\n${ugNome}:\n`;
-
-      const bloco = ugData && typeof ugData === 'object' ? ugData.dados || ugData : {};
-      // Varre apenas primeiro nível (como no seu exemplo),
-      // mas aceita sub-objetos com outro for..in
-      Object.entries(bloco).forEach(([tipoDado, valores]) => {
-        if (valores && typeof valores === 'object') {
-          Object.keys(valores).forEach((variavel) => {
-            const val = valores[variavel];
-            // Soma potência ativa
-            if (isPotAtiva(variavel)) {
-              const num = toNumber(val);
-              if (num !== null) somaPotAtiva += num;
-              resultado += `${variavel}: ${fmtValor(variavel, val)}\n`;
-              return;
-            }
-            // Pula trips/alarmes
-            if (isTripAlarme(variavel)) return;
-
-            // Imprime chave/valor formatado
-            const nome = variavel.replace(/\s*value\s*$/i, '');
-            resultado += `${nome}: ${fmtValor(variavel, val)}\n`;
-          });
+        // Montante (agrupado se igual)
+        const montantes = niveisBuffer.filter(x => x.tipo === 'montante');
+        const unicos = [...new Set(montantes.map(x => x.val))];
+        if (unicos.length === 1) {
+            texto += `Nível Montante: ${unicos[0].toFixed(2)} m\n`;
         } else {
-          // Valor direto não-objeto
-          if (!isTripAlarme(tipoDado)) {
-            if (isPotAtiva(tipoDado)) {
-              const num = toNumber(valores);
-              if (num !== null) somaPotAtiva += num;
-            }
-            resultado += `${tipoDado}: ${fmtValor(tipoDado, valores)}\n`;
-          }
+            montantes.forEach(m => texto += `${m.label}: ${m.val.toFixed(2)} m\n`);
         }
-      });
-    });
 
-    if (somaPotAtiva > 0) {
-      resultado += `\nSoma: ${somaPotAtiva.toFixed(2)} kW\n`;
+        // Grades/Jusante
+        const grades = niveisBuffer.filter(x => x.tipo === 'grade');
+        grades.forEach(g => {
+            texto += `${g.label}: ${g.val.toFixed(2)} m\n`;
+        });
+
+        // Outros níveis
+        const outros = niveisBuffer.filter(x => !x.tipo);
+        outros.forEach(o => {
+            texto += `${o.label}: ${o.val.toFixed(2)} m\n`;
+        });
+
+        // Diferenciais (Grade vs Montante)
+        grades.forEach(g => {
+            const montanteRef = montantes.find(m => m.ug === g.ug) || montantes[0];
+            if (montanteRef) {
+                const diff = montanteRef.val - g.val;
+                texto += `diferencial de grade ${g.ug}: ${diff.toFixed(2)} m\n`;
+            }
+        });
+
+        return texto;
     }
 
-    return resultado;
-  } catch (error) {
-    console.error('🚨 ERRO em formatarRespostaTempoReal:', error);
-    return '❌ Erro ao formatar dados em tempo real: ' + error.message;
-  }
+    // --- CASO 3: GENÉRICO (Temperaturas, Gerador, Monitoramento, etc) ---
+    // Formatação limpa chave-valor para qualquer outro dado
+    texto += `*📊 Dados em Tempo Real*\n`;
+
+    Object.entries(ugs).forEach(([nomeUg, dadosUg]) => {
+        texto += `\n*${nomeUg}*\n`; // Destaca nome da UG/Grupo
+        const valores = dadosUg.dados || dadosUg;
+
+        if (typeof valores === 'object') {
+            Object.entries(valores).forEach(([k, v]) => {
+                // Ignora metadados internos
+                if (k === 'tempo_execucao' || k === 'caracteristicas') return;
+
+                const val = (typeof v === 'object' && v?.value !== undefined) ? v.value : v;
+
+                // Formatação inteligente de valor
+                let valFmt = val;
+                if (typeof val === 'number') {
+                    valFmt = val.toFixed(2);
+
+                    // Adiciona unidades comuns baseado no nome da chave
+                    const kl = k.toLowerCase();
+                    if (kl.includes('temp') || kl.includes('enrolamento') || kl.includes('mancal') || kl.includes('oleo')) valFmt += ' °C';
+                    else if (kl.includes('tensao')) valFmt += ' V';
+                    else if (kl.includes('corrente')) valFmt += ' A';
+                    else if (kl.includes('frequencia')) valFmt += ' Hz';
+                    else if (kl.includes('velocidade')) valFmt += ' rpm';
+                    else if (kl.includes('pressao')) valFmt += ' bar';
+                }
+
+                // Limpeza do nome da chave (remove "value", "alarmes" sufixos se redundante)
+                let nomeChave = k.replace(/ value$/i, '').replace(/_/g, ' ');
+                texto += `${nomeChave}: ${valFmt}\n`;
+            });
+        } else {
+            texto += `${valores}\n`;
+        }
+    });
+
+    return texto;
 }
 
-// Função para formatar resposta da API de tempo real para WhatsApp
-// function formatarRespostaTempoReal(dados) {
-//     try {
-//         let resultado = `*${dados.usina}*\n`;
-//         resultado += `Dados em Tempo Real\n`;
-//         resultado += `Data/Hora: ${new Date(dados.timestamp).toLocaleString('pt-BR')}\n`;
-//         const entradas = Object.entries(dados.unidades_geradoras);
-//         let somaPotAtiva = 0;
-//         entradas.forEach(([ugNome, ugData], idx) => {
-//             resultado += `${ugNome}:\n`;
-//             const dados = ugData.dados;
-//             Object.entries(dados).forEach(([tipoDado, valores]) => {
-//                 const variaveis = Object.keys(valores);
-//                 variaveis.forEach((variavel) => {
-//                     if (variavel.toLowerCase().includes('potência')) {
-//                         resultado += `${variavel}: ${valores[variavel]}\n`;
-//                         somaPotAtiva = somaPotAtiva + parseInt(valores[variavel]);
-//                     }
-//                     if (!(variavel.toLowerCase().includes('trip') || variavel.toLowerCase().includes('alarmes'))) {                
-//                         resultado += `${variavel.replace(' value', '')}: ${valores[variavel].toFixed(2)} °C\n`;
-//                     }
-//                 });
-//             });    
-//         });
-//         if (somaPotAtiva > 0) {
-//             resultado += `Soma: ${somaPotAtiva.toFixed(2)} kw\n`;
-//         }
-//         return resultado;
-//     } catch (error) {
-//         console.error('🚨 ERRO em formatarRespostaTempoReal:', error);
-//         return '❌ Erro ao formatar dados em tempo real: ' + error.message;
-//     }
-// }
+// -------------------------------------------------------------------
+// 3. FORMATAÇÃO HISTÓRICO
+// -------------------------------------------------------------------
+function formatarRespostaHistorico(dados) {
+    if (!dados) return '❌ Sem dados históricos';
+    if (dados.status === 'sem_dados') return `ℹ️ Sem dados para o período em ${dados.usina}.`;
 
-//         let pot = null;
-//         if (ugData && ugData.dados && typeof ugData.dados === 'object') {
-//             for (const [tipoDado, valoresTipo] of Object.entries(ugData.dados)) {
-//                 if (valoresTipo && typeof valoresTipo === 'object') {
-//                     for (const [ch, val] of Object.entries(valoresTipo)) {
-//                         if (
-//                             typeof val === 'number' &&
-//                             ch && ch.toLowerCase().includes('potencia') && ch.toLowerCase().includes('ativa')
-//                         ) { pot = val; break; }
-//                     }
-//                 }
-//                 if (
-//                     pot === null &&
-//                     typeof valoresTipo === 'number' &&
-//                     tipoDado && tipoDado.toLowerCase().includes('potencia') && tipoDado.toLowerCase().includes('ativa')
-//                 ) { pot = valoresTipo; }
-//                 if (pot !== null) break;
-//             }
-//             }
-//             if (typeof pot === 'number') {
-//                 somaPotAtiva += pot;
-//                 saida += `   Potência Ativa: ${pot.toFixed(2)} kw\n`;
-//             } else {
-//                 saida += `   Potência Ativa: N/A\n`;
-//             }
-//         }
-//         if (idx < entradas.length - 1) saida += `\n`;
-//     });
+    const usina = dados.usina || 'USINA';
+    const dataHora = dayjs().format('DD/MM/YYYY, HH:mm:ss');
 
-//     saida += `\nSoma: ${somaPotAtiva.toFixed(2)} kw`;
-//     return saida;
-// }
+    let texto = `📊 ${usina} - ${dataHora}\n\n`;
+    texto += `*📈 Geração de energia (Diário)*\n\n`;
 
-// let somaPotencia = 0;
-// let potenciasEncontradas = [];
+    const resultado = dados.resultado || {};
+    let totalGeral = 0;
+    let temDados = false;
 
-// // Processar cada unidade geradora
-// Object.entries(unidadesGeradoras).forEach(([ugNome, ugData]) => {
-//     resultado += `*${ugNome}:*\n`;
+    // Agrupamento por UG
+    Object.keys(resultado).sort().forEach(key => {
+        if (key.includes('energia') && Array.isArray(resultado[key])) {
+            temDados = true;
+            const nomeUg = key.replace(/_/g, ' ').replace(' energia', '').replace('acumulador ', '').toUpperCase();
+            const registros = resultado[key];
 
-//     if (ugData.erro) {
-//         resultado += `   Erro: ${ugData.erro}\n`;
-//     } else {                
-//         // Buscar por potência ativa nos dados
-//         let potenciaEncontrada = false;
+            texto += `${nomeUg}:\n`;
 
-//         if (ugData.dados && typeof ugData.dados === 'object') {
-//             Object.entries(ugData.dados).forEach(([tipoDado, valoresTipo]) => {
-//                 if (valoresTipo && typeof valoresTipo === 'object') {
-//                     // Tipo de dado (INT, REAL, BOOLEAN)
-//                     resultado += `  **\n`;
+            let somaUg = 0;
 
-//                     Object.entries(valoresTipo).forEach(([chave, valor]) => {
-//                         if (valor !== null && valor !== undefined) {
-//                             // Formatar baseado no tipo de dado
-//                             if (typeof valor === 'number') {
-//                                 if (chave.toLowerCase().includes('temperatura')) {
-//                                     resultado += `    ${chave}: ${valor.toFixed(1)}°C\n`;
-//                                 } else if (chave.toLowerCase().includes('potencia') && chave.toLowerCase().includes('ativa')) {
-//                                     resultado += `    ${chave}: ${valor.toFixed(2)} kw\n`;
-//                                 } else if (chave.toLowerCase().includes('potencia') || chave.toLowerCase().includes('energia')) {
-//                                     resultado += `    ${chave}: ${valor.toFixed(2)} MW\n`;
-//                                 } else if (chave.toLowerCase().includes('nivel') || chave.toLowerCase().includes('altura')) {
-//                                     resultado += `    ${chave}: ${valor.toFixed(2)} m\n`;
-//                                 } else if (chave.toLowerCase().includes('velocidade')) {
-//                                     resultado += `    ${chave}: ${valor.toFixed(2)} rpm\n`;
-//                                 } else if (chave.toLowerCase().includes('tensao') || chave.toLowerCase().includes('corrente')) {
-//                                     resultado += `    ${chave}: ${valor.toFixed(2)}\n`;
-//                                 } else {
-//                                     resultado += `    ${chave}: ${valor.toFixed(2)}\n`;
-//                                 }
-//                             } else if (typeof valor === 'boolean') {
-//                                 resultado += `    ${chave}: ${valor ? 'Ativo' : 'Inativo'}\n`;
-//                             } else {
-//                                 resultado += `    ${chave}: ${valor}\n`;
-//                             }
-//                         }
-//                     });
-//                 } else if (valoresTipo !== null && valoresTipo !== undefined) {
-//                     // Valor direto (não aninhado)
-//                     if (typeof valoresTipo === 'number') {
-//                         if (tipoDado.toLowerCase().includes('temperatura')) {
-//                             resultado += `   ${valoresTipo.toFixed(1)}°C\n`;
-//                         } else if (tipoDado.toLowerCase().includes('potencia') && tipoDado.toLowerCase().includes('ativa')) {
-//                             resultado += `   ${valoresTipo.toFixed(2)} kw\n`;
-//                         } else if (tipoDado.toLowerCase().includes('potencia') || tipoDado.toLowerCase().includes('energia')) {
-//                             resultado += `   ${valoresTipo.toFixed(2)} MW\n`;
-//                         } else if (tipoDado.toLowerCase().includes('nivel') || tipoDado.toLowerCase().includes('altura')) {
-//                             resultado += `   ${valoresTipo.toFixed(2)} m\n`;
-//                         } else if (tipoDado.toLowerCase().includes('velocidade')) {
-//                             resultado += `   ${valoresTipo.toFixed(2)} rpm\n`;
-//                         } else {
-//                             resultado += `   ${valoresTipo.toFixed(2)}\n`;
-//                         }
-//                     } else if (typeof valoresTipo === 'boolean') {
-//                         resultado += `   ${valoresTipo ? 'Ativo' : 'Inativo'}\n`;
-//                     } else {
-//                         resultado += `   ${valoresTipo}\n`;
-//                     }
-//                 }
-//             });
-//         }
+            // Limita visualização para não poluir se vierem muitos dados
+            // Mas o pedido original mostra 3 dias.
+            registros.forEach(reg => {
+                let data = null;
+                let valor = null;
 
-//     }
-//     if (index < Object.keys(unidadesGeradoras).length - 1) {
-//         resultado += '\n';
-//     }
-// });
-// return resultado;
+                if (typeof reg === 'object') {
+                    // Busca dinâmica de data e valor
+                    const keys = Object.keys(reg);
+                    const kData = keys.find(k => k.includes('data') || k.includes('timestamp'));
+                    // Valor é o numérico que não é data
+                    const kValor = keys.find(k => !k.includes('data') && !k.includes('timestamp') && typeof reg[k] === 'number');
 
-//     } catch (error) { 
-//         console.error('🚨 ERRO em formatarRespostaTempoReal:', error);
-//         return '❌ Erro ao formatar dados em tempo real: ' + error.message;
-//     }
-// }
+                    if (kData) data = dayjs(reg[kData]).format('YYYY-MM-DD');
+                    if (kValor) valor = reg[kValor];
+                }
 
-// Função para formatar resposta de resumo para WhatsApp
+                if (data && valor !== null) {
+                    texto += `  ${data}: ${valor.toFixed(2)} MWh\n`;
+                    somaUg += valor;
+                }
+            });
+            texto += `\n`;
+        }
+    });
+
+    // Bloco de Somas por UG e Total
+    let totaisTexto = '';
+    Object.keys(resultado).sort().forEach(key => {
+        if (key.includes('energia') && Array.isArray(resultado[key])) {
+            const nomeUg = key.replace(/_/g, '').replace('energia', '').replace('acumulador', '').toUpperCase(); // Simplificado ex: UG01
+            const registros = resultado[key];
+            let soma = 0;
+            registros.forEach(r => {
+                const v = Object.values(r).find(val => typeof val === 'number');
+                if (v) soma += v;
+            });
+            totaisTexto += `Soma ${nomeUg}: ${soma.toFixed(2)} MWh\n`;
+            totalGeral += soma;
+        }
+    });
+
+    if (totaisTexto) {
+        texto += totaisTexto;
+        texto += `Total: ${totalGeral.toFixed(2)} MWh\n`;
+    }
+
+    if (!temDados) texto += "Nenhum dado encontrado.\n";
+
+    return texto;
+}
+
+// -------------------------------------------------------------------
+// 4. FORMATAÇÃO RESUMO OPERATIVO
+// -------------------------------------------------------------------
 function formatarRespostaResumo(dados) {
-  try {
-    // O serviço de resumo já retorna a string formatada no campo 'resultado'
-    return dados.resultado || '❌ Erro: Resumo vazio';
-  } catch (error) {
-    console.error('🚨 ERRO em formatarRespostaResumo:', error);
-    return '❌ Erro ao formatar resumo: ' + error.message;
-  }
+    if (!dados || !dados.resultado) return '❌ Resumo indisponível';
+
+    const r = dados.resultado;
+    const usina = r.usina || dados.usina;
+    const dataHoje = dayjs().format('DD/MM/YYYY');
+
+    let texto = `📊 ${usina} - ${dataHoje}\n\n`;
+
+    // --- POTÊNCIA ---
+    texto += `*⚡ Potência ativa em tempo real*\n`;
+    if (r.rt_potencia) {
+        Object.entries(r.rt_potencia).forEach(([nome, info]) => {
+            const val = _extrairValorPotencia(info);
+            const valExibido = (val !== null) ? val : 0;
+            texto += `${nome}: ${valExibido.toFixed(2)} kW\n`;
+        });
+    } else {
+        texto += `(Sem dados)\n`;
+    }
+    texto += `\n`;
+
+    // --- NÍVEIS ---
+    texto += `*💧 Níveis de água em tempo real*\n`;
+    if (r.rt_nivel) {
+        const niveisBuffer = [];
+        let montanteGeral = null;
+
+        Object.entries(r.rt_nivel).forEach(([nome, info]) => {
+            const dadosFlat = (info.dados || info);
+
+            Object.entries(dadosFlat).forEach(([k, v]) => {
+                const val = (typeof v === 'object' && v?.value !== undefined) ? v.value : v;
+                if (typeof val !== 'number') return;
+
+                const kLower = k.toLowerCase();
+
+                if (kLower.includes('montante')) {
+                    niveisBuffer.push({ label: `Nível Montante ${nome}`, val: val, tipo: 'montante', ug: nome });
+                    if (!montanteGeral) montanteGeral = val;
+                } else if (kLower.includes('jusante') || kLower.includes('grade')) {
+                    niveisBuffer.push({ label: `${nome}`, val: val, tipo: 'grade', ug: nome });
+                } else if (kLower.includes('nivel') || kLower.includes('nível')) {
+                    niveisBuffer.push({ label: `${k} ${nome}`, val: val });
+                }
+            });
+        });
+
+        // Montante
+        const montantes = niveisBuffer.filter(x => x.tipo === 'montante');
+        const unicos = [...new Set(montantes.map(x => x.val))];
+
+        if (unicos.length === 1) {
+            texto += `Nível Montante: ${unicos[0].toFixed(2)} m\n`;
+        } else {
+            montantes.forEach(m => texto += `${m.label}: ${m.val.toFixed(2)} m\n`);
+        }
+
+        // Grade/Jusante
+        const grades = niveisBuffer.filter(x => x.tipo === 'grade');
+        grades.forEach(g => {
+            texto += `${g.label}: ${g.val.toFixed(2)} m\n`;
+        });
+
+        // Diferenciais
+        grades.forEach(g => {
+            const montanteRef = montantes.find(m => m.ug === g.ug) || montantes[0];
+            if (montanteRef) {
+                const diff = montanteRef.val - g.val;
+                texto += `diferencial de grade ${g.ug}: ${diff.toFixed(2)} m\n`;
+            }
+        });
+
+        // Vertimento
+        if (r.limites && r.limites['nível de vertimento']) {
+            texto += `Vertimento Ref: ${r.limites['nível de vertimento']} m\n`;
+        }
+    } else {
+        texto += `(Sem dados)\n`;
+    }
+    texto += `\n`;
+
+    // --- GERAÇÃO ---
+    texto += `*📈 Geração de energia (Diário)*\n`;
+    if (r.historico && r.historico.resultado) {
+        let totalGeral = 0;
+        const hist = r.historico.resultado;
+
+        Object.keys(hist).sort().forEach(key => {
+            if (key.includes('energia') && Array.isArray(hist[key])) {
+                const nomeUg = key.replace(/_/g, '-').replace('-energia', '').replace('-acumulador', '').toUpperCase();
+                const registros = hist[key];
+                let somaUg = 0;
+                registros.forEach(reg => {
+                    const v = Object.values(reg).find(val => typeof val === 'number');
+                    if (v) somaUg += v;
+                });
+
+                texto += `${nomeUg}: ${somaUg.toFixed(2)} MWh\n`;
+                totalGeral += somaUg;
+            }
+        });
+        texto += `Total: ${totalGeral.toFixed(2)} MWh\n`;
+        texto += `\nobs: intervalo de geração é das 00:00:00 \naté hora da consulta do dia atual.\n`;
+    } else {
+        texto += `(Histórico indisponível)\n`;
+    }
+
+    return texto;
+}
+
+// -------------------------------------------------------------------
+// HELPERS
+// -------------------------------------------------------------------
+
+function normalizarNomeUsina(nomeUsina) {
+    // Mapear nomes em lowercase/underscore para formato padrão
+    const mapeamentoUsinas = {
+        'cgh_aparecida': 'CGH-APARECIDA',
+        'cgh_fae': 'CGH-FAE',
+        'cgh_picadas_altas': 'CGH-PICADAS-ALTAS',
+        'cgh_hoppen': 'CGH-HOPPEN',
+        'pch_pedras': 'PCH-PEDRAS'
+    };
+
+    const nomeLower = nomeUsina.toLowerCase().replace(/-/g, '_');
+    return mapeamentoUsinas[nomeLower] || nomeUsina;
+}
+
+function _parseNum(v) {
+    if (typeof v === 'number') return v;
+    const f = parseFloat(String(v).replace(',', '.'));
+    return isNaN(f) ? 0 : f;
+}
+
+function _extrairValorPotencia(dados) {
+    if (!dados) return null;
+    const valores = dados.dados || dados;
+    if (typeof valores === 'number') return valores;
+    if (typeof valores === 'object') {
+        for (const k of Object.keys(valores)) {
+            const kLower = k.toLowerCase();
+            if ((kLower.includes('pot') && kLower.includes('ativa')) || kLower.includes('active_power')) {
+                const v = valores[k];
+                return (typeof v === 'object') ? _parseNum(v.value) : _parseNum(v);
+            }
+        }
+    }
+    return null;
 }
 
 module.exports = {
-  tratarRespostaLeonardo,
-  formatarRespostaHistorico,
-  formatarRespostaTempoReal,
-  formatarRespostaResumo,
-  normalizarNomeUsina
+    tratarRespostaLeonardo,
+    formatarRespostaTempoReal,
+    formatarRespostaHistorico,
+    formatarRespostaResumo,
+    normalizarNomeUsina
 };
-
-

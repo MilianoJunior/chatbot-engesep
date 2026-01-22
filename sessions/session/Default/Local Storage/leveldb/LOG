@@ -1,6 +1,3 @@
-2025/12/27-13:20:20.651 55c8 Reusing MANIFEST C:\projetos\engesep\2_whatsapp-bot\sessions\session\Default\Local Storage\leveldb/MANIFEST-000001
-2025/12/27-13:20:20.657 55c8 Recovering log #10
-2025/12/27-13:20:20.657 55c8 Reusing old log C:\projetos\engesep\2_whatsapp-bot\sessions\session\Default\Local Storage\leveldb/000010.log 
-2025/12/27-13:21:21.406 54f8 Level-0 table #14: started
-2025/12/27-13:21:21.422 54f8 Level-0 table #14: 16048 bytes OK
-2025/12/27-13:21:21.423 54f8 Delete type=0 #10
+2026/01/22-16:57:09.824 397d Reusing MANIFEST /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/Local Storage/leveldb/MANIFEST-000001
+2026/01/22-16:57:09.826 397d Recovering log #3
+2026/01/22-16:57:09.826 397d Reusing old log /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/Local Storage/leveldb/000003.log 

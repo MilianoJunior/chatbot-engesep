@@ -38,13 +38,19 @@ const resumoService = new ResumoService(apiReadRT, apiHistorico);
 
 const enviarMensagem = async (client, mensagem, numero) => {
     try {
-        await client.sendMessage(numero, mensagem);
+        console.log(`[DEBUG] Tentando enviar mensagem para ${numero}...`);
+        if (!client) {
+            console.error('[ERRO] Client do WhatsApp não está disponível!');
+            return false;
+        }
+        await client.sendMessage(numero, mensagem, { sendSeen: false });
         console.log('--------------------------------');
         console.log('Mensagem enviada com sucesso para:', numero);
         console.log('Mensagem:', mensagem);
         console.log('--------------------------------');
         return true;
     } catch (error) {
+        console.error('[ERRO] Falha ao enviar mensagem:', error);
         return false;
     }
 };
@@ -194,15 +200,16 @@ const processarMensagem = async (msg, client) => {
 
         // ESTADO 8: Processar resposta
         const respostaProcessada = await tratarRespostaLeonardo(respostaOpenAI.resposta);
-        try {
-            // ESTADO 9: Verificar se a resposta é um comando JSON
-            const comando = typeof respostaProcessada === 'object' ? respostaProcessada : JSON.parse(respostaOpenAI.resposta);
-            if (comando.comando) {
-                const resultado = await processarServico(comando.comando, comando.parametros, msg.from);
-                return await enviarMensagem(client, resultado, msg.from);
-            }
-        } catch (e) {
-            Logger.debug('Resposta não é JSON válido, tratando como resposta direta');
+        console.log(respostaProcessada);
+
+        // ESTADO 9: Verificar se é comando
+        if (typeof respostaProcessada === 'object' && respostaProcessada.comando) {
+            console.log('é comando');
+            const resultado = await processarServico(respostaProcessada.comando, respostaProcessada.parametros, msg.from);
+            console.log('[DEBUG] Resultado do serviço obtido, enviando resposta...');
+            return await enviarMensagem(client, resultado, msg.from);
+        } else {
+            console.log('nao é comando');
         }
 
         // ESTADO 10: Formatar resposta direta (sem API)
@@ -221,5 +228,15 @@ wa.onMessage((msg, client) => {
     processarMensagem(msg, client);
 });
 
+// wa.onMessageCreate((msg, client) => {
+//     processarMensagem(msg, client);
+// });
 
-const client = wa.start(); // ← aqui você tem o client na mão
+
+// Exportar função para testes
+module.exports = { processarMensagem, services, errors };
+
+// Iniciar apenas se não for importado como módulo de teste
+if (require.main === module) {
+    const client = wa.start();
+}

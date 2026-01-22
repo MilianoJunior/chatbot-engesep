@@ -11,7 +11,6 @@
 const dayjs = require('dayjs');
 const Logger = require('../utils/logger');
 const configUsinas = require('../config/usinasconfig'); // Usando o config correto
-const { formatarRespostaTempoReal, formatarRespostaHistorico } = require('../utils/response');
 
 class ResumoService {
     constructor(apiRT, apiHistorico) {
@@ -41,15 +40,15 @@ class ResumoService {
             // Consolida os dados
             const dadosConsolidados = {
                 usina: nome_usina,
-                data_hora: fim,
+                data_hora: fim, // Mantendo a referência de fim do período de geração
                 rt_potencia,
                 rt_nivel,
                 historico: dados_hist,
                 limites: caracteristicas
             };
 
-            // Formata a mensagem final
-            return this._formatar_mensagem(dadosConsolidados);
+            // Retorna os dados consolidados para formatação externa
+            return dadosConsolidados;
 
         } catch (error) {
             Logger.error(`Erro fatal no ResumoService para ${nome_usina}:`, error);
@@ -99,52 +98,6 @@ class ResumoService {
         // Assume características da primeira UG encontrada (comum em PCHs)
         const primeiraUG = Object.values(dadosUsina.CLPS)[0];
         return primeiraUG?.caracteristicas || {};
-    }
-
-    _formatar_mensagem(dados) {
-        let msg = `📊 *RESUMO OPERATIVO DIÁRIO: ${dados.usina}*\n`;
-        // Usa a data atual para exibição, já que o relatório é "de hoje"
-        msg += `📅 ${dayjs().format('DD/MM/YYYY')} (Dados de hoje)\n\n`;
-
-        // 1. Potência Instantânea (Tempo Real)
-        msg += `*⚡ POTÊNCIA ATUAL*\n`;
-        if (dados.rt_potencia) {
-            const objPotencia = { usina: dados.usina, timestamp: new Date(), unidades_geradoras: dados.rt_potencia };
-            // Limpa cabeçalhos repetitivos da função padrão para ficar mais limpo no resumo
-            let textoPot = formatarRespostaTempoReal(objPotencia);
-            textoPot = textoPot.replace(/^.*Dados em Tempo Real.*\n/gm, '').replace(/Data\/Hora:.*\n/gm, '').replace(/^\*[^*]+\*\n/gm, '');
-            msg += textoPot.trim() + '\n\n';
-        } else {
-            msg += `   (Sem dados de potência)\n\n`;
-        }
-
-        // 2. Níveis de Água
-        msg += `*💧 NÍVEIS DE ÁGUA*\n`;
-        if (dados.rt_nivel) {
-            const objNivel = { usina: dados.usina, timestamp: new Date(), unidades_geradoras: dados.rt_nivel };
-            let textoNivel = formatarRespostaTempoReal(objNivel);
-            textoNivel = textoNivel.replace(/^.*Dados em Tempo Real.*\n/gm, '').replace(/Data\/Hora:.*\n/gm, '').replace(/^\*[^*]+\*\n/gm, '');
-            msg += textoNivel.trim() + '\n\n';
-
-            // Adiciona info extra de limites se houver
-            const vertimento = dados.limites['nível de vertimento'];
-            if (vertimento) msg += `   ℹ️ Vertimento Ref: ${vertimento} m\n`;
-        } else {
-            msg += `   (Sem dados de nível)\n\n`;
-        }
-
-        // 3. Geração Acumulada (Histórico)
-        msg += `*📈 GERAÇÃO DE HOJE*\n`;
-        if (dados.historico) {
-            let textoHist = formatarRespostaHistorico(dados.historico);
-            // Remove cabeçalhos repetitivos do histórico para encaixar no resumo
-            textoHist = textoHist.replace(/^🏭 \*.*\*\n/gm, '').replace(/📊 \*Dados Históricos\*\n/gm, '').replace(/━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n/gm, '');
-            msg += textoHist.trim();
-        } else {
-            msg += `   (Histórico indisponível)`;
-        }
-
-        return msg;
     }
 }
 
