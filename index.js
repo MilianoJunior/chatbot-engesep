@@ -30,6 +30,14 @@ const configUsuarios = require('./config/usuarios');
 // const configUsinas = require('./config/usinas');
 const Logger = require('./utils/logger');
 
+process.on('unhandledRejection', (reason) => {
+    Logger.error('Promise rejeitada sem tratamento', reason);
+});
+
+process.on('uncaughtException', (error) => {
+    Logger.error('Exceção não capturada', error);
+});
+
 // Instanciar APIs
 const wa = new WhatsAppService({ dataPath: './sessions', headless: true });
 const apiHistorico = new ApiHistorico();

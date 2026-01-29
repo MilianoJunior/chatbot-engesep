@@ -1,11 +1,42 @@
+// -------------------------------------------------------------------
+// FLUXO DO MÓDULO
+// 1. formatarDetalhesLog → normaliza dados do log
+// 2. logar → escreve o log no console correto
+// 3. Logger → API pública de logs
+// -------------------------------------------------------------------
+
+// CONFIGURAÇÕES, CONSTANTES E MAPAS
+const NIVEIS = {
+    INFO: 'INFO',
+    FLOW: 'FLOW',
+    SUCCESS: 'SUCCESS',
+    ERROR: 'ERROR',
+    DEBUG: 'DEBUG',
+    WARN: 'WARN',
+    ESTADO: 'ESTADO'
+};
+
+const formatarDetalhesLog = (args) => {
+    return args.map(item => {
+        if (item instanceof Error) return item.stack || item.message;
+        if (typeof item === 'string') return item;
+        try { return JSON.stringify(item); } catch (e) { return String(item); }
+    }).join(' | ');
+};
+
+const logar = (nivel, metodo, args) => {
+    const detalhes = formatarDetalhesLog(args);
+    console[metodo](`[${nivel}] ${detalhes}`);
+};
+
 const Logger = {
-    info: (msg) => console.log(`[INFO] ${msg}`),
-    flow: (msg) => console.log(`[FLOW] ${msg}`),
-    success: (msg) => console.log(`[SUCCESS] ${msg}`),
-    error: (msg) => console.error(`[ERROR] ${msg}`),
-    debug: (msg) => console.log(`[DEBUG] ${msg}`),
-    warn: (msg) => console.warn(`[WARN] ${msg}`),
-    state: (stateNum, stateName, details) => console.log(`[ESTADO ${stateNum}] ${stateName}: ${details}`)
+    info: (...args) => logar(NIVEIS.INFO, 'log', args),
+    flow: (...args) => logar(NIVEIS.FLOW, 'log', args),
+    success: (...args) => logar(NIVEIS.SUCCESS, 'log', args),
+    error: (...args) => logar(NIVEIS.ERROR, 'error', args),
+    debug: (...args) => logar(NIVEIS.DEBUG, 'log', args),
+    warn: (...args) => logar(NIVEIS.WARN, 'warn', args),
+    state: (stateNum, stateName, details) => logar(`${NIVEIS.ESTADO} ${stateNum}`, 'log', [`${stateName}: ${details}`])
 };
 
 module.exports = Logger;

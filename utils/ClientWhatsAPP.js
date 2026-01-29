@@ -1,5 +1,14 @@
+// -------------------------------------------------------------------
+// FLUXO DO MÓDULO
+// 1. criarClienteWhatsApp → instancia cliente com auth local
+// 2. registrarEventosPadrao → conecta eventos base de diagnóstico
+// 3. iniciarCliente → inicializa o client
+// -------------------------------------------------------------------
+
+// CONFIGURAÇÕES, CONSTANTES E MAPAS
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const Logger = require('./logger');
 
 class WhatsAppService {
     constructor(options = {}) {
@@ -19,18 +28,31 @@ class WhatsAppService {
     _registerDefaultEvents() {
         this.client.on('qr', qr => {
             qrcode.generate(qr, { small: true });
+            Logger.info('QR gerado. Escaneie para autenticar.');
         });
 
         this.client.on('ready', () => {
-            console.log('Cliente pronto!');
+            Logger.success('Cliente pronto.');
         });
 
         this.client.on('auth_failure', msg => {
-            console.error('Falha de auth:', msg);
+            Logger.error('Falha de auth', msg);
         });
 
         this.client.on('disconnected', reason => {
-            console.log('Desconectado:', reason);
+            Logger.warn('Desconectado', reason);
+        });
+
+        this.client.on('authenticated', () => {
+            Logger.success('Autenticado com sucesso.');
+        });
+
+        this.client.on('change_state', state => {
+            Logger.debug('Mudança de estado', state);
+        });
+
+        this.client.on('loading_screen', (percent, message) => {
+            Logger.debug(`Carregando ${percent}%`, message);
         });
     }
 
@@ -39,7 +61,11 @@ class WhatsAppService {
      */
     onMessage(callback) {
         this.client.on('message', async msg => {
-            callback(msg, this.client);
+            try {
+                await callback(msg, this.client);
+            } catch (error) {
+                Logger.error('Erro no callback de mensagem', error);
+            }
         });
     }
 
@@ -48,7 +74,11 @@ class WhatsAppService {
      */
     onMessageCreate(callback) {
         this.client.on('message_create', async msg => {
-            callback(msg, this.client);
+            try {
+                await callback(msg, this.client);
+            } catch (error) {
+                Logger.error('Erro no callback de message_create', error);
+            }
         });
     }
 
@@ -56,8 +86,14 @@ class WhatsAppService {
      * Inicializa o cliente
      */
     start() {
-        this.client.initialize();
-        return this.client;
+        try {
+            this.client.initialize();
+            Logger.info('Inicializando cliente WhatsApp...');
+            return this.client;
+        } catch (error) {
+            Logger.error('Falha ao inicializar cliente', error);
+            return null;
+        }
     }
 
     /**
