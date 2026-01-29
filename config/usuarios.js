@@ -58,7 +58,8 @@ module.exports = {
         { nome: 'Gelson', numero: '554991075958@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
         { nome: 'Leandro', numero: '554984198921@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
         { nome: 'Miliano', numero: '554998385500@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
-        { nome: 'Leonardo - O&M IA', numero: '554998059294@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] }
+        { nome: 'Leonardo - O&M IA', numero: '554998059294@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
+        { nome: 'Jader', numero: '554999897471@c.us', usina: ['CGH-APARECIDA'] }
     ]
 };
 
