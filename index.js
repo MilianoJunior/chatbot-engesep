@@ -151,6 +151,13 @@ function UsuarioParaUsina(numero) {
 
 const processarMensagem = async (msg, client) => {
     try {
+        Logger.debug('Mensagem recebida', {
+            id: msg.id?._serialized,
+            from: msg.from,
+            type: msg.type,
+            body: msg.body
+        });
+
         // ESTADO 1: Verificar prefixo @leo
         if (!hasPrefix(msg.body)) return;
 
@@ -233,7 +240,12 @@ const processarMensagem = async (msg, client) => {
 
 
 wa.onMessage((msg, client) => {
+    Logger.debug('Evento message', { from: msg.from, type: msg.type });
     processarMensagem(msg, client);
+});
+
+wa.onMessageCreate((msg, client) => {
+    Logger.debug('Evento message_create', { from: msg.from, fromMe: msg.fromMe, type: msg.type });
 });
 
 // wa.onMessageCreate((msg, client) => {
