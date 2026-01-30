@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // FLUXO DO MÓDULO
 // 1. criarClienteWhatsApp → instancia cliente com auth local
-// 2. registrarEventosPadrao → conecta eventos base de diagnóstico
+// 2. registrarEventosPadrao → conecta eventos base
 // 3. iniciarCliente → inicializa o client
 // -------------------------------------------------------------------
 
@@ -9,6 +9,8 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const Logger = require('./logger');
+const EXECUTAVEL_CHROME = process.env.PUPPETEER_EXECUTABLE_PATH;
+const ARGS_CHROME = ['--no-sandbox', '--disable-setuid-sandbox'];
 
 class WhatsAppService {
     constructor(options = {}) {
@@ -18,7 +20,8 @@ class WhatsAppService {
             }),
             puppeteer: {
                 headless: options.headless ?? true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
+                executablePath: EXECUTAVEL_CHROME || undefined,
+                args: ARGS_CHROME
             }
         });
 
@@ -45,14 +48,6 @@ class WhatsAppService {
 
         this.client.on('authenticated', () => {
             Logger.success('Autenticado com sucesso.');
-        });
-
-        this.client.on('change_state', state => {
-            Logger.debug('Mudança de estado', state);
-        });
-
-        this.client.on('loading_screen', (percent, message) => {
-            Logger.debug(`Carregando ${percent}%`, message);
         });
     }
 

@@ -238,14 +238,8 @@ const processarMensagem = async (msg, client) => {
     }
 };
 
-
 wa.onMessage((msg, client) => {
-    Logger.debug('Evento message', { from: msg.from, type: msg.type });
     processarMensagem(msg, client);
-});
-
-wa.onMessageCreate((msg, client) => {
-    Logger.debug('Evento message_create', { from: msg.from, fromMe: msg.fromMe, type: msg.type });
 });
 
 // wa.onMessageCreate((msg, client) => {
