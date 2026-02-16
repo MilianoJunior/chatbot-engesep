@@ -36,6 +36,7 @@ class ResumoService {
 
             // Busca características estáticas (vertimento, parada)
             const caracteristicas = this._extrair_caracteristicas(nome_usina);
+            console.log(dados_hist);
 
             // Consolida os dados
             const dadosConsolidados = {
@@ -79,12 +80,13 @@ class ResumoService {
     async _buscar_historico_24h(usina, inicio, fim) {
         try {
             const fmt = 'DD/MM/YYYY HH:mm';
-            return await this.apiHist.getDadosHistoricos(
+            return await this.apiHist.getDadosHistoricos({
+                endpoint: 'producao-acumulada',
                 usina,
-                inicio.format(fmt),
-                fim.format(fmt),
-                'D'
-            );
+                data_inicio: inicio.format(fmt),
+                data_fim: fim.format(fmt),
+                periodo: 'D'
+            });
         } catch (e) {
             Logger.error(`Falha Histórico ${usina}`, e);
             return null;

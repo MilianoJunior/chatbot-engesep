@@ -10,9 +10,16 @@ const openai = new OpenAI({
 
 async function askOpenAI(prompt, contexto) {
   try {
-    console.log('🤖 Chamando OpenAI API...');
-    console.log('🤖 Prompt:', prompt ? prompt.substring(0, 200) + '...' : 'vazio');
-    console.log('🤖 Contexto:', contexto ? contexto.substring(0, 200) + '...' : 'vazio');
+    // console.log('🤖 Chamando OpenAI API...');
+    // console.log('🤖 Prompt:', prompt ? prompt.substring(0, 200) + '...' : 'vazio');
+    // console.log('🤖 Contexto:', contexto ? contexto.substring(0, 200) + '...' : 'vazio');
+    console.log('----------------------------')
+    // console.log("contexto", contexto);
+    // console.log("prompt", prompt);
+    console.log("quantidade de contexto", contexto.length);
+    console.log("quantidade de prompt", prompt.length);
+    console.log('----------------------------')
+    
 
     if (!prompt) {
       const erro = 'Prompt vazio ou nulo fornecido para OpenAI';
@@ -21,7 +28,7 @@ async function askOpenAI(prompt, contexto) {
     }
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-5-mini-2025-08-07",
       messages: [
         {
           role: "system",
@@ -32,8 +39,8 @@ async function askOpenAI(prompt, contexto) {
           content: prompt
         }
       ],
-      max_tokens: 1000,
-      temperature: 0.7
+      max_completion_tokens: 1000
+      // temperature: 0.7
     });
 
     if (!response || !response.choices || !response.choices[0] || !response.choices[0].message) {

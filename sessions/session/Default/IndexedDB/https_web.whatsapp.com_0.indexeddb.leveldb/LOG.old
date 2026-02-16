@@ -1,88 +1,37 @@
-2026/01/30-09:18:13.414 157f Reusing MANIFEST /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/01/30-09:18:13.415 157f Recovering log #1496
-2026/01/30-09:18:13.420 157f Reusing old log /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/001496.log 
-2026/01/30-09:18:14.208 1580 Compacting 1@0 + 1@1 files
-2026/01/30-09:18:14.215 1580 Generated table #1499@0: 20647 keys, 531912 bytes
-2026/01/30-09:18:14.217 1580 Generated table #1500@0: 286 keys, 41561 bytes
-2026/01/30-09:18:14.217 1580 Compacted 1@0 + 1@1 files => 573473 bytes
-2026/01/30-09:18:14.219 1580 compacted to: files[ 0 2 19 0 0 0 0 ]
-2026/01/30-09:18:14.219 1580 Delete type=2 #1484
-2026/01/30-09:18:14.219 1580 Delete type=2 #1497
-2026/01/30-09:18:14.828 1580 Compacting 1@1 + 10@2 files
-2026/01/30-09:18:14.852 1580 Generated table #1501@1: 83179 keys, 2250398 bytes
-2026/01/30-09:18:14.873 1580 Generated table #1502@1: 35464 keys, 2189470 bytes
-2026/01/30-09:18:14.900 1580 Generated table #1503@1: 59336 keys, 2229046 bytes
-2026/01/30-09:18:14.912 1580 Generated table #1504@1: 7500 keys, 2154961 bytes
-2026/01/30-09:18:14.920 1580 Generated table #1505@1: 2142 keys, 2146658 bytes
-2026/01/30-09:18:14.929 1580 Generated table #1506@1: 2313 keys, 2154724 bytes
-2026/01/30-09:18:14.938 1580 Generated table #1507@1: 2507 keys, 2154839 bytes
-2026/01/30-09:18:14.952 1580 Generated table #1508@1: 16576 keys, 2197785 bytes
-2026/01/30-09:18:14.973 1580 Generated table #1509@1: 26070 keys, 2276378 bytes
-2026/01/30-09:18:14.991 1580 Generated table #1510@1: 31282 keys, 2208390 bytes
-2026/01/30-09:18:14.993 1580 Generated table #1511@1: 1335 keys, 105589 bytes
-2026/01/30-09:18:14.993 1580 Compacted 1@1 + 10@2 files => 22068238 bytes
-2026/01/30-09:18:14.995 1580 compacted to: files[ 0 1 20 0 0 0 0 ]
-2026/01/30-09:18:14.995 1580 Delete type=2 #1493
-2026/01/30-09:18:14.995 1580 Delete type=2 #1490
-2026/01/30-09:18:14.995 1580 Delete type=2 #1486
-2026/01/30-09:18:14.995 1580 Delete type=2 #1492
-2026/01/30-09:18:14.995 1580 Delete type=2 #1489
-2026/01/30-09:18:14.995 1580 Delete type=2 #1487
-2026/01/30-09:18:14.995 1580 Delete type=2 #1499
-2026/01/30-09:18:14.995 1580 Delete type=2 #1494
-2026/01/30-09:18:14.995 1580 Delete type=2 #1491
-2026/01/30-09:18:14.995 1580 Delete type=2 #1485
-2026/01/30-09:18:14.995 1580 Delete type=2 #1488
-2026/01/30-09:18:15.709 1580 Compacting 1@1 + 8@2 files
-2026/01/30-09:18:15.724 1580 Generated table #1512@1: 8567 keys, 2166461 bytes
-2026/01/30-09:18:15.734 1580 Generated table #1513@1: 5064 keys, 2125197 bytes
-2026/01/30-09:18:15.755 1580 Generated table #1514@1: 81239 keys, 2224458 bytes
-2026/01/30-09:18:15.779 1580 Generated table #1515@1: 102463 keys, 2254013 bytes
-2026/01/30-09:18:15.804 1580 Generated table #1516@1: 102009 keys, 2252005 bytes
-2026/01/30-09:18:15.835 1580 Generated table #1517@1: 103084 keys, 2254346 bytes
-2026/01/30-09:18:15.865 1580 Generated table #1518@1: 102676 keys, 2252099 bytes
-2026/01/30-09:18:15.869 1580 Generated table #1519@1: 15522 keys, 390073 bytes
-2026/01/30-09:18:15.869 1580 Compacted 1@1 + 8@2 files => 15918652 bytes
-2026/01/30-09:18:15.871 1580 compacted to: files[ 0 0 20 0 0 0 0 ]
-2026/01/30-09:18:15.871 1580 Delete type=2 #1500
-2026/01/30-09:18:15.872 1580 Delete type=2 #1472
-2026/01/30-09:18:15.872 1580 Delete type=2 #1476
-2026/01/30-09:18:15.872 1580 Delete type=2 #1479
-2026/01/30-09:18:15.872 1580 Delete type=2 #1473
-2026/01/30-09:18:15.872 1580 Delete type=2 #1478
-2026/01/30-09:18:15.872 1580 Delete type=2 #1474
-2026/01/30-09:18:15.872 1580 Delete type=2 #1477
-2026/01/30-09:18:15.872 1580 Delete type=2 #1475
-2026/01/30-09:18:33.115 1580 Level-0 table #1521: started
-2026/01/30-09:18:33.125 1580 Level-0 table #1521: 1171593 bytes OK
-2026/01/30-09:18:33.127 1580 Delete type=0 #1496
-2026/01/30-09:18:38.403 1580 Compacting 1@0 + 0@1 files
-2026/01/30-09:18:38.413 1580 Generated table #1522@0: 22978 keys, 495090 bytes
-2026/01/30-09:18:38.414 1580 Generated table #1523@0: 143 keys, 14894 bytes
-2026/01/30-09:18:38.414 1580 Compacted 1@0 + 0@1 files => 509984 bytes
-2026/01/30-09:18:38.416 1580 compacted to: files[ 0 2 20 0 0 0 0 ]
-2026/01/30-09:18:38.416 1580 Delete type=2 #1521
-2026/01/30-09:18:48.415 1580 Compacting 1@1 + 10@2 files
-2026/01/30-09:18:48.440 1580 Generated table #1524@1: 85632 keys, 2255839 bytes
-2026/01/30-09:18:48.456 1580 Generated table #1525@1: 36839 keys, 2191111 bytes
-2026/01/30-09:18:48.478 1580 Generated table #1526@1: 58300 keys, 2228185 bytes
-2026/01/30-09:18:48.487 1580 Generated table #1527@1: 6823 keys, 2153527 bytes
-2026/01/30-09:18:48.495 1580 Generated table #1528@1: 2145 keys, 2144467 bytes
-2026/01/30-09:18:48.502 1580 Generated table #1529@1: 2305 keys, 2158182 bytes
-2026/01/30-09:18:48.510 1580 Generated table #1530@1: 2511 keys, 2154182 bytes
-2026/01/30-09:18:48.523 1580 Generated table #1531@1: 16902 keys, 2200533 bytes
-2026/01/30-09:18:48.543 1580 Generated table #1532@1: 26138 keys, 2275474 bytes
-2026/01/30-09:18:48.559 1580 Generated table #1533@1: 30849 keys, 2172332 bytes
-2026/01/30-09:18:48.559 1580 Compacted 1@1 + 10@2 files => 21933832 bytes
-2026/01/30-09:18:48.561 1580 compacted to: files[ 0 1 20 0 0 0 0 ]
-2026/01/30-09:18:48.562 1580 Delete type=2 #1510
-2026/01/30-09:18:48.562 1580 Delete type=2 #1508
-2026/01/30-09:18:48.562 1580 Delete type=2 #1502
-2026/01/30-09:18:48.562 1580 Delete type=2 #1509
-2026/01/30-09:18:48.562 1580 Delete type=2 #1505
-2026/01/30-09:18:48.562 1580 Delete type=2 #1522
-2026/01/30-09:18:48.562 1580 Delete type=2 #1503
-2026/01/30-09:18:48.562 1580 Delete type=2 #1506
-2026/01/30-09:18:48.562 1580 Delete type=2 #1504
-2026/01/30-09:18:48.562 1580 Delete type=2 #1501
-2026/01/30-09:18:48.562 1580 Delete type=2 #1507
+2026/02/16-14:44:37.815 4836 Reusing MANIFEST /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/16-14:44:37.815 4836 Recovering log #1202
+2026/02/16-14:44:37.822 4836 Reusing old log /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/001202.log 
+2026/02/16-14:44:43.760 4839 Level-0 table #1219: started
+2026/02/16-14:44:43.768 4839 Level-0 table #1219: 1134707 bytes OK
+2026/02/16-14:44:43.771 4839 Delete type=0 #1202
+2026/02/16-14:44:43.821 4839 Compacting 1@0 + 0@1 files
+2026/02/16-14:44:43.831 4839 Generated table #1220@0: 28684 keys, 535222 bytes
+2026/02/16-14:44:43.832 4839 Generated table #1221@0: 334 keys, 28769 bytes
+2026/02/16-14:44:43.832 4839 Compacted 1@0 + 0@1 files => 563991 bytes
+2026/02/16-14:44:43.835 4839 compacted to: files[ 0 2 19 0 0 0 0 ]
+2026/02/16-14:44:46.677 4841 Compacting 1@1 + 10@2 files
+2026/02/16-14:44:46.701 4841 Generated table #1222@1: 79535 keys, 2250525 bytes
+2026/02/16-14:44:46.721 4841 Generated table #1223@1: 46133 keys, 2206944 bytes
+2026/02/16-14:44:46.740 4841 Generated table #1224@1: 43698 keys, 2208809 bytes
+2026/02/16-14:44:46.747 4841 Generated table #1225@1: 771 keys, 2130100 bytes
+2026/02/16-14:44:46.754 4841 Generated table #1226@1: 1619 keys, 2139418 bytes
+2026/02/16-14:44:46.762 4841 Generated table #1227@1: 2103 keys, 2150920 bytes
+2026/02/16-14:44:46.770 4841 Generated table #1228@1: 1919 keys, 2146214 bytes
+2026/02/16-14:44:46.777 4841 Generated table #1229@1: 2017 keys, 2146816 bytes
+2026/02/16-14:44:46.792 4841 Generated table #1230@1: 20024 keys, 2213480 bytes
+2026/02/16-14:44:46.813 4841 Generated table #1231@1: 24896 keys, 2283525 bytes
+2026/02/16-14:44:46.815 4841 Generated table #1232@1: 40 keys, 53270 bytes
+2026/02/16-14:44:46.815 4841 Compacted 1@1 + 10@2 files => 21930021 bytes
+2026/02/16-14:44:46.817 4841 compacted to: files[ 0 1 20 0 0 0 0 ]
+2026/02/16-14:44:46.817 4841 Delete type=2 #1207
+2026/02/16-14:44:46.817 4841 Delete type=2 #1220
+2026/02/16-14:44:46.817 4841 Delete type=2 #1190
+2026/02/16-14:44:46.817 4841 Delete type=2 #1208
+2026/02/16-14:44:46.817 4841 Delete type=2 #1187
+2026/02/16-14:44:46.817 4841 Delete type=2 #1219
+2026/02/16-14:44:46.817 4841 Delete type=2 #1192
+2026/02/16-14:44:46.817 4841 Delete type=2 #1188
+2026/02/16-14:44:46.818 4841 Delete type=2 #1206
+2026/02/16-14:44:46.818 4841 Delete type=2 #1189
+2026/02/16-14:44:46.818 4841 Delete type=2 #1186
+2026/02/16-14:44:46.818 4841 Delete type=2 #1191

@@ -1,23 +1,14 @@
-2026/01/30-09:19:23.385 19ad Reusing MANIFEST /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2026/01/30-09:19:23.385 19ad Recovering log #1520
-2026/01/30-09:19:23.388 19ad Reusing old log /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/001520.log 
-2026/01/30-09:19:25.428 19a5 Compacting 1@1 + 8@2 files
-2026/01/30-09:19:25.442 19a5 Generated table #1535@1: 8570 keys, 2166427 bytes
-2026/01/30-09:19:25.452 19a5 Generated table #1536@1: 5064 keys, 2125197 bytes
-2026/01/30-09:19:25.472 19a5 Generated table #1537@1: 81239 keys, 2224458 bytes
-2026/01/30-09:19:25.495 19a5 Generated table #1538@1: 102463 keys, 2254013 bytes
-2026/01/30-09:19:25.518 19a5 Generated table #1539@1: 102009 keys, 2252005 bytes
-2026/01/30-09:19:25.541 19a5 Generated table #1540@1: 103084 keys, 2254346 bytes
-2026/01/30-09:19:25.564 19a5 Generated table #1541@1: 102676 keys, 2252099 bytes
-2026/01/30-09:19:25.569 19a5 Generated table #1542@1: 15562 keys, 394278 bytes
-2026/01/30-09:19:25.569 19a5 Compacted 1@1 + 8@2 files => 15922823 bytes
-2026/01/30-09:19:25.571 19a5 compacted to: files[ 0 0 20 0 0 0 0 ]
-2026/01/30-09:19:25.571 19a5 Delete type=2 #1515
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1519
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1516
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1518
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1514
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1512
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1517
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1513
-2026/01/30-09:19:25.572 19a5 Delete type=2 #1523
+2026/02/16-14:51:30.712 4b8e Reusing MANIFEST /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/16-14:51:30.712 4b8e Recovering log #1218
+2026/02/16-14:51:30.717 4b8e Reusing old log /home/jrmfilho23/projetos/engesep/2_whatsapp-bot/sessions/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/001218.log 
+2026/02/16-14:51:33.603 4b8e Compacting 1@1 + 9@2 files
+2026/02/16-14:51:33.624 4b8e Generated table #1234@1: 32168 keys, 2226159 bytes
+2026/02/16-14:51:33.635 4b8e Generated table #1235@1: 7363 keys, 2145279 bytes
+2026/02/16-14:51:33.646 4b8e Generated table #1236@1: 21143 keys, 2145407 bytes
+2026/02/16-14:51:33.671 4b8e Generated table #1237@1: 102244 keys, 2252448 bytes
+2026/02/16-14:51:33.695 4b8e Generated table #1238@1: 102566 keys, 2254391 bytes
+2026/02/16-14:51:33.721 4b8e Generated table #1239@1: 101916 keys, 2253970 bytes
+2026/02/16-14:51:33.746 4b8e Generated table #1240@1: 101745 keys, 2253114 bytes
+2026/02/16-14:51:33.752 4b8e Generated table #1241@1: 13686 keys, 667552 bytes
+2026/02/16-14:51:33.752 4b8e Compacted 1@1 + 9@2 files => 16198320 bytes
+2026/02/16-14:51:33.754 4b8e compacted to: files[ 0 0 19 0 0 0 0 ]
