@@ -2,10 +2,12 @@
 // FLUXO DO MÓDULO
 // 1. formatarDetalhesLog → normaliza dados do log
 // 2. logar → escreve o log no console correto
-// 3. Logger → API pública de logs
+// 3. Logger → API pública de logs (com flag DEBUG)
 // -------------------------------------------------------------------
 
-// CONFIGURAÇÕES, CONSTANTES E MAPAS
+// CONFIGURAÇÕES
+const DEBUG = process.env.DEBUG === 'true' || process.env.NODE_ENV !== 'production';
+
 const NIVEIS = {
     INFO: 'INFO',
     FLOW: 'FLOW',
@@ -34,9 +36,10 @@ const Logger = {
     flow: (...args) => logar(NIVEIS.FLOW, 'log', args),
     success: (...args) => logar(NIVEIS.SUCCESS, 'log', args),
     error: (...args) => logar(NIVEIS.ERROR, 'error', args),
-    debug: (...args) => logar(NIVEIS.DEBUG, 'log', args),
+    debug: (...args) => { if (DEBUG) logar(NIVEIS.DEBUG, 'log', args); },
     warn: (...args) => logar(NIVEIS.WARN, 'warn', args),
-    state: (stateNum, stateName, details) => logar(`${NIVEIS.ESTADO} ${stateNum}`, 'log', [`${stateName}: ${details}`])
+    state: (stateNum, stateName, details) => logar(`${NIVEIS.ESTADO} ${stateNum}`, 'log', [`${stateName}: ${details}`]),
+    isDebug: () => DEBUG
 };
 
 module.exports = Logger;

@@ -261,27 +261,6 @@ function normalizarNomeUsina(nomeUsina) {
     return mapeamentoUsinas[nomeLower] || nomeUsina;
 }
 
-function _parseNum(v) {
-    if (typeof v === 'number') return v;
-    const f = parseFloat(String(v).replace(',', '.'));
-    return isNaN(f) ? 0 : f;
-}
-
-function _extrairValorPotencia(dados) {
-    if (!dados) return null;
-    const valores = dados.dados || dados;
-    if (typeof valores === 'number') return valores;
-    if (typeof valores === 'object') {
-        for (const k of Object.keys(valores)) {
-            const kLower = k.toLowerCase();
-            if ((kLower.includes('pot') && kLower.includes('ativa')) || kLower.includes('active_power')) {
-                const v = valores[k];
-                return (typeof v === 'object') ? _parseNum(v.value) : _parseNum(v);
-            }
-        }
-    }
-    return null;
-}
 
 /**
  * Pivota array de registros da API em mapa por UG.
