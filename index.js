@@ -80,6 +80,11 @@ const errors = {
 };
 
 const services = {
+    armazenar: async ({ usina, texto }) => {
+        const { salvar_instrucao_ia } = require('./utils/armazenar');
+        const resposta = salvar_instrucao_ia(texto, usina);
+        return { dados: { acao: 'armazenar', texto, usina }, resposta };
+    },
     leitura: async ({ usina, tipo }) => {
         if (!usina || !tipo) throw new Error(errors.param(`leitura (usina, tipo): usina=${usina}, tipo=${tipo}`));
         const dados = await apiReadRT.getLeitura(usina, tipo);
@@ -181,6 +186,16 @@ const processarMensagem = async (msg, client) => {
         // ESTADO 2: Remover prefixo @leo e separar pergunta
         const pergunta = msg.body.replace(/^@leo[:,]?/i, '').trim();
         if (!pergunta) return await enviarMensagem(client, 'Envie sua pergunta após @leo.', msg.from);
+
+        // ESTADO 2.1: Armazenar
+        if (pergunta.toLowerCase().startsWith('armazenar:') || pergunta.toLowerCase().startsWith('armazenar ')) {
+            const textoInstrucao = pergunta.replace(/^armazenar[:\s]+/i, '').trim();
+            if (!textoInstrucao) {
+                return await enviarMensagem(client, 'Envie o texto a ser armazenado após "armazenar:".', msg.from);
+            }
+            const resultado = await processarServico('armazenar', { usina, texto: textoInstrucao }, msg.from);
+            return await enviarMensagem(client, resultado, msg.from);
+        }
 
         // ESTADO 3: Listar usuários permitidos
         if (pergunta.toLowerCase() === 'lista') {

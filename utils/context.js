@@ -185,9 +185,12 @@ function obterHistoricoFormatado(userId) {
  * Obtém contexto completo com histórico
  */
 function getContextoComHistorico(userId, usinasPermitidas) {
+    const { obter_instrucoes_armazenadas } = require('./armazenar');
     const contextoBase = getContextoLeonardo(userId, usinasPermitidas);
     const historico = obterHistoricoFormatado(userId);
-    return contextoBase + historico;
+    const instrucoesExtra = obter_instrucoes_armazenadas();
+
+    return contextoBase + historico + instrucoesExtra;
 }
 
 // Definição completa das usinas para montar o contexto dinamicamente
