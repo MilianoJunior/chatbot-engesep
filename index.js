@@ -218,6 +218,10 @@ const processarMensagem = async (msg, client) => {
         // ESTADO 5: Preparar contexto com histórico
         // Passamos agora a lista filtrada de usinas
         const contexto = getContextoComHistorico(msg.from, usinasContexto);
+        console.log('-------------------------------');
+        console.log(contexto);
+        console.log(contexto.length);
+        console.log('-------------------------------');
 
 
         // ESTADO 6: Consultar OpenAI

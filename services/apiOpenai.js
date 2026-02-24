@@ -28,7 +28,7 @@ async function askOpenAI(prompt, contexto) {
     }
 
     const response = await openai.chat.completions.create({
-      model: "gpt-5-mini-2025-08-07",
+      model: "gpt-5.2-2025-12-11",
       messages: [
         {
           role: "system",
