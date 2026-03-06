@@ -239,9 +239,11 @@ const INFO_USINAS = {
 
     'PCH-PIRA': `
 🔹 PCH PIRA:
-• Razão Social: PCH Pira Energia (Dados em cadastro)
-• Localização: (Consultar Engenharia)
-• Status: Integração em andamento`
+• Localização: Lago permanente no Rio do Peixe, entre Piratuba e Ipira, SC
+• Potência Instalada: 23 MW (4 UGs de ~2.500 kW cada)
+• Status: Geração de energia deve começar nos próximos dias
+• Grupos RT disponíveis: potencias, gerador, producao, monitoramento
+• Dados Históricos: ainda não disponíveis`
 };
 
 function getContextoLeonardo(userId, usinasPermitidas) {
@@ -441,7 +443,7 @@ CONSULTAS TEMPO REAL (usar "leitura"):
 
 NOMENCLATURA IMPORTANTE:
 • Para "historico": usar UPPERCASE com hífen para "usina" (ex.: CGH-FAE), lowercase para grupos/variáveis se necessário.
-• Para "leitura": usar UPPERCASE com hífen (CGH-FAE, CGH-HOPPEN, PCH-PEDRAS, CGH-PICADAS-ALTAS, CGH-APARECIDA)
+• Para "leitura": usar UPPERCASE com hífen (CGH-FAE, CGH-HOPPEN, PCH-PEDRAS, CGH-PICADAS-ALTAS, CGH-APARECIDA, PCH-PIRA)
 
 INSTRUÇÕES CRÍTICAS:
 1. SEMPRE retornar JSON válido para consultas de dados em tempo real ou histórico

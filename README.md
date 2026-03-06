@@ -70,6 +70,36 @@ OPENAI_API_KEY=sua_chave_aqui
 npm start
 ```
 
+### Servico
+
+```bash
+sudo nano /etc/systemd/system/whatsapp-bot.service
+```
+
+[Unit]
+Description=WhatsApp Bot Engesep Automação
+After=network.target
+
+[Service]
+Type=simple
+User=junior
+WorkingDirectory=/home/junior/projetos/chatbot-engesep
+ExecStart=/usr/bin/node index.js
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=whatsapp-bot
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+sudo systemctl enable whatsapp-bot
+sudo systemctl start whatsapp-bot
+
+sudo journalctl -u whatsapp-bot -f
+
 ### Produção (com PM2)
 
 ```bash

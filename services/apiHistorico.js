@@ -23,7 +23,8 @@ class ApiHistorico {
             "CGH-FAE", 
             "PCH-PEDRAS",
             "CGH-PICADAS-ALTAS",
-            "CGH-HOPPEN"
+            "CGH-HOPPEN",
+            "PCH-PIRA"
         ];
     }
 
@@ -282,7 +283,7 @@ class ApiHistorico {
             usina: usina,
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
-            token: '123456'
+            token: '12345678'
         };
         return await this.fazerRequisicao(endpoint, body);
     }

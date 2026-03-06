@@ -347,6 +347,111 @@ const leituras = {
                 }
             },
         }
+    },
+    "PCH-PIRA": {
+        ip: "100.93.197.110",
+        port: 8010, 
+        table: "pch_pira",
+        CLPS: {
+            "UG-01": {
+                conexao: { ip: '10.200.20.11', port: 502, timeout: 5 },
+                caracteristicas: { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                potencias: {
+                    INPUT_REAL: { 
+                        "Potência Ativa": 2588,
+                        "Potência Reativa": 2590,
+                        "Fator de Potência": 2594
+                    }
+                },
+                gerador: {
+                    INPUT_REAL: {
+                        "Tensão Nominal": 2574,
+                        "Tensão Fase A": 2612, 
+                        "Tensão Fase B": 2614, 
+                        "Tensão Fase C": 2616,
+                        "Corrente Nominal": 2582,
+                        "Frequencia": 2560
+                    }
+                },
+                producao: {
+                    INPUT_REAL: {
+                        "Energia Total": 2652,
+                        "Rotação da Turbina": 2628
+                    }
+                },
+                monitoramento: {
+                    INPUT_REAL: {
+                        "Nível Canal de Fuga": 19187
+                    }
+                }
+            },
+            "UG-02": {
+                conexao: { ip: '10.200.20.21', port: 502, timeout: 5 },
+                caracteristicas: { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                potencias: {
+                    INPUT_REAL: { "Potência Ativa": 2588, "Potência Reativa": 2590, "Fator de Potência": 2594 }
+                },
+                gerador: {
+                    INPUT_REAL: {
+                        "Tensão Nominal": 2574, "Tensão Fase A": 2612, "Tensão Fase B": 2614, "Tensão Fase C": 2616,
+                        "Corrente Nominal": 2582, "Frequencia": 2560
+                    }
+                },
+                producao: {
+                    INPUT_REAL: { "Energia Total": 2652, "Rotação da Turbina": 2628 }
+                },
+                monitoramento: { INPUT_REAL: { "Nível Canal de Fuga": 19187 } }
+            },
+            "UG-03": {
+                conexao: { ip: '10.200.20.31', port: 502, timeout: 5 },
+                caracteristicas: { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                potencias: {
+                    INPUT_REAL: { "Potência Ativa": 2588, "Potência Reativa": 2590, "Fator de Potência": 2594 }
+                },
+                gerador: {
+                    INPUT_REAL: {
+                        "Tensão Nominal": 2574, "Tensão Fase A": 2612, "Tensão Fase B": 2614, "Tensão Fase C": 2616,
+                        "Corrente Nominal": 2582, "Frequencia": 2560
+                    }
+                },
+                producao: {
+                    INPUT_REAL: { "Energia Total": 2652, "Rotação da Turbina": 2628 }
+                },
+                monitoramento: { INPUT_REAL: { "Nível Canal de Fuga": 19187 } }
+            },
+            "UG-04": {
+                conexao: { ip: '10.200.20.41', port: 502, timeout: 5 },
+                caracteristicas: { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                potencias: {
+                    INPUT_REAL: { "Potência Ativa": 2588, "Potência Reativa": 2590, "Fator de Potência": 2594 }
+                },
+                gerador: {
+                    INPUT_REAL: {
+                        "Tensão Nominal": 2574, "Tensão Fase A": 2612, "Tensão Fase B": 2614, "Tensão Fase C": 2616,
+                        "Corrente Nominal": 2582, "Frequencia": 2560
+                    }
+                },
+                producao: {
+                    INPUT_REAL: { "Energia Total": 2652, "Rotação da Turbina": 2628 }
+                },
+                monitoramento: { INPUT_REAL: { "Nível Canal de Fuga": 19187 } }
+            },
+            "QCC-MINI-CENTRAL": {
+                conexao: { ip: '10.200.20.100', port: 502, timeout: 5 },
+                nivel_agua: {
+                    INPUT_REAL: {
+                        "Nível Montante": 19089, // Enderecos default para verificar futura base de MEDIDAS do QCC
+                        "Nível Barragem": 19091
+                    }
+                },
+                temperaturas: {
+                    INPUT_REAL: {
+                        "Temperatura Atual S1": 19093,
+                        "Temperatura Atual Óleo": 19095
+                    }
+                }
+            }
+        }
     }
 };
 

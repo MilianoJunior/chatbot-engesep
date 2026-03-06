@@ -635,6 +635,109 @@ const leituras = {
                 }
             }
         }
+    },
+    "PCH-PIRA": {
+        "ip": "100.93.197.110",
+        "port": 8010,
+        "table": "pch_pira",
+        "CLPS": {
+            "UG-01": {
+                'conexao': { 'ip': '10.200.20.11', 'port': 502 },
+                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'potencias': {
+                    "Potência Ativa": [2588, "INPUT_REAL"],
+                    "Potência Reativa": [2590, "INPUT_REAL"],
+                    "Fator de Potência": [2594, "INPUT_REAL"]
+                },
+                'gerador': {
+                    "Tensão Nominal": [2574, "INPUT_REAL"],
+                    "Tensão Fase A": [2612, "INPUT_REAL"],
+                    "Tensão Fase B": [2614, "INPUT_REAL"],
+                    "Tensão Fase C": [2616, "INPUT_REAL"],
+                    "Corrente Nominal": [2582, "INPUT_REAL"],
+                    "Frequencia": [2560, "INPUT_REAL"]
+                },
+                'producao': {
+                    "Energia Total": [2652, "INPUT_REAL"],
+                    "Rotação da Turbina": [2628, "INPUT_REAL"]
+                },
+                'monitoramento': {
+                    "Nível Canal de Fuga": [19187, "INPUT_REAL"]
+                }
+            },
+            "UG-02": {
+                'conexao': { 'ip': '10.200.20.21', 'port': 502 },
+                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'potencias': {
+                    "Potência Ativa": [2588, "INPUT_REAL"],
+                    "Potência Reativa": [2590, "INPUT_REAL"],
+                    "Fator de Potência": [2594, "INPUT_REAL"]
+                },
+                'gerador': {
+                    "Tensão Nominal": [2574, "INPUT_REAL"],
+                    "Tensão Fase A": [2612, "INPUT_REAL"],
+                    "Tensão Fase B": [2614, "INPUT_REAL"],
+                    "Tensão Fase C": [2616, "INPUT_REAL"],
+                    "Corrente Nominal": [2582, "INPUT_REAL"],
+                    "Frequencia": [2560, "INPUT_REAL"]
+                },
+                'producao': {
+                    "Energia Total": [2652, "INPUT_REAL"],
+                    "Rotação da Turbina": [2628, "INPUT_REAL"]
+                },
+                'monitoramento': {
+                    "Nível Canal de Fuga": [19187, "INPUT_REAL"]
+                }
+            },
+            "UG-03": {
+                'conexao': { 'ip': '10.200.20.31', 'port': 502 },
+                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'potencias': {
+                    "Potência Ativa": [2588, "INPUT_REAL"],
+                    "Potência Reativa": [2590, "INPUT_REAL"],
+                    "Fator de Potência": [2594, "INPUT_REAL"]
+                },
+                'gerador': {
+                    "Tensão Nominal": [2574, "INPUT_REAL"],
+                    "Tensão Fase A": [2612, "INPUT_REAL"],
+                    "Tensão Fase B": [2614, "INPUT_REAL"],
+                    "Tensão Fase C": [2616, "INPUT_REAL"],
+                    "Corrente Nominal": [2582, "INPUT_REAL"],
+                    "Frequencia": [2560, "INPUT_REAL"]
+                },
+                'producao': {
+                    "Energia Total": [2652, "INPUT_REAL"],
+                    "Rotação da Turbina": [2628, "INPUT_REAL"]
+                },
+                'monitoramento': {
+                    "Nível Canal de Fuga": [19187, "INPUT_REAL"]
+                }
+            },
+            "UG-04": {
+                'conexao': { 'ip': '10.200.20.41', 'port': 502 },
+                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'potencias': {
+                    "Potência Ativa": [2588, "INPUT_REAL"],
+                    "Potência Reativa": [2590, "INPUT_REAL"],
+                    "Fator de Potência": [2594, "INPUT_REAL"]
+                },
+                'gerador': {
+                    "Tensão Nominal": [2574, "INPUT_REAL"],
+                    "Tensão Fase A": [2612, "INPUT_REAL"],
+                    "Tensão Fase B": [2614, "INPUT_REAL"],
+                    "Tensão Fase C": [2616, "INPUT_REAL"],
+                    "Corrente Nominal": [2582, "INPUT_REAL"],
+                    "Frequencia": [2560, "INPUT_REAL"]
+                },
+                'producao': {
+                    "Energia Total": [2652, "INPUT_REAL"],
+                    "Rotação da Turbina": [2628, "INPUT_REAL"]
+                },
+                'monitoramento': {
+                    "Nível Canal de Fuga": [19187, "INPUT_REAL"]
+                }
+            }
+        }
     }
 };
 

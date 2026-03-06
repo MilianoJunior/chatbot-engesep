@@ -55,11 +55,11 @@ module.exports = {
     ],
     usuariosPermitidos: [
         // Usuários individuais (mantidos como backup ou acesso direto privado)
-        { nome: 'Gelson', numero: '554991075958@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
-        { nome: 'Leandro', numero: '554984198921@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
-        { nome: 'Miliano', numero: '554998385500@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
-        { nome: 'Leonardo - O&M IA', numero: '554998059294@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE','PCH-PEDRAS'] },
-        { nome: 'Jader', numero: '554999897471@c.us', usina: ['CGH-APARECIDA'] }
+        { nome: 'Gelson', numero: '554991075958@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE', 'PCH-PEDRAS', 'PCH-PIRA'] },
+        { nome: 'Leandro', numero: '554984198921@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE', 'PCH-PEDRAS', 'PCH-PIRA'] },
+        { nome: 'Miliano', numero: '554998385500@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE', 'PCH-PEDRAS', 'PCH-PIRA'] },
+        { nome: 'Leonardo - O&M IA', numero: '554998059294@c.us', usina: ['CGH-APARECIDA', 'CGH-PICADAS-ALTAS', 'CGH-HOPPEN', 'CGH-FAE', 'PCH-PEDRAS', 'PCH-PIRA'] },
+        { nome: 'Jader', numero: '554999897471@c.us', usina: ['CGH-APARECIDA', 'PCH-PIRA'] }
     ]
 };
 
@@ -75,7 +75,6 @@ REGISTRO DE IDs DE GRUPOS (Capturados via Debug):
 [GRUPO DETECTADO] Nome: "CGH Hoppen - O&M" | ID DO GRUPO: 120363401112465577@g.us
 --------------------------------
 [GRUPO DETECTADO] Nome: "PCH PIRA - O&M" | ID DO GRUPO: 120363421235105336@g.us
---> ATENÇÃO: PCH PIRA NÃO ESTÁ CONFIGURADA NO ARRAY 'usinas' ACIMA. ADICIONAR SE NECESSÁRIO.
 --------------------------------
 [GRUPO DETECTADO] Nome: "CGH FAE - O&M" | ID DO GRUPO: 120363403378026754@g.us
 --------------------------------

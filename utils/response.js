@@ -19,7 +19,8 @@ const MAPEAMENTO_USINAS = {
     'cgh_fae': 'CGH-FAE',
     'cgh_picadas_altas': 'CGH-PICADAS-ALTAS',
     'cgh_hoppen': 'CGH-HOPPEN',
-    'pch_pedras': 'PCH-PEDRAS'
+    'pch_pedras': 'PCH-PEDRAS',
+    'pch_pira': 'PCH-PIRA'
 };
 
 // -------------------------------------------------------------------
@@ -254,7 +255,8 @@ function normalizarNomeUsina(nomeUsina) {
         'cgh_fae': 'CGH-FAE',
         'cgh_picadas_altas': 'CGH-PICADAS-ALTAS',
         'cgh_hoppen': 'CGH-HOPPEN',
-        'pch_pedras': 'PCH-PEDRAS'
+        'pch_pedras': 'PCH-PEDRAS',
+        'pch_pira': 'PCH-PIRA'
     };
 
     const nomeLower = nomeUsina.toLowerCase().replace(/-/g, '_');
