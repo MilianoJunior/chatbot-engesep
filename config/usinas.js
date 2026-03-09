@@ -643,7 +643,7 @@ const leituras = {
         "CLPS": {
             "UG-01": {
                 'conexao': { 'ip': '10.200.20.11', 'port': 502 },
-                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'caracteristicas': { 'potência máxima': 7500, 'velocidade máxima': 450 },
                 'potencias': {
                     "Potência Ativa": [2588, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     // "Potência Reativa": [2590, "INPUT_REAL"],
@@ -661,13 +661,13 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'monitoramento': {
+                'nivel_agua': {
                     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 }
             },
             "UG-02": {
                 'conexao': { 'ip': '10.200.20.21', 'port': 502 },
-                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'caracteristicas': { 'potência máxima': 7500, 'velocidade máxima': 450 },
                 'potencias': {
                     "Potência Ativa": [2588, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     // "Potência Reativa": [2590, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
@@ -685,13 +685,13 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'monitoramento': {
+                'nivel_agua': {
                     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 }
             },
             "UG-03": {
                 'conexao': { 'ip': '10.200.20.31', 'port': 502 },
-                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                'caracteristicas': { 'potência máxima': 7500, 'velocidade máxima': 450 },
                 'potencias': {
                     "Potência Ativa": [2588, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     // "Potência Reativa": [2590, "INPUT_REAL"],
@@ -709,7 +709,7 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'monitoramento': {
+                'nivel_agua': {
                     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 }
             },
@@ -733,7 +733,7 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'monitoramento': {
+                'nivel_agua': {
                     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 }
             }
