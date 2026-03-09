@@ -259,13 +259,13 @@ const processarMensagem = async (msg, client) => {
     }
 };
 
-// wa.onMessage((msg, client) => {
-//     processarMensagem(msg, client);
-// });
-
-wa.onMessageCreate((msg, client) => {
+wa.onMessage((msg, client) => {
     processarMensagem(msg, client);
 });
+
+// wa.onMessageCreate((msg, client) => {
+//     processarMensagem(msg, client);
+// });
 
 
 // Exportar função para testes

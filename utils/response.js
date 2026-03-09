@@ -69,6 +69,8 @@ function formatarRespostaTempoReal(dados) {
     const ugs = dados.unidades_geradoras || {};
 
     let texto = `📊 ${usina} - ${dataHora}\n\n`;
+    let somaPotencia = 0;
+    let temPotencia = false;
 
     Object.entries(ugs).forEach(([nomeUg, dadosUg]) => {
         texto += `*${nomeUg}*\n`;
@@ -84,11 +86,22 @@ function formatarRespostaTempoReal(dados) {
             const val = (typeof v === 'object' && v?.value !== undefined) ? v.value : v;
             if (typeof val !== 'number') return;
 
+            // Acumular soma de potência ativa
+            if (k.toLowerCase().includes('potência ativa')) {
+                somaPotencia += val;
+                temPotencia = true;
+            }
+
             const nomeChave = k.replace(/ value$/i, '').replace(/_/g, ' ');
             texto += `  ${nomeChave}: ${val.toFixed(2)}${_unidadeAutomatica(k)}\n`;
         });
         texto += `\n`;
     });
+
+    // Totalizar potência ativa se houver mais de uma UG
+    if (temPotencia && Object.keys(ugs).length > 1) {
+        texto += `*Total Potência Ativa: ${somaPotencia.toFixed(2)} kW*\n`;
+    }
 
     return texto;
 }
