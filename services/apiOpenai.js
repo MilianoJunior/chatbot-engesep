@@ -13,12 +13,12 @@ async function askOpenAI(prompt, contexto) {
     // console.log('🤖 Chamando OpenAI API...');
     // console.log('🤖 Prompt:', prompt ? prompt.substring(0, 200) + '...' : 'vazio');
     // console.log('🤖 Contexto:', contexto ? contexto.substring(0, 200) + '...' : 'vazio');
-    console.log('----------------------------')
+    // console.log('----------------------------')
     // console.log("contexto", contexto);
     // console.log("prompt", prompt);
-    console.log("quantidade de contexto", contexto.length);
-    console.log("quantidade de prompt", prompt.length);
-    console.log('----------------------------')
+    // console.log("quantidade de contexto", contexto.length);
+    // console.log("quantidade de prompt", prompt.length);
+    // console.log('----------------------------')
     
 
     if (!prompt) {

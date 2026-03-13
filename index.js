@@ -219,7 +219,7 @@ const processarMensagem = async (msg, client) => {
         // Passamos agora a lista filtrada de usinas
         const contexto = getContextoComHistorico(msg.from, usinasContexto);
         console.log('-------------------------------');
-        console.log(contexto);
+        // console.log(contexto);
         console.log(contexto.length);
         console.log('-------------------------------');
 
