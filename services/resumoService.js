@@ -80,18 +80,21 @@ class ResumoService {
     async _buscar_historico_24h(usina, inicio, fim) {
         try {
             const fmt = 'DD/MM/YYYY HH:mm';
-            return await this.apiHist.getDadosHistoricos({
+            const body = {
                 endpoint: 'producao-acumulada',
                 usina,
                 data_inicio: inicio.format(fmt),
                 data_fim: fim.format(fmt),
                 periodo: 'D'
-            });
+            };
+            Logger.info(` 1111111111- resumoService.js: Body: | ${JSON.stringify(body)}`);
+            return await this.apiHist.getDadosHistoricos(body);
         } catch (e) {
             Logger.error(`Falha Histórico ${usina}`, e);
             return null;
         }
     }
+
 
     _extrair_caracteristicas(usina) {
         const dadosUsina = configUsinas[usina];

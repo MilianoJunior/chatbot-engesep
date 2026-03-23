@@ -208,8 +208,10 @@ class ApiHistorico {
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
             periodo: p,
-            token: '123456'
+            token: process.env.TOKEN
         };
+        console.log(body)
+        Logger.info(`2222222- apiHistorico.js: Body: | ${JSON.stringify(body)}`);
         return await this.fazerRequisicao(endpoint, body);
     }
 
