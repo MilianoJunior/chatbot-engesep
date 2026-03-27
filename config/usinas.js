@@ -685,9 +685,9 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'nivel_agua': {
-                    "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
-                }
+                // 'nivel_agua': {
+                //     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
+                // }
             },
             "UG-03": {
                 'conexao': { 'ip': '10.200.20.31', 'port': 502 },
@@ -709,9 +709,9 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'nivel_agua': {
-                    "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
-                }
+                // 'nivel_agua': {
+                //     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
+                // }
             },
             "UG-04": {
                 'conexao': { 'ip': '10.200.20.41', 'port': 502 },
@@ -733,9 +733,9 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
-                'nivel_agua': {
-                    "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
-                }
+                // 'nivel_agua': {
+                //     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
+                // }
             },
             "UG-05": {
                 'conexao': { 'ip': '10.200.20.51', 'port': 502 },
@@ -757,8 +757,35 @@ const leituras = {
                     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
                     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
                 },
+                // 'nivel_agua': {
+                //     "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
+                // }
+            },
+            "PSA": {
+                'conexao': { 'ip': '10.200.20.61', 'port': 502 },
+                'caracteristicas': { 'potência máxima': 2500, 'velocidade máxima': 450 },
+                // 'potencias': {
+                //     "Potência Ativa": [2588, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
+                //     // "Potência Reativa": [2590, "INPUT_REAL"],
+                //     // "Fator de Potência": [2594, "INPUT_REAL"]
+                // },
+                // 'gerador': {
+                //     "Tensão Nominal": [2574, "INPUT_REAL"],
+                //     "Tensão Fase A": [2612, "INPUT_REAL"],
+                //     "Tensão Fase B": [2614, "INPUT_REAL"],
+                //     "Tensão Fase C": [2616, "INPUT_REAL"],
+                //     "Corrente Nominal": [2582, "INPUT_REAL"],
+                //     "Frequencia": [2560, "INPUT_REAL"]
+                // },
+                // 'producao': {
+                //     "Energia Total": [2652, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
+                //     "Rotação da Turbina": [2628, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
+                // },
                 'nivel_agua': {
-                    "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}]
+                    // "Nível Canal de Fuga": [19187, "INPUT_REAL",{"offset": 0, "converter": "word_order"}],
+                    "Nível Câmara de Carga": [19381, "INPUT_REAL", {"offset": 0, "converter": "word_order"}],
+                    "Nível Barragem": [19393, "INPUT_REAL", {"offset": 0, "converter": "word_order"}],
+                    "Nível Jusante": [19171, "INPUT_REAL", {"offset": 0, "converter": "word_order"}]
                 }
             }
         }
