@@ -15,7 +15,7 @@ class ApiHistorico {
         this.isDevelopment = 'production';
         this.baseUrl = "https://engesepapi-production.up.railway.app";
         // this.baseUrl = "http://localhost:8000";
-        this.timeout = 10000; // 10 segundos
+        this.timeout = Number(process.env.API_HISTORICO_TIMEOUT_MS || 30000); // 30 segundos
         
         // Usinas válidas
         this.usinasValidas = [
