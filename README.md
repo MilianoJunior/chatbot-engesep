@@ -97,6 +97,7 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 sudo systemctl enable whatsapp-bot
 sudo systemctl start whatsapp-bot
+sudo systemctl restart whatsapp-bot
 
 sudo journalctl -u whatsapp-bot -f
 

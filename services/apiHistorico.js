@@ -237,7 +237,7 @@ class ApiHistorico {
             grupo: grupo,
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
-            token: '123456'
+            token: process.env.TOKEN
         };
         return await this.fazerRequisicao(endpoint, body);
     }
@@ -264,7 +264,7 @@ class ApiHistorico {
             variavel: variavel,
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
-            token: '123456'
+            token: process.env.TOKEN
         };
         return await this.fazerRequisicao(endpoint, body);
     }
@@ -285,7 +285,7 @@ class ApiHistorico {
             usina: usina,
             data_inicio: dataInicioFormatada,
             data_fim: dataFimFormatada,
-            token: '12345678'
+            token: process.env.TOKEN
         };
         return await this.fazerRequisicao(endpoint, body);
     }
